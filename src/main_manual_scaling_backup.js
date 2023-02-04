@@ -1,6 +1,6 @@
 import kaboom from "kaboom"
 
-kaboom({scale : 6})
+kaboom()
 
 debug.inspect = true
 
@@ -26,6 +26,7 @@ const TILE_OFFSET = function(num) {
 const TILE_WIDTH = function(num) {
 	return (ART_SIZE + ART_SPACING) * num - ART_SPACING;
 }
+const SCALE_FACTOR = 6
 
 loadSpriteAtlas("sprites/person.png", {
     "hero": {
@@ -90,7 +91,7 @@ loadSpriteAtlas("sprites/SquareGrounds.png", {
 	"grass_path_g": { x: TILE_OFFSET(0), y: TILE_OFFSET(5), width: ART_SIZE, height: ART_SIZE},
 })
 
-const SPEED = 60;
+const SPEED = 350;
 
 const background = addLevel([
 	// Design the level layout with symbols
@@ -104,45 +105,40 @@ const background = addLevel([
 	"gggggg13gggg",
 ], {
 	// The size of each grid
-	width: ART_SIZE,
-	height: ART_SIZE,
+	width: ART_SIZE * SCALE_FACTOR,
+	height: ART_SIZE * SCALE_FACTOR,
 	// The position of the top left block
 	pos: vec2(0, 0),
 	// Define what each symbol means (in components)
-	"7": () => [sprite("grass_path_7")],
-	"8": () => [sprite("grass_path_8")],
-	"9": () => [sprite("grass_path_9")],
-	"4": () => [sprite("grass_path_4")],
-	"5": () => [sprite("grass_path_5")],
-	"6": () => [sprite("grass_path_6")],
-	"1": () => [sprite("grass_path_1")],
-	"2": () => [sprite("grass_path_2")],
-	"3": () => [sprite("grass_path_3")],
+	"7": () => [sprite("grass_path_7"), scale(SCALE_FACTOR)],
+	"8": () => [sprite("grass_path_8"), scale(SCALE_FACTOR)],
+	"9": () => [sprite("grass_path_9"), scale(SCALE_FACTOR)],
+	"4": () => [sprite("grass_path_4"), scale(SCALE_FACTOR)],
+	"5": () => [sprite("grass_path_5"), scale(SCALE_FACTOR)],
+	"6": () => [sprite("grass_path_6"), scale(SCALE_FACTOR)],
+	"1": () => [sprite("grass_path_1"), scale(SCALE_FACTOR)],
+	"2": () => [sprite("grass_path_2"), scale(SCALE_FACTOR)],
+	"3": () => [sprite("grass_path_3"), scale(SCALE_FACTOR)],
 
-	"i": () => [sprite("grass_path_i")],
-	"o": () => [sprite("grass_path_o")],
-	"k": () => [sprite("grass_path_k")],
-	"l": () => [sprite("grass_path_l")],
+	"i": () => [sprite("grass_path_i"), scale(SCALE_FACTOR)],
+	"o": () => [sprite("grass_path_o"), scale(SCALE_FACTOR)],
+	"k": () => [sprite("grass_path_k"), scale(SCALE_FACTOR)],
+	"l": () => [sprite("grass_path_l"), scale(SCALE_FACTOR)],
 
-	"g": () => [sprite("grass_path_g")],
+	"g": () => [sprite("grass_path_g"), scale(SCALE_FACTOR)],
 })
 
 const level = addLevel([
 	// Design the level layout with symbols
-	"            ",
-	"       @    ",
-	"            ",
-	"            ",
-	"         @  ",
-	"            ",
-	"            ",
-	"            ",
+	" @  ",
+	"    ",
+	"   @"
 ], {
 	// The size of each grid
-	width: ART_SIZE,
-	height: ART_SIZE,
+	width: ART_SIZE * SCALE_FACTOR,
+	height: ART_SIZE * SCALE_FACTOR,
 	// The position of the top left block
-	pos: vec2(ART_SIZE/2),
+	pos: vec2(100, 200),
 	// Define what each symbol means (in components)
 	"@": () => [
 		sprite("hero"),
@@ -150,6 +146,7 @@ const level = addLevel([
 		// body(), // gravity
 		solid(), // collision stopping
 		origin("center"),
+		scale(SCALE_FACTOR),
 		"player",
 	]
 })
