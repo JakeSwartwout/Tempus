@@ -1,5 +1,5 @@
-import k from "./kaboom_globals.js"
-import {TILE_WIDTH} from "./kaboom_globals.js"
+import { k } from "./kaboom_globals.js"
+import { TILE_WIDTH } from "./kaboom_globals.js"
 
 /********************* Player Properties *********************/
 const PLAYER_SPEED = 60;
@@ -51,9 +51,10 @@ k.loadSpriteAtlas("sprites/personDeath.png", {
 	}
 })
 
+
 /********************* Player Setup *********************/
 
-export const loadPlayer = function (player) {
+const loadPlayer = function (player) {
 
     k.onKeyDown(["left", "right", "up", "down"], () => {
         let horiz
@@ -116,3 +117,8 @@ export const loadPlayer = function (player) {
     // 	player.play("death")
     // })
 }
+
+
+/********************* Exports *********************/
+
+export { loadPlayer }
