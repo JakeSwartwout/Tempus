@@ -56,6 +56,8 @@ function player() {
 
     return {
 /********************* Player Setup *********************/
+        id: "player",
+
         add() {
             k.onKeyDown(["left", "right", "up", "down"], () => {
                 if (isDead)
@@ -96,6 +98,8 @@ function player() {
 
                 // get the directions
                 let motion = k.vec2(horiz-1, vert-1)
+                if (motion.len() == 0)
+                    return;
                 // always move at SPEED total speed
                 motion = motion.unit().scale(PLAYER_SPEED)
                 // scale the vertical direction to give the feeling of perspective
@@ -116,7 +120,7 @@ function player() {
             //     camPos(player.pos)
             // })
 
-            onClick(() => {
+            k.onClick(() => {
                 addKaboom(mousePos())
                 if(isDead){
                     this.use(sprite("player_facing"))

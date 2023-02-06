@@ -1,4 +1,5 @@
 import { player } from "../player.js"
+import { enemy } from "../enemy.js"
 import { k, ART_SIZE } from "./scene_globals.js"
 
 k.scene("HelloWorld", () => {
@@ -62,6 +63,16 @@ k.scene("HelloWorld", () => {
             solid(), // collision stopping
             origin("center"),
             player(),
+            // "player",
+        ],
+        "X": () => [
+            // sprite("player_facing"),
+            sprite("enemy", {anim: "idle_right"}),
+            area(),
+            solid(),
+            origin("center"),
+            enemy(),
+            // "enemy",
         ]
     })
 })
