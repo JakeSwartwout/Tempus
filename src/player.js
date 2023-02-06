@@ -1,4 +1,4 @@
-import { k } from "./kaboom_globals.js"
+import { k, TILE_OFFSET } from "./kaboom_globals.js"
 import { TILE_WIDTH } from "./kaboom_globals.js"
 
 /********************* Player Properties *********************/
@@ -13,7 +13,7 @@ const PLAYER_SPEED = 60;
 */
 let lastDir = "11"
  
-k.loadSpriteAtlas("sprites/person.png", {
+k.loadSpriteAtlas("sprites/player_atlas.png", {
     "player_facing": {
         x: 0,
         y: 0,
@@ -30,25 +30,19 @@ k.loadSpriteAtlas("sprites/person.png", {
 			"21" : 5,
 			"02" : 6,
 			"12" : 7,
-			"22" : 8
+			"22" : 8,
 		}
     },
-})
-
-k.loadSpriteAtlas("sprites/personDeath.png", {
-	"player_death": {
-		x: 0,
-		y: 0,
-		width: TILE_WIDTH(3),
-		height: TILE_WIDTH(1),
-		sliceX: 3,
-		"anims": {
-			"death" : {
-				from: 0,
-				to: 2
-			}
-		}
-	}
+    "player_death": {
+        x: TILE_OFFSET(0),
+        y: TILE_OFFSET(3),
+        width: TILE_WIDTH(3),
+        height: TILE_WIDTH(1),
+        sliceX: 4,
+        "anims" : {
+            "death": { from: 0, to: 3, loop: false, pingpong: false }
+        }
+    }
 })
 
 
@@ -57,6 +51,8 @@ k.loadSpriteAtlas("sprites/personDeath.png", {
 const loadPlayer = function (player) {
 
     k.onKeyDown(["left", "right", "up", "down"], () => {
+        player.use(sprite("player_facing"))
+
         let horiz
         // Left
         if(k.isKeyDown("left") && !k.isKeyDown("right"))
@@ -111,11 +107,11 @@ const loadPlayer = function (player) {
     //     camPos(player.pos)
     // })
 
-    // onClick(() => {
-    // 	addKaboom(mousePos())
-    // 	player.use(sprite("heroDeath"))
-    // 	player.play("death")
-    // })
+    onClick(() => {
+    	addKaboom(mousePos())
+    	player.use(sprite("player_death"))
+    	player.play("death")
+    })
 }
 
 

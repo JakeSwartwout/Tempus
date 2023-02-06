@@ -35,7 +35,7 @@ k.scene("HelloWorld", () => {
         "k": () => [sprite("grass_path_k")],
         "l": () => [sprite("grass_path_l")],
 
-        "g": () => [sprite("grass_path_g")],
+        "g": () => [sprite("grass")],
     })
 
     const level = k.addLevel([
