@@ -1,5 +1,4 @@
-import { k, TILE_OFFSET } from "./kaboom_globals.js"
-import { TILE_WIDTH } from "./kaboom_globals.js"
+import { k, TILE_WIDTH, TILE_OFFSET, TOPDOWN_VERT_SCALING } from "./kaboom_globals.js"
 
 
 /********************* Sprites *********************/
@@ -46,9 +45,9 @@ function player() {
     // which way we were facing last
     /*     ^
         00 10 20
-    < 01 11 21 >
+      < 01 11 21 >
         02 12 22
-        v
+           v
     */
     let lastDir = "11"
 
@@ -100,7 +99,7 @@ function player() {
                 // always move at SPEED total speed
                 motion = motion.unit().scale(PLAYER_SPEED)
                 // scale the vertical direction to give the feeling of perspective
-                motion = motion.scale(1, .75)
+                motion = motion.scale(1, TOPDOWN_VERT_SCALING)
                 // since this is called for every key pressed, scale down by the number pressed
                 let numDown = 0
                     + (k.isKeyDown("up") ? 1 : 0)
@@ -119,7 +118,11 @@ function player() {
 
             onClick(() => {
                 addKaboom(mousePos())
-                this.kill()
+                if(isDead){
+                    this.use(sprite("player_facing"))
+                    isDead = false
+                } else
+                    this.kill()
             })
         },
 
