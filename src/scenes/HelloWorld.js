@@ -1,4 +1,4 @@
-import { loadPlayer } from "../player.js"
+import { player } from "../player.js"
 import { k, ART_SIZE } from "./scene_globals.js"
 
 k.scene("HelloWorld", () => {
@@ -44,7 +44,7 @@ k.scene("HelloWorld", () => {
         "       @    ",
         "            ",
         "            ",
-        "         @  ",
+        "         X  ",
         "            ",
         "            ",
         "            ",
@@ -61,9 +61,7 @@ k.scene("HelloWorld", () => {
             // body(), // gravity
             solid(), // collision stopping
             origin("center"),
-            "player",
+            player(),
         ]
     })
-
-    loadPlayer(k.get("player")[0])
 })
