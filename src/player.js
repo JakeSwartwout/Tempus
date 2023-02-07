@@ -1,4 +1,4 @@
-import { k, TILE_WIDTH, TILE_OFFSET, TOPDOWN_VERT_SCALING } from "./kaboom_globals.js"
+import { k, TILE_WIDTH, TILE_OFFSET, TOPDOWN_VERT_SCALING, MANUAL_ART_SCALE } from "./kaboom_globals.js"
 
 
 /********************* Sprites *********************/
@@ -41,7 +41,7 @@ function player() {
 
 /********************* Player Properties *********************/
 
-    const PLAYER_SPEED = 60;
+    const PLAYER_SPEED = 60 * MANUAL_ART_SCALE;
 
     // which way we were facing last
     /*     ^

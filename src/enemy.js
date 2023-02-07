@@ -1,4 +1,4 @@
-import { k, TILE_OFFSET, TILE_WIDTH, TOPDOWN_VERT_SCALING } from "./kaboom_globals.js"
+import { k, MANUAL_ART_SCALE, TILE_OFFSET, TILE_WIDTH, TOPDOWN_VERT_SCALING } from "./kaboom_globals.js"
 
 const BOUNCE_SPEED = 5
 
@@ -47,7 +47,7 @@ function enemy() {
 
 /********************* Properties *********************/
 
-    const ENEMY_SPEED = 20;
+    const ENEMY_SPEED = 20 * MANUAL_ART_SCALE;
 
     // which way was it facing last
     let lastDir = k.vec2(0, 0)

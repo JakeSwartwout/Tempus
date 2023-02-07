@@ -5,6 +5,11 @@ import kaboom from "kaboom"
 
 const ART_SIZE = 16
 const ART_SPACING = 0
+const ART_SCALING = 6
+
+const SCALE_ART_MANUALLY = true
+const GAME_SCALE = SCALE_ART_MANUALLY ? 1 : ART_SCALING
+const MANUAL_ART_SCALE = SCALE_ART_MANUALLY ? ART_SCALING : 1
 
 const TOPDOWN_VERT_SCALING = .75
 
@@ -28,11 +33,18 @@ const ASSERT = function(bool_val, text = "") {
 
 /********************* Game Setup *********************/
 
-const k = kaboom({scale : 6})
+const k = kaboom({scale : GAME_SCALE})
 
 debug.inspect = true
 
 
 /********************* Exports *********************/
 
-export { k, ART_SIZE, ART_SPACING, TILE_OFFSET, TILE_WIDTH, TOPDOWN_VERT_SCALING, ASSERT }
+export {
+	k,
+	ART_SIZE, ART_SPACING,
+	TILE_OFFSET, TILE_WIDTH,
+	MANUAL_ART_SCALE,
+	TOPDOWN_VERT_SCALING,
+	ASSERT,
+}
