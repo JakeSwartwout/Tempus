@@ -67,9 +67,9 @@ k.scene("HelloWorld", () => {
         ],
         "X": () => [
             // sprite("player_facing"),
-            sprite("enemy", {anim: "idle_right"}),
+            sprite("enemy_idle", {anim: "idle_right"}),
             area(),
-            solid(),
+            // solid(),
             origin("center"),
             enemy(),
             // "enemy",
