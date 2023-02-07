@@ -12,6 +12,7 @@ k.loadSpriteAtlas("sprites/player_atlas.png", {
         sliceX: 3,
 		sliceY: 3,
 		"anims" : {
+            // do this with quad instead?
 			"00" : 0,
 			"10" : 1,
 			"20" : 2,

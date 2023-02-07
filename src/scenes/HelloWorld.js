@@ -1,6 +1,7 @@
 import { player } from "../player.js"
 import { enemy } from "../enemy.js"
 import { k, ART_SIZE } from "./scene_globals.js"
+import { TOPDOWN_VERT_SCALING } from "../kaboom_globals.js"
 
 k.scene("HelloWorld", () => {
 
@@ -58,7 +59,7 @@ k.scene("HelloWorld", () => {
         // Define what each symbol means (in components)
         "@": () => [
             sprite("player_facing"),
-            area(), // collision checking
+            area({width: 8, height: 10, offset: k.vec2(0, 4)}), // collision checking
             // body(), // gravity
             solid(), // collision stopping
             origin("center"),
@@ -67,8 +68,8 @@ k.scene("HelloWorld", () => {
         ],
         "X": () => [
             // sprite("player_facing"),
-            sprite("enemy_idle", {anim: "idle_right"}),
-            area(),
+            sprite("enemy_idle", {anim: "idle_right", }),
+            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5)}),
             // solid(),
             origin("center"),
             enemy(),
