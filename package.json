@@ -6,7 +6,8 @@
 		"zip": "npm run build && mkdir -p dist && zip -r dist/game.zip www -x \"**/.DS_Store\""
 	},
 	"dependencies": {
-		"kaboom": "^2000.2.10"
+		"kaboom": "^2000.2.10",
+		"tiled-kaboom": "^0.0.14"
 	},
 	"devDependencies": {
 		"esbuild": "^0.17.5"

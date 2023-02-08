@@ -1,4 +1,5 @@
 import kaboom from "kaboom"
+import tiledKaboom from 'tiled-kaboom'
 
 
 /********************* Constants *********************/
@@ -33,7 +34,10 @@ const ASSERT = function(bool_val, text = "") {
 
 /********************* Game Setup *********************/
 
-const k = kaboom({scale : GAME_SCALE})
+const k = kaboom({
+	plugins: [ tiledKaboom ],
+	scale : GAME_SCALE,
+})
 
 debug.inspect = true
 

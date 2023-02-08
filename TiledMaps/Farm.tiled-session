@@ -1,0 +1,64 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Farm.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "exportAsImage.drawTileGrid": false,
+    "exportAsImage.includeBackgroundColor": false,
+    "exportAsImage.useCurrentScale": false,
+    "exportAsImage.visibleLayersOnly": true,
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1.5
+        },
+        "Farm.tmx": {
+            "scale": 4.63125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 96.19433198380568,
+                "y": 64.02159244264507
+            }
+        },
+        "Grounds.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 5.5
+        }
+    },
+    "last.exportedFilePath": "C:/Users/Jake/source/repos/Tempus/TiledMaps",
+    "last.imagePath": "C:/Users/Jake/source/repos/Tempus/www/sprites",
+    "map.fixedSize": true,
+    "map.height": 8,
+    "map.lastUsedExportFilter": "CSV files (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.orientation": 1,
+    "map.renderOrder": 2,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 12,
+    "openFiles": [
+        "Grounds.tsx",
+        "Farm.tmx"
+    ],
+    "project": "Farm.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "Grounds.tsx",
+        "Farm.tmx"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.spacing": 1,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.transparentColor": "#ff00ff",
+    "tileset.type": 0,
+    "tileset.useTransparentColor": false
+}
