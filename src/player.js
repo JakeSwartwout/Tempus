@@ -131,16 +131,28 @@ function player() {
             })
         },
 
+/********************* Player Functions *********************/
+
         kill() {
             isDead = true
             this.use(sprite("player_death"))
             this.play("death")
-        }
+        },
+
+        give(object) {
+            debug.log("got object!")
+            // this.inventory.add(object)
+        },
     }
 
 }
 
 
+/** TO FIX: make into a singleton */
+const getPlayer = function() {
+    return k.get("player")[0]
+}
+
 /********************* Exports *********************/
 
-export { player }
+export { player, getPlayer }

@@ -1,8 +1,8 @@
 import { k, MANUAL_ART_SCALE, TILE_OFFSET, TILE_WIDTH, TOPDOWN_VERT_SCALING } from "./kaboom_globals.js"
 
-const BOUNCE_SPEED = 5
-
 /********************* Sprites *********************/
+
+const BOUNCE_SPEED = 5
 
 k.loadSpriteAtlas("sprites/enemy_atlas.png", {
     "enemy_facing": {
