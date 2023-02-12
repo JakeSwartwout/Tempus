@@ -14,9 +14,26 @@
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "": {
-            "scaleInDock": 1.5
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
         },
-        "Farm.tmx": {
+        "Farm.json": {
+            "scale": 4.63125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 96.41025641025642,
+                "y": 64.02159244264507
+            }
+        },
+        "Farm.json#FarmGrounds": {
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
+        },
+        "Farm.json#Grounds": {
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
+        },
+        "Farm.tmj": {
             "scale": 4.63125,
             "selectedLayer": 0,
             "viewCenter": {
@@ -24,17 +41,49 @@
                 "y": 64.02159244264507
             }
         },
+        "Farm.tmx": {
+            "scale": 4.63125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 96.41025641025642,
+                "y": 64.02159244264507
+            }
+        },
+        "Farm.tmx#FarmGrounds": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 5.5
+        },
+        "Farm.tmx#Grounds": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "Grounds.tsx": {
             "scaleInDock": 1.5,
+            "scaleInEditor": 5.5
+        },
+        "HelloTiled.json": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 99.375,
+                "y": 48.625
+            }
+        },
+        "HelloTiled.json#Grounds": {
+            "scaleInDock": 1,
+            "scaleInEditor": 5.5
+        },
+        "HelloTiled.json#GroundsSquare": {
             "scaleInEditor": 5.5
         }
     },
     "last.exportedFilePath": "C:/Users/Jake/source/repos/Tempus/TiledMaps",
-    "last.imagePath": "C:/Users/Jake/source/repos/Tempus/www/sprites",
+    "last.externalTilesetPath": "C:/Users/Jake/source/repos/Tempus/TiledMaps",
+    "last.imagePath": "C:/Users/Jake/source/repos/Tempus/TiledMaps/TileArt",
     "map.fixedSize": true,
     "map.height": 8,
-    "map.lastUsedExportFilter": "CSV files (*.csv)",
-    "map.lastUsedFormat": "tmx",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
     "map.orientation": 1,
     "map.renderOrder": 2,
     "map.tileHeight": 16,
@@ -47,10 +96,14 @@
     "project": "Farm.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "Grounds.tsx",
-        "Farm.tmx"
+        "HelloTiled.json",
+        "Farm.tmx",
+        "Farm.json",
+        "Farm.tmj",
+        "Grounds.tsx"
     ],
-    "tileset.embedInMap": false,
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.margin": 0,
     "tileset.spacing": 1,

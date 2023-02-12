@@ -1,5 +1,6 @@
 import { k } from "./kaboom_globals.js"
+import { sc_HelloTiled } from "./scenes/sc_FromTiled.js"
 // import "./scenes/sc_HelloWorld.js"
-import "./scenes/sc_Farm.js"
+// import "./scenes/sc_Farm.js"
 
-k.go("Farm")
+sc_HelloTiled.go()

@@ -1,0 +1,277 @@
+{ "compressionlevel":-1,
+ "height":8,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+            22, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 22,
+            22, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 22,
+            22, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 22,
+            22, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 22,
+            22, 16, 17, 17, 17, 17, 17, 17, 17, 17, 18, 22,
+            22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22],
+         "height":8,
+         "id":1,
+         "name":"Ground",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":12,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":2,
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.9.2",
+ "tileheight":16,
+ "tilesets":[
+        {
+         "columns":6,
+         "firstgid":1,
+         "image":"TileArt\/grounds_atlas.png",
+         "imageheight":80,
+         "imagewidth":96,
+         "margin":0,
+         "name":"Grounds",
+         "spacing":0,
+         "tilecount":30,
+         "tileheight":16,
+         "tiles":[
+                {
+                 "id":24,
+                 "probability":0.03
+                }, 
+                {
+                 "id":25,
+                 "probability":0.91
+                }],
+         "tilewidth":16,
+         "wangsets":[
+                {
+                 "colors":[
+                        {
+                         "color":"#ff0000",
+                         "name":"Path",
+                         "probability":1,
+                         "tile":-1
+                        }, 
+                        {
+                         "color":"#00ff00",
+                         "name":"Grass",
+                         "probability":1,
+                         "tile":-1
+                        }, 
+                        {
+                         "color":"#0000ff",
+                         "name":"Farm",
+                         "probability":1,
+                         "tile":-1
+                        }],
+                 "name":"Grass_Path_Farm",
+                 "tile":-1,
+                 "type":"corner",
+                 "wangtiles":[
+                        {
+                         "tileid":0,
+                         "wangid":[0, 2, 0, 1, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":1,
+                         "wangid":[0, 2, 0, 1, 0, 1, 0, 2]
+                        }, 
+                        {
+                         "tileid":2,
+                         "wangid":[0, 2, 0, 2, 0, 1, 0, 2]
+                        }, 
+                        {
+                         "tileid":3,
+                         "wangid":[0, 2, 0, 3, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":4,
+                         "wangid":[0, 2, 0, 3, 0, 3, 0, 2]
+                        }, 
+                        {
+                         "tileid":5,
+                         "wangid":[0, 2, 0, 2, 0, 3, 0, 2]
+                        }, 
+                        {
+                         "tileid":6,
+                         "wangid":[0, 1, 0, 1, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":7,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":8,
+                         "wangid":[0, 2, 0, 2, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":9,
+                         "wangid":[0, 3, 0, 3, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":10,
+                         "wangid":[0, 3, 0, 3, 0, 3, 0, 3]
+                        }, 
+                        {
+                         "tileid":11,
+                         "wangid":[0, 2, 0, 2, 0, 3, 0, 3]
+                        },
+                    
+                        {
+                         "tileid":12,
+                         "wangid":[0, 1, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":13,
+                         "wangid":[0, 1, 0, 2, 0, 2, 0, 1]
+                        }, 
+                        {
+                         "tileid":14,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 1]
+                        }, 
+                        {
+                         "tileid":15,
+                         "wangid":[0, 3, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":16,
+                         "wangid":[0, 3, 0, 2, 0, 2, 0, 3]
+                        }, 
+                        {
+                         "tileid":17,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 3]
+                        }, 
+                        {
+                         "tileid":18,
+                         "wangid":[0, 1, 0, 2, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":19,
+                         "wangid":[0, 1, 0, 1, 0, 2, 0, 1]
+                        }, 
+                        {
+                         "tileid":20,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":21,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":22,
+                         "wangid":[0, 3, 0, 2, 0, 3, 0, 3]
+                        }, 
+                        {
+                         "tileid":23,
+                         "wangid":[0, 3, 0, 3, 0, 2, 0, 3]
+                        },
+                    
+                        {
+                         "tileid":24,
+                         "wangid":[0, 2, 0, 1, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":25,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 2]
+                        }, 
+                        {
+                         "tileid":26,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":27,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":28,
+                         "wangid":[0, 2, 0, 3, 0, 3, 0, 3]
+                        }, 
+                        {
+                         "tileid":29,
+                         "wangid":[0, 3, 0, 3, 0, 3, 0, 2]
+                        }]
+                }, 
+                {
+                 "colors":[
+                        {
+                         "color":"#ff0000",
+                         "name":"Dirt",
+                         "probability":1,
+                         "tile":-1
+                        }, 
+                        {
+                         "color":"#00ff00",
+                         "name":"Grass",
+                         "probability":1,
+                         "tile":-1
+                        }],
+                 "name":"Grass_Farm",
+                 "tile":-1,
+                 "type":"corner",
+                 "wangtiles":[
+                        {
+                         "tileid":3,
+                         "wangid":[0, 2, 0, 1, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":4,
+                         "wangid":[0, 2, 0, 1, 0, 1, 0, 2]
+                        }, 
+                        {
+                         "tileid":6,
+                         "wangid":[0, 2, 0, 2, 0, 1, 0, 2]
+                        }, 
+                        {
+                         "tileid":10,
+                         "wangid":[0, 1, 0, 1, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":12,
+                         "wangid":[0, 1, 0, 1, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":13,
+                         "wangid":[0, 2, 0, 2, 0, 1, 0, 1]
+                        }, 
+                        {
+                         "tileid":18,
+                         "wangid":[0, 1, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":19,
+                         "wangid":[0, 1, 0, 2, 0, 2, 0, 1]
+                        }, 
+                        {
+                         "tileid":20,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 1]
+                        }, 
+                        {
+                         "tileid":24,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":25,
+                         "wangid":[0, 2, 0, 2, 0, 2, 0, 2]
+                        }, 
+                        {
+                         "tileid":26,
+                         "wangid":[0, 1, 0, 2, 0, 1, 0, 1]
+                        },
+                    
+                        {
+                         "tileid":27,
+                         "wangid":[0, 1, 0, 1, 0, 2, 0, 1]
+                        }]
+                }]
+        }],
+ "tilewidth":16,
+ "type":"map",
+ "version":"1.9",
+ "width":12
+}
