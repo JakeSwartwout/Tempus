@@ -126,8 +126,9 @@ function player() {
                 if(isDead){
                     this.use(sprite("player_facing"))
                     isDead = false
-                } else
-                    this.kill()
+                }
+                // else
+                //     this.kill()
             })
         },
 
