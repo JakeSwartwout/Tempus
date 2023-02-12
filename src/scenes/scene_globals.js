@@ -100,30 +100,40 @@ let load_tiled_levels = function(map_json) {
 }
 
 class SceneLoader {
-	constructor(scene_name, map_json){
+	constructor(scene_name, map_json, build_scene_func = () => {}){
 		this.name = scene_name
 		this.map_json = map_json
 		this.load_scene = null
+		this.buildScene = build_scene_func
 	}
 	
+	// set up kaboom to recognize our level info
 	load() {
-		this.load_scene = new Promise((resolve, reject) =>
+		this.load_scene = new Promise((resolve, reject) => {
+			// load the background levels
 			load_tiled_levels(this.map_json).then((add_tiled_levels) => {
+				// build the scene
 				k.scene(this.name, () => {
+					// do the tiled levels in the back
 					add_tiled_levels()
 		
-					// add other info to the scene
+					// then add all the other info to the scene
+					this.buildScene()
 				})
 				resolve()
 			})
-		)
+		})
 	}
 
+	// ensure our level is set up, then go to it when ready
 	go() {
 		if(this.load_scene == null)
 			this.load()
-		this.load_scene.then(() => {
-			k.go(this.name)
+		return new Promise((resolve, reject) => {
+			this.load_scene.then(() => {
+				k.go(this.name)
+				resolve()
+			})
 		})
 	}
 }
@@ -131,5 +141,9 @@ class SceneLoader {
 
 /********************* Exports *********************/
 
-export { k, ART_SIZE, TILE_OFFSET, TILE_WIDTH } from "../kaboom_globals.js"
+export { k,
+	ART_SIZE,
+	MANUAL_ART_SCALE, TOPDOWN_VERT_SCALING,
+	TILE_OFFSET, TILE_WIDTH,
+} from "../kaboom_globals.js"
 export { SceneLoader }
