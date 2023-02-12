@@ -42,7 +42,7 @@ k.loadSpriteAtlas("sprites/enemy_atlas.png", {
     }
 })
 
-// a component to add to make someone the player
+
 function enemy() {
 
 /********************* Properties *********************/
@@ -102,7 +102,6 @@ function enemy() {
                             lastDir = k.vec2(0, 0)
                     }
                     animName = "walk_" + (lastDir.x+1) + "" + (lastDir.y+1)
-                    debug.log(animName)
                     this.use(sprite("enemy_facing", {anim: animName}))
                 }
             } // if (waiting)

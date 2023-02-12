@@ -1,8 +1,8 @@
 import { player } from "../player.js"
-import "../crops.js"
 import { k, ART_SIZE } from "./scene_globals.js"
 import { MANUAL_ART_SCALE, TOPDOWN_VERT_SCALING } from "../kaboom_globals.js"
 import { crop, CROPS } from "../crops.js"
+
 
 k.scene("Farm", () => {
 
@@ -45,7 +45,7 @@ k.scene("Farm", () => {
         "            ",
         "            ",
         "            ",
-        "    @   l   ",
+        "    @ pcst  ",
         "            ",
         "            ",
         "            ",
@@ -66,13 +66,37 @@ k.scene("Farm", () => {
             player(),
             // "player",
         ],
-        "l": () => [
+        "p": () => [
             sprite("crop", {anim: "petra_raw"}),
             scale(MANUAL_ART_SCALE),
             area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.PETRA),
-        ]
+        ],
+        "s": () => [
+            sprite("crop", {anim: "sluck_raw"}),
+            scale(MANUAL_ART_SCALE),
+            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            // solid(),
+            origin("center"),
+            crop(CROPS.SLUCK),
+        ],
+        "c": () => [
+            sprite("crop", {anim: "carrot_raw"}),
+            scale(MANUAL_ART_SCALE),
+            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            // solid(),
+            origin("center"),
+            crop(CROPS.CARROT),
+        ],
+        "t": () => [
+            sprite("crop", {anim: "tomato_raw"}),
+            scale(MANUAL_ART_SCALE),
+            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            // solid(),
+            origin("center"),
+            crop(CROPS.TOMATO),
+        ],
     })
 })

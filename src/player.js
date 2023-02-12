@@ -1,3 +1,4 @@
+import { Inventory } from "./items/Inventory.js";
 import { k, TILE_WIDTH, TILE_OFFSET, TOPDOWN_VERT_SCALING, MANUAL_ART_SCALE } from "./kaboom_globals.js"
 
 
@@ -54,6 +55,8 @@ function player() {
 
     let isDead = false
 
+    let inventory = new Inventory("basket_inventory", 5,3, 18,5)
+
 
     return {
 /********************* Player Setup *********************/
@@ -63,7 +66,9 @@ function player() {
             k.onKeyDown(["left", "right", "up", "down"], () => {
                 if (isDead)
                     return
-
+                if (inventory && inventory.showing)
+                    return
+                
                 let horiz
                 // Left
                 if(k.isKeyDown("left") && !k.isKeyDown("right"))
@@ -116,6 +121,11 @@ function player() {
                 this.move(motion)
             })
 
+            k.onKeyPress("i", () => {
+                if (inventory)
+                    inventory.toggle_show()
+            })
+
             // technically the camera can follow you, but the tiles split up
             // player.onUpdate(() => {
             //     camPos(player.pos)
@@ -140,9 +150,12 @@ function player() {
             this.play("death")
         },
 
-        give(object) {
-            debug.log("got object!")
-            // this.inventory.add(object)
+        give(itemInstance) {
+            if(!inventory.addItem(itemInstance)) {
+                // TODO:
+                // dropItem(object)
+                debug.log("Can't fit new object: " + itemInstance.itemInfo.name)
+            }
         },
     }
 
