@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Farm.tmx",
+    "activeFile": "HelloTiled.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -91,16 +91,17 @@
     "map.width": 12,
     "openFiles": [
         "Grounds.tsx",
-        "Farm.tmx"
+        "Farm.json",
+        "HelloTiled.json"
     ],
     "project": "Farm.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "Grounds.tsx",
+        "Farm.json",
         "HelloTiled.json",
         "Farm.tmx",
-        "Farm.json",
-        "Farm.tmj",
-        "Grounds.tsx"
+        "Farm.tmj"
     ],
     "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",

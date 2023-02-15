@@ -1,17 +1,17 @@
-import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, TOPDOWN_VERT_SCALING } from "./scene_globals"
+import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, TOPDOWN_VERT_SCALING, TILE_WIDTH } from "./scene_globals"
 import { player } from "../player"
 import { crop, CROPS } from "../crops"
 
 import map_json from '../../TiledMaps/HelloTiled.json' assert { type: "json" }
 
 export let sc_HelloTiled = new SceneLoader("HelloTiled", map_json, () => {
-    const level = k.addLevel([
+    k.addLevel([
         // Design the level layout with symbols
         "            ",
         "            ",
-        "            ",
-        "    @ pcst  ",
-        "            ",
+        "    @       ",
+        "      pcst  ",
+        "    f       ",
         "            ",
         "            ",
     ], {
@@ -63,5 +63,11 @@ export let sc_HelloTiled = new SceneLoader("HelloTiled", map_json, () => {
             origin("center"),
             crop(CROPS.TOMATO),
         ],
+        "f": () => [
+            sprite("farmer", {anim: "idle"}),
+            scale(MANUAL_ART_SCALE),
+            area(),
+            origin("center"),
+        ]
     })
 })
