@@ -1,38 +1,20 @@
 import { Inventory } from "./items/Inventory.js";
-import { k, TILE_WIDTH, TILE_OFFSET, TOPDOWN_VERT_SCALING, MANUAL_ART_SCALE } from "./kaboom_globals.js"
+import { k, TILE_WIDTH, TILE_OFFSET, TOPDOWN_VERT_SCALING, MANUAL_ART_SCALE, ART_SIZE } from "./kaboom_globals.js"
 
 
 /********************* Sprites *********************/
 
 k.loadSpriteAtlas("sprites/player_atlas.png", {
-    "player_facing": {
+    "player": {
         x: 0,
         y: 0,
-        width: TILE_WIDTH(3),
-        height: TILE_WIDTH(3),
-        sliceX: 3,
-		sliceY: 3,
-		"anims" : {
-            // do this with quad instead?
-			"00" : 0,
-			"10" : 1,
-			"20" : 2,
-			"01" : 3,
-			"11" : 4,
-			"21" : 5,
-			"02" : 6,
-			"12" : 7,
-			"22" : 8,
-		}
-    },
-    "player_death": {
-        x: TILE_OFFSET(0),
-        y: TILE_OFFSET(3),
         width: TILE_WIDTH(4),
-        height: TILE_WIDTH(1),
+        height: TILE_WIDTH(4),
         sliceX: 4,
+        sliceY: 4,
         "anims" : {
-            "death": { from: 0, to: 3, loop: false, pingpong: false }
+            "facing": 0, // use quad to pick the right direction
+            "death": { from: 12, to: 15, loop: false, pingpong: false },
         }
     }
 })
@@ -44,14 +26,7 @@ function player() {
 
     const PLAYER_SPEED = 60 * MANUAL_ART_SCALE;
 
-    // which way we were facing last
-    /*     ^
-        00 10 20
-      < 01 11 21 >
-        02 12 22
-           v
-    */
-    let lastDir = "11"
+    let lastDir = k.vec2(0,1)
 
     let isDead = false
 
@@ -69,41 +44,38 @@ function player() {
                 if (inventory && inventory.showing)
                     return
                 
-                let horiz
                 // Left
                 if(k.isKeyDown("left") && !k.isKeyDown("right"))
-                    horiz = "0"
+                    lastDir.x = -1
                 // Neither
                 else if (!k.isKeyDown("left") && !k.isKeyDown("right"))
-                    horiz = "1"
+                    lastDir.x = 0
                 // Right
                 else if (!k.isKeyDown("left") && k.isKeyDown("right"))
-                    horiz = "2"
+                    lastDir.x = 1
                 // Both
-                else
-                    horiz = lastDir[0]
+                else {
+                    // don't update
+                }
 
-                let vert
                 // Up
                 if(k.isKeyDown("up") && !k.isKeyDown("down"))
-                    vert = "0"
+                    lastDir.y = -1
                 // Neither
                 else if (!k.isKeyDown("up") && !k.isKeyDown("down"))
-                    vert = "1"
+                    lastDir.y = 0
                 // Down
                 else if (!k.isKeyDown("up") && k.isKeyDown("down"))
-                    vert = "2"
+                    lastDir.y = 1
                 // Both
-                else
-                    vert = lastDir[1]
+                else {
+                    // don't update
+                }
 
-                // join the two into our direction string
-                lastDir = horiz + vert
-                this.use(sprite("player_facing"))
-                this.play(lastDir)
+                this.faceInDir()
 
                 // get the directions
-                let motion = k.vec2(horiz-1, vert-1)
+                let motion = k.vec2(lastDir.x, lastDir.y)
                 if (motion.len() == 0)
                     return;
                 // always move at SPEED total speed
@@ -134,7 +106,9 @@ function player() {
             k.onClick(() => {
                 addKaboom(mousePos())
                 if(isDead){
-                    this.use(sprite("player_facing"))
+                    this.play("facing")
+                    this.faceInDir(lastDir)
+                    this.flipX(false)
                     isDead = false
                 }
                 // else
@@ -146,7 +120,8 @@ function player() {
 
         kill() {
             isDead = true
-            this.use(sprite("player_death"))
+            this.quad = k.quad(0,0,1,1)
+            this.flipX(lastDir.x < 0)
             this.play("death")
         },
 
@@ -157,6 +132,11 @@ function player() {
                 debug.log("Can't fit new object: " + itemInstance.itemInfo.name)
             }
         },
+
+        faceInDir() {
+            // quad works in terms of which slices
+            this.quad = k.quad(lastDir.x+1, lastDir.y+1, 1, 1)
+        }
     }
 
 }

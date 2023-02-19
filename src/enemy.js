@@ -5,39 +5,22 @@ import { k, MANUAL_ART_SCALE, TILE_OFFSET, TILE_WIDTH, TOPDOWN_VERT_SCALING } fr
 const BOUNCE_SPEED = 5
 
 k.loadSpriteAtlas("sprites/enemy_atlas.png", {
-    "enemy_facing": {
+    "enemy": {
         x: 0,
         y: 0,
-        width: TILE_WIDTH(3),
-        height: TILE_WIDTH(3),
-        sliceX: 3,
-		sliceY: 3,
-		"anims" : {
-			"walk_00" : 0,
-			"walk_10" : 1,
-			"walk_20" : 2,
-			"walk_01" : 3,
-			"walk_11" : 4,
-			"walk_21" : 5,
-			"walk_02" : 6,
-			"walk_12" : 7,
-			"walk_22" : 8,
-        }
-    },
-    "enemy_idle": {
-        x: TILE_OFFSET(0),
-        y: TILE_OFFSET(3),
         width: TILE_WIDTH(4),
-        height: TILE_WIDTH(1),
+        height: TILE_WIDTH(4),
         sliceX: 4,
+		sliceY: 4,
         "anims" : {
-            "idle_right" : {
-                from: 0,
-                to: 3,
+            "facing": 0, // use quad to pick the direction
+            "idle" : {
+                from: 12,
+                to: 15,
                 loop: true,
                 // pingpong: true, // ping pong is not actually implemented
                 speed: BOUNCE_SPEED,
-            }
+            },
 		}
     }
 })
@@ -73,6 +56,7 @@ function enemy() {
             if (walkWaitFramesPassed < WALK_WAIT_inFRAMES) {
                 walkWaitFramesPassed++
                 if (walkWaitFramesPassed == WALK_WAIT_inFRAMES) {
+                    // start the walking animation
                     walkTimeFramesPassed = 0
                     // choose a direction
                     let dir = k.randi(8)
@@ -101,16 +85,21 @@ function enemy() {
                         default:
                             lastDir = k.vec2(0, 0)
                     }
-                    animName = "walk_" + (lastDir.x+1) + "" + (lastDir.y+1)
-                    this.use(sprite("enemy_facing", {anim: animName}))
-                }
+                    // use the sprite for the direction we're facing
+                    this.play("facing")
+                    this.quad = k.quad(lastDir.x+1, lastDir.y+1, 1, 1)
+                    this.flipX(false);
+                } // if (start walking)
             } // if (waiting)
             // walking
             else if (walkTimeFramesPassed < WALK_TIME_inFRAMES) {
                 walkTimeFramesPassed++
                 if (walkTimeFramesPassed == WALK_TIME_inFRAMES) {
+                    // start the waiting animation
                     walkWaitFramesPassed = 0
-                    this.use(sprite("enemy_idle", {anim: "idle_right", flipX: lastDir.x < 0}))
+                    this.play("idle")
+                    this.quad = k.quad(0,0,1,1)
+                    this.flipX(lastDir.x < 0)
                 }
                 // get the directions
                 let motion = lastDir

@@ -28,6 +28,7 @@ February 2023
 * instead of having enemy be a component (() => {}) have them be a function that returns all the components (() => [{}, {}, {}])
 * instead of the player being a component (() => {}) have a creator function which adds them at the given position and returns a reference to them (see above)
 * figure out if quad is good for walking directions instead of anims
+* Pull the walking code out into its own component, seems like it's basically the same between enemy and player and potential other things
 ### Farm Scene
 <!-- * draw a farmer sprite (just an idle anim) -->
 * draw a basic farmhouse (KISS method)
@@ -43,3 +44,6 @@ February 2023
 * Add trees into the scene too
 ### Inventory
 * pick up the basket and it's what gives you an inventory
+### Gameplay
+* add a way to walk between scenes (getting close calls load, then walking over calls go)
+* use cookies as a way to save player data? or just have it be story based and have each link be a different part of the story. Could stick it on different files, or in the #, or in the query string ?

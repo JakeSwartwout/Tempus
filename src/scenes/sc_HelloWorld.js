@@ -58,7 +58,7 @@ k.scene("HelloWorld", () => {
         pos: vec2(ART_SIZE/2*MANUAL_ART_SCALE),
         // Define what each symbol means (in components)
         "@": () => [
-            sprite("player_facing"),
+            sprite("player"),
             scale(MANUAL_ART_SCALE),
             area({width: 8, height: 10, offset: k.vec2(0, 4*MANUAL_ART_SCALE)}), // collision checking
             // body(), // gravity
@@ -68,7 +68,7 @@ k.scene("HelloWorld", () => {
             // "player",
         ],
         "X": () => [
-            sprite("enemy_idle", {anim: "idle_right", }),
+            sprite("enemy", {anim: "idle" }),
             scale(MANUAL_ART_SCALE),
             area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
