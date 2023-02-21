@@ -1,7 +1,8 @@
 import { k, TILE_WIDTH } from "./kaboom_globals.js"
-import { sc_HelloTiled } from "./scenes/sc_HelloTiled.js"
-// import "./scenes/sc_HelloWorld.js"
-// import "./scenes/sc_Farm.js"
+import { all_scenes_loaded } from "./scenes/all_scenes.js"
+
+
+import { initial_spawnpoint, sc_01_Wakeup } from "./scenes/sc_01_Wakeup.js"
 
 k.loadSprite("farmer", "sprites/npc_atlas.png", {
     sliceX: 4,
@@ -19,4 +20,6 @@ k.loadSprite("farmer", "sprites/npc_atlas.png", {
     }
 })
 
-sc_HelloTiled.go()
+all_scenes_loaded.then(() => {
+    sc_01_Wakeup.go(initial_spawnpoint)
+})

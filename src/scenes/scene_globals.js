@@ -1,4 +1,6 @@
 import { k, ART_SIZE, TILE_OFFSET, MANUAL_ART_SCALE } from "../kaboom_globals.js"
+import { PLAYER } from "../player.js"
+import { SceneChange } from "./SceneChange.js"
 
 
 /********************* Manual Scene Sprites *********************/
@@ -57,10 +59,21 @@ k.loadSpriteAtlas("TileArt/grounds_atlas.png", {
 // * Saved in the .json format
 // * reference tile images in the TiledMaps/TileArt folder
 // * have these same images duplicated to the www/TileArt folder
-// * Have their tilesets embedded (can convert existing set into embedded, then just "change" the img src to get it to appear)
+// * Have their tilesets embedded
 // * have their orientation set to: "orthogonal"
 // * Have their render order set to: "right-down"
 // * Don't have spacing/gaps between the sprite images
+
+/**
+ * When having issues embedding tilesets:
+ * You can convert existing set into embedded. The arrow page embeds it,
+ * but it breaks the image link for some reason. So, change the image
+ * to something else, then back to get it to reset the image link.
+ * I just change the "TileMaps" to "www" so it's the same size and doesn't
+ * try to re-scale anything.
+ * I also suggest modifying the terrain name (like add an underscore)
+ * to tell it apart from the non-embedded one.
+ */
 
 let load_tiled_levels = function(map_json) {
     // loading the map is asynch, so need a promise
@@ -105,45 +118,98 @@ class SceneLoader {
 		this.map_json = map_json
 		this.load_scene = null
 		this.buildScene = build_scene_func
+		this.sceneChangers = []
+	}
+
+	isLoaded() {
+		return (this.load_scene != null)
 	}
 	
 	// set up kaboom to recognize our level info
 	load() {
+		if (this.isLoaded())
+			return
 		this.load_scene = new Promise((resolve, reject) => {
 			// load the background levels
-			load_tiled_levels(this.map_json).then((add_tiled_levels) => {
+			load_tiled_levels(this.map_json).then((build_tiled_levels) => {
 				// build the scene
-				k.scene(this.name, () => {
-					// do the tiled levels in the back
-					add_tiled_levels()
+				k.scene(this.name, ({spawnPoint}) => {
+					// 1: do the tiled levels in the back
+					build_tiled_levels()
 		
-					// then add all the other info to the scene
+					// 2: add all the other info to the scene
 					this.buildScene()
+					this.buildChangers()
+
+					// 3: re-add the player
+					// this puts them on top and ensures that their
+					// movements apply in this scene as well
+					PLAYER.build(spawnPoint)
+
+					// 4: add any art that can hide the player
+					// TODO
 				})
 				resolve()
 			})
 		})
 	}
 
+	// version of go where we can just pass the scene changer ID
+	go_ch(changerId) {
+		const spawnX = this.sceneChangers[changerId].spawnX
+		const spawnY = this.sceneChangers[changerId].spawnY
+		this.go(k.vec2(spawnX, spawnY))
+	}
+
 	// ensure our level is set up, then go to it when ready
-	go() {
-		if(this.load_scene == null)
+	go(spawnPoint) {
+		if(!this.isLoaded())
 			this.load()
 		return new Promise((resolve, reject) => {
 			this.load_scene.then(() => {
-				k.go(this.name)
+				k.go(this.name, {spawnPoint: spawnPoint})
 				resolve()
 			})
 		})
+	}
+
+	addSceneChange({tileX, tileY, appearOn, dest, thisId, destId}) {
+		if (thisId in this.sceneChangers) {
+			debug.log("Duplicate scene ID!! " + thisId)
+			return
+		}
+		this.sceneChangers[thisId] = new SceneChange(
+			tileX, tileY, appearOn,
+			dest, thisId, destId
+		)
+	}
+
+	buildChangers() {
+		for (let changerId in this.sceneChangers) {
+			this.sceneChangers[changerId].build()
+		}
 	}
 }
 
 
 /********************* Exports *********************/
 
-export { k,
+const SCENE_WIDTH = 12
+const SCENE_HEIGHT = 8
+
+
+/********************* Exports *********************/
+
+export {
+	k,
 	ART_SIZE,
 	MANUAL_ART_SCALE, TOPDOWN_VERT_SCALING,
 	TILE_OFFSET, TILE_WIDTH,
 } from "../kaboom_globals.js"
-export { SceneLoader }
+export {
+	SIDE
+} from "./SceneChange.js"
+export {
+	SceneLoader,
+	SCENE_WIDTH, SCENE_HEIGHT
+}

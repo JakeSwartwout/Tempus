@@ -19,134 +19,148 @@ k.loadSpriteAtlas("sprites/player_atlas.png", {
     }
 })
 
-// a component to add to make someone the player
-function player() {
 
 /********************* Player Properties *********************/
 
-    const PLAYER_SPEED = 60 * MANUAL_ART_SCALE;
-
-    let lastDir = k.vec2(0,1)
-
-    let isDead = false
-
-    let inventory = new Inventory("basket_inventory", 5,3, 18,5)
+const PLAYER_SPEED = 60 * MANUAL_ART_SCALE;
 
 
-    return {
-/********************* Player Setup *********************/
-        id: "player",
+/********************* Player Class (singleton) *********************/
 
-        add() {
-            k.onKeyDown(["left", "right", "up", "down"], () => {
-                if (isDead)
-                    return
-                if (inventory && inventory.showing)
-                    return
-                
-                // Left
-                if(k.isKeyDown("left") && !k.isKeyDown("right"))
-                    lastDir.x = -1
-                // Neither
-                else if (!k.isKeyDown("left") && !k.isKeyDown("right"))
-                    lastDir.x = 0
-                // Right
-                else if (!k.isKeyDown("left") && k.isKeyDown("right"))
-                    lastDir.x = 1
-                // Both
-                else {
-                    // don't update
-                }
+class Player {
+    constructor() {
+        this.lastDir = k.vec2(0,1)
+        this.isDead = false
+        this.inventory = new Inventory("basket_inventory", 5,3, 18,5)
+        this.comp = null
+    }
 
-                // Up
-                if(k.isKeyDown("up") && !k.isKeyDown("down"))
-                    lastDir.y = -1
-                // Neither
-                else if (!k.isKeyDown("up") && !k.isKeyDown("down"))
-                    lastDir.y = 0
-                // Down
-                else if (!k.isKeyDown("up") && k.isKeyDown("down"))
-                    lastDir.y = 1
-                // Both
-                else {
-                    // don't update
-                }
+    kill() {
+        this.isDead = true
+        if (this.missing()) return
+        this.comp.quad = k.quad(0,0,1,1)
+        this.comp.flipX(this.lastDir.x < 0)
+        this.comp.play("death")
+    }
 
-                this.faceInDir()
-
-                // get the directions
-                let motion = k.vec2(lastDir.x, lastDir.y)
-                if (motion.len() == 0)
-                    return;
-                // always move at SPEED total speed
-                motion = motion.unit().scale(PLAYER_SPEED)
-                // scale the vertical direction to give the feeling of perspective
-                motion = motion.scale(1, TOPDOWN_VERT_SCALING)
-                // since this is called for every key pressed, scale down by the number pressed
-                let numDown = 0
-                    + (k.isKeyDown("up") ? 1 : 0)
-                    + (k.isKeyDown("down") ? 1 : 0)
-                    + (k.isKeyDown("left") ? 1 : 0)
-                    + (k.isKeyDown("right") ? 1 : 0)
-                motion = motion.scale(1/numDown)
-
-                this.move(motion)
-            })
-
-            k.onKeyPress("i", () => {
-                if (inventory)
-                    inventory.toggle_show()
-            })
-
-            // technically the camera can follow you, but the tiles split up
-            // player.onUpdate(() => {
-            //     camPos(player.pos)
-            // })
-
-            k.onClick(() => {
-                addKaboom(mousePos())
-                if(isDead){
-                    this.play("facing")
-                    this.faceInDir(lastDir)
-                    this.flipX(false)
-                    isDead = false
-                }
-                // else
-                //     this.kill()
-            })
-        },
-
-/********************* Player Functions *********************/
-
-        kill() {
-            isDead = true
-            this.quad = k.quad(0,0,1,1)
-            this.flipX(lastDir.x < 0)
-            this.play("death")
-        },
-
-        give(itemInstance) {
-            if(!inventory.addItem(itemInstance)) {
-                // TODO:
-                // dropItem(object)
-                debug.log("Can't fit new object: " + itemInstance.itemInfo.name)
-            }
-        },
-
-        faceInDir() {
-            // quad works in terms of which slices
-            this.quad = k.quad(lastDir.x+1, lastDir.y+1, 1, 1)
+    give(itemInstance) {
+        if(!this.inventory.addItem(itemInstance)) {
+            // TODO:
+            // dropItem(object)
+            debug.log("Can't fit new object: " + itemInstance.itemInfo.name)
         }
+    }
+
+    faceInDir() {
+        if (this.missing()) return
+        // quad works in terms of which slices
+        this.comp.quad = k.quad(this.lastDir.x+1, this.lastDir.y+1, 1, 1)
+    }
+
+    missing() {
+        return this.comp == null
+    }
+
+/********************* Player Component *********************/
+    build(spawnPoint) {
+        this.comp = k.add([
+            "player",
+            sprite("player", {anim: "facing", quad: k.quad(this.lastDir.x+1, this.lastDir.y+1, 1, 1)}),
+            scale(MANUAL_ART_SCALE),
+            area({width: 8, height: 10, offset: k.vec2(0, 4*MANUAL_ART_SCALE)}), // collision checking
+            solid(), // collision stopping
+            origin("center"),
+            pos(spawnPoint),
+            // stay(), // persist across scenes
+            // health(), // deals with hp
+        ])
+        // link up other listener events
+        k.onKeyDown(["left", "right", "up", "down"], () => {
+            if (this.isDead)
+                return
+            if (this.inventory && this.inventory.showing)
+                return
+            
+            // Left
+            if(k.isKeyDown("left") && !k.isKeyDown("right")) {
+                this.lastDir.x = -1
+            // Neither
+            } else if (!k.isKeyDown("left") && !k.isKeyDown("right")) {
+                this.lastDir.x = 0
+            // Right
+            } else if (!k.isKeyDown("left") && k.isKeyDown("right")) {
+                this.lastDir.x = 1
+            // Both
+            } else {
+                // don't update
+            }
+
+            // Up
+            if(k.isKeyDown("up") && !k.isKeyDown("down")) {
+                this.lastDir.y = -1
+            // Neither
+            } else if (!k.isKeyDown("up") && !k.isKeyDown("down")) {
+                this.lastDir.y = 0
+            // Down
+            } else if (!k.isKeyDown("up") && k.isKeyDown("down")) {
+                this.lastDir.y = 1
+            // Both
+            } else {
+                // don't update
+            }
+
+            this.faceInDir()
+
+            // get the directions
+            let motion = k.vec2(this.lastDir)
+            if (motion.len() == 0)
+                return;
+            // always move at SPEED total speed
+            motion = motion.unit().scale(PLAYER_SPEED)
+            // scale the vertical direction to give the feeling of perspective
+            motion = motion.scale(1, TOPDOWN_VERT_SCALING)
+            // since this is called for every key pressed, scale down by the number pressed
+            let numDown = 0
+                + (k.isKeyDown("up") ? 1 : 0)
+                + (k.isKeyDown("down") ? 1 : 0)
+                + (k.isKeyDown("left") ? 1 : 0)
+                + (k.isKeyDown("right") ? 1 : 0)
+            motion = motion.scale(1/numDown)
+
+            this.comp.move(motion)
+        })
+
+        k.onKeyPress("i", () => {
+            if (this.inventory)
+                this.inventory.toggle_show()
+        })
+
+        // technically the camera can follow you, but the tiles split up
+        // player.onUpdate(() => {
+        //     camPos(player.pos)
+        // })
+
+        k.onClick(() => {
+            addKaboom(mousePos())
+            if(this.isDead){
+                this.isDead = false
+                if (this.missing()) return
+                this.comp.play("facing")
+                this.comp.faceInDir(lastDir)
+                this.comp.flipX(false)
+            }
+            // else
+            //     this.kill()
+        })
+
+        return this.comp
     }
 
 }
 
+const PLAYER = new Player()
 
-/** TO FIX: make into a singleton */
-const getPlayer = function() {
-    return k.get("player")[0]
-}
 
 /********************* Exports *********************/
 
-export { player, getPlayer }
+export { PLAYER }

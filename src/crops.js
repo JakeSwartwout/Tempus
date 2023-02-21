@@ -1,5 +1,5 @@
-import { k, MANUAL_ART_SCALE, TILE_OFFSET, TILE_WIDTH } from "./kaboom_globals.js"
-import { getPlayer } from "./player.js"
+import { k, TILE_OFFSET, TILE_WIDTH } from "./kaboom_globals.js"
+import { PLAYER } from "./player.js"
 import { ItemInstance } from "./items/ItemInstance.js"
 import { ITEM_IDS } from "./items/ItemInfo.js"
 
@@ -78,10 +78,10 @@ function crop(cropVariety) {
         id: "crop",
 
         add() {
-            let playerRef = getPlayer()
+            if (PLAYER.missing()) return
             k.onKeyPress("e", () => {
-                if (!picked && this.isColliding(playerRef)) {
-                    playerRef.give(this.harvest())
+                if (!picked && this.isColliding(PLAYER.comp)) {
+                    PLAYER.give(this.harvest())
                 }
             })
         },
