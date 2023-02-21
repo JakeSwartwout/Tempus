@@ -11,6 +11,7 @@ const SIDE = {
 
 /********************* The Class *********************/
 
+// Scene changes are placed within scenes to allow the player to travel between scenes
 class SceneChange {
     constructor(tileX, tileY, appearOn, dest_scene, thisId, destId) {
 		// Where to draw on the screen
@@ -28,7 +29,6 @@ class SceneChange {
 
     build() {
         const basicProps = [
-            k.sprite("player"), // debugging sprite
             scale(MANUAL_ART_SCALE),
             origin("center"),
             pos(this.x, this.y),
