@@ -78,7 +78,10 @@ function crop(cropVariety) {
         id: "crop",
 
         add() {
-            if (PLAYER.missing()) return
+            if (PLAYER.missing()) {
+                console.log("failed to link crop harvesting")
+                return
+            }
             k.onKeyPress("e", () => {
                 if (!picked && this.isColliding(PLAYER.comp)) {
                     PLAYER.give(this.harvest())

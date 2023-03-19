@@ -1,5 +1,4 @@
-import { ART_SIZE, k, MANUAL_ART_SCALE, TILE_OFFSET, TILE_WIDTH } from "../kaboom_globals"
-import { PLAYER } from "../player"
+import { ART_SIZE, k, MANUAL_ART_SCALE, TILE_WIDTH } from "../kaboom_globals"
 
 const SIDE = {
     UP: [0, -1],

@@ -8,7 +8,13 @@ k.loadSprite("basket", "sprites/basket.png")
 k.loadSprite("basket_inventory", "sprites/Inventory.png")
 
 
-/********************* Sprites *********************/
+/********************* Constants *********************/
+
+// Const to represent losing all items of some type
+const ALL_ITEMS = -1
+
+
+/********************* The Class *********************/
 
 class Inventory {
 
@@ -28,16 +34,34 @@ class Inventory {
         this.gameObj = null
     }
 
-    addItem(item) {
+    addItem(item_inst) {
         // TODO: Let them pick the spot
+        // see if we can stack it anywhere
         for (let y = 0; y < this.y_size; y++){
             for (let x = 0; x < this.x_size; x++){
-                if (!this.items[x][y]) {
-                    this.items[x][y] = item
+                let there = this.items[x][y]
+                if(!there)
+                    continue
+                // can we stack it
+                if( there.id == item_inst.id &&
+                    item_inst.itemInfo.is_stackable &&
+                    (!item_inst.state || (item_inst.state && item_inst.state == there.state))
+                ) {
+                    there.count += item_inst.count
                     return true
                 }
             }
         }
+        // can't stack, find the first open spot
+        for (let y = 0; y < this.y_size; y++){
+            for (let x = 0; x < this.x_size; x++){
+                if (!this.items[x][y]) {
+                    this.items[x][y] = item_inst
+                    return true
+                }
+            }
+        }
+        // failed to find a spot
         return false
     }
 
@@ -87,11 +111,124 @@ class Inventory {
             }
         }
     }
+
+    contains(item_reqs) {
+        /* reqs should be an object formatted like:
+            {
+                id1 : {
+                    "any" : count_any,
+                    "state1" : count_state1,
+                    "state2" : count_state2,
+                },
+                id2 : count_any,
+            }
+        */
+        // this hack is apparently the js standard for deepcloning objects
+        let reqs = JSON.parse(JSON.stringify(item_reqs));
+        // loop through the items to ensure each is only counted once
+        for(let y = 0; y < this.y_size; y++) {
+            for(let x = 0; x < this.x_size; x++) {
+                let item = this.items[x][y]
+                // skip if empty
+                if (!item)
+                    continue
+                // skip if we don't need this item
+                if (item.id in reqs === false)
+                    continue
+                // we do need it
+                if (typeof(reqs[item.id]) == "number") {    // p1: anything always works
+                    reqs[item.id] -= item.count
+                } else if (item.state in reqs[item.id]) {   // p2: want specific, have it
+                    reqs[item.id][item.state] -= item.count
+                } else if("any" in reqs[item.id]) {         // p3: want specific, allow any
+                    reqs[item.id]["any"] -= item.count
+                }
+                // we might not accept this state
+            }
+        }
+        // gone through the items, see if any reqs weren't satisfied
+        for(let id in reqs) {
+            if(typeof(reqs[id]) == "number") {
+                if(reqs[id] > 0) {
+                    return false
+                }
+            } else {
+                for(let state in reqs[id]) {
+                    if(reqs[id][state] > 0) {
+                        return false
+                    }
+                }
+            }
+        }
+        // hit all the reqs
+        return true
+    }
+
+    remove(item_counts) {
+        /* counts should be structured the same as for contains(reqs)
+            {
+                id1 : {
+                    "any" : count_any,
+                    "state1" : count_state1,
+                    "state2" : count_state2,
+                },
+                id2 : count_any
+            }
+            use ALL_ITEMS to get rid of everything
+            otherwise, it gets rid of as many as it can up to the count
+        */
+        // this hack is apparently the js standard for deepcloning objects
+        let counts = JSON.parse(JSON.stringify(item_counts));
+        // loop through the items and just remove them in order
+        for(let y = 0; y < this.y_size; y++) {
+            for(let x = 0; x < this.x_size; x++) {
+                let item = this.items[x][y]
+                // skip if empty
+                if (!item)
+                    continue
+                // skip if we don't need this item
+                if (item.id in counts === false)
+                    continue
+                // we do need it, pick the type we'll remove
+                if (typeof(counts[item.id]) == "number"){
+                    // update the counts
+                    let num_taken = 0
+                    if(item.count > counts[item.id]) {
+                        num_taken = counts[item.id]
+                    } else {
+                        num_taken = item.count
+                    }
+                    counts[item.id] -= num_taken
+                    item.count -= num_taken
+                } else { // an object
+                    let state = null
+                    if (item.state in counts[item.id]) {
+                        state = item.state
+                    } else if("any" in counts[item.id]) {
+                        state = "any"
+                    }
+                    // if we don't accept this state, move on
+                    if(state == null)
+                        continue
+                    // update the counts
+                    let num_taken = 0
+                    if(item.count > counts[item.id][state]) {
+                        num_taken = counts[item.id][state]
+                    } else {
+                        num_taken = item.count
+                    }
+                    counts[item.id][state] -= num_taken
+                    item.count -= num_taken
+                }
+            }
+        }
+    }
 }
 
 
 /********************* Exports *********************/
 
 export {
-    Inventory
+    Inventory,
+    ALL_ITEMS
 }

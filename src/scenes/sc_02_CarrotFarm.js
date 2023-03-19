@@ -2,6 +2,7 @@ import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, TOPDOWN_VERT_SCALING, SIDE 
 import { crop, CROPS } from "../crops"
 import { all_scenes } from "./all_scenes"
 import { sc_01_Wakeup } from "./sc_01_Wakeup"
+import { FARMER } from "../npc.js"
 
 import map_json from '../../TiledMaps/02_CarrotFarm.json' assert { type: "json" }
 
@@ -10,7 +11,7 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
         // Design the level layout with symbols
         "     C      ",
         "            ",
-        "            ",
+        "     F      ",
         "            ",
         "            ",
         "          C ",
@@ -33,6 +34,7 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
             origin("center"),
             crop(CROPS.CARROT),
         ],
+        "F": (position) => FARMER.build(position)
     })
 })
 

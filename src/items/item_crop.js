@@ -15,7 +15,7 @@ ITEM_IDS.crops = {}
 for (let crop in CROPS) {
     crop_sprite_name = CROPS[crop] + "_obj"
     possible_anims = []// crop_states.keys
-    ITEM_IDS.crops[CROPS[crop]] = DEFINE_ITEM(CROPS[crop], crop_sprite_name, possible_anims)
+    ITEM_IDS.crops[CROPS[crop]] = DEFINE_ITEM(CROPS[crop], true, crop_sprite_name, possible_anims)
 }
 
 let crop_atlas_data = {}

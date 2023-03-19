@@ -9,18 +9,19 @@ let ITEM_IDS = {}
 
 /********************* The base class *********************/
 class ItemInfo {
-    constructor(ID, unique_readable_name, sprite, possible_anims = []) {
+    constructor(ID, unique_readable_name, is_stackable, sprite, possible_anims = []) {
         this.id = ID
-        this.sprite = sprite
         this.name = unique_readable_name
+        this.is_stackable = is_stackable
+        this.sprite = sprite
         this.possible_anims = possible_anims
     }
 }
 
-const DEFINE_ITEM = function(unique_readable_name, sprite, possible_anims = []) {
+const DEFINE_ITEM = function(unique_readable_name, is_stackable, sprite, possible_anims = []) {
     // grab the next open ID
     next_id = ITEM_INFOS.length
-    ITEM_INFOS[next_id] = new ItemInfo(next_id, unique_readable_name, sprite, possible_anims = [])
+    ITEM_INFOS[next_id] = new ItemInfo(next_id, unique_readable_name, is_stackable, sprite, possible_anims = [])
     return next_id
 }
 
