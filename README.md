@@ -24,6 +24,7 @@ Run `npm run dev` in the root directory, then open a browser onto the localhost 
 * Pull the walking code out into its own component, seems like it's basically the same between enemy and player and potential other things
 * Move state machines to their own file
 * Break NPC into the two different classes
+* Only let the player do one thing each interaction (currently they all trigger, multiple crop picking, multiple dialogues, etc)(could make a list with priorities then pick the highest)
 ### Features
 * make an NPC factory
 <!-- * walking near the farmer lets you talk to him -->
