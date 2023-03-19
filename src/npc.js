@@ -149,6 +149,11 @@ class NPC {
                 this.converse()
             }
         })
+
+        // when the scene gets unloaded
+        this.comp.onDestroy(() => {
+            this.comp = null
+        })
     }
 
 }
