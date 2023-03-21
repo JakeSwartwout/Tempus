@@ -13,6 +13,7 @@ Run `npm run dev` in the root directory, then open a browser onto the localhost 
 * Complete the path/grass/farm ground set
 * Draw some more scenes
 * clean up the tree and lamp art to be a props file or something
+* animation of the chat box opening (can pass it in as an animation, no loop, with listener when it's done)
 ### Smoothing
 * Stop letting you pick multiple plants at once, just pick one
 * have the crops grow back as you're watching them
@@ -25,6 +26,7 @@ Run `npm run dev` in the root directory, then open a browser onto the localhost 
 * Move state machines to their own file
 * Break NPC into the two different classes
 * Only let the player do one thing each interaction (currently they all trigger, multiple crop picking, multiple dialogues, etc)(could make a list with priorities then pick the highest)
+* In a Speech, go through the lines and break up any that are too long for a text box
 ### Features
 * make an NPC factory
 <!-- * walking near the farmer lets you talk to him -->

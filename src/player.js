@@ -23,6 +23,7 @@ k.loadSpriteAtlas("sprites/player_atlas.png", {
 /********************* Player Properties *********************/
 
 const PLAYER_SPEED = 60 * MANUAL_ART_SCALE;
+const PLAYER_NAME = "Chay"
 
 
 /********************* Player Class (singleton) *********************/
@@ -163,4 +164,4 @@ const PLAYER = new Player()
 
 /********************* Exports *********************/
 
-export { PLAYER }
+export { PLAYER, PLAYER_NAME }

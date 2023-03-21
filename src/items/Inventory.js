@@ -89,7 +89,7 @@ class Inventory {
                 if (this.items[x][y]) {
                     let grid_spot = k
                         .vec2(x, y)                                         // start with top-left corner
-                        .add(k.vec2(.5, .5))                                // move to center
+                        .add(k.vec2(.5, .5))                                // move to center of cell
                         .sub(k.vec2(this.x_size, this.y_size).scale(.5))    // shift to be relative to middle
                         .scale(this.opening_size + this.opening_gap)        // bring up to size
                         .scale(MANUAL_ART_SCALE)                            // scale it up from pixel art
@@ -219,6 +219,11 @@ class Inventory {
                     }
                     counts[item.id][state] -= num_taken
                     item.count -= num_taken
+                }
+                // clear the space once we've removed all of the items
+                if (item.count <= 0) {
+                    this.items[x][y] = null
+                    // let the ItemInstance fall out of scope
                 }
             }
         }

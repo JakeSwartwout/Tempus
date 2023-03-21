@@ -1,7 +1,8 @@
 import { k, TILE_WIDTH, TOPDOWN_VERT_SCALING, MANUAL_ART_SCALE, UNITS } from "./kaboom_globals.js"
-import { PLAYER } from "./player.js";
+import { PLAYER, PLAYER_NAME } from "./player.js";
 import { ITEM_IDS } from "./items/ItemInfo.js"
 import { CROPS } from "./crops.js";
+import { Speech, TextBox } from "./TextBox.js"
 
 
 /********************* Sprites *********************/
@@ -38,10 +39,13 @@ class States {
     update_state(){
         // pass
     }
-    curr_text() {
-        return ["...",
-                "They have nothing to say..."
-            ]
+    getDialogue() {
+        return new TextBox([
+            new Speech("...", [
+                "...",
+                "They have nothing to say...",
+            ])
+        ])
     }
 }
 
@@ -65,23 +69,42 @@ class States_Farmer extends States {
             }
         }
     }
-    curr_text() {
+    getDialogue() {
         if (this.num_meetings == 1) {
-            return [
-                "Hello traveler! Nice to have a visitor here.",
-                "You're passing through my carrot farm! Pretty impressive, right?",
-                "We're getting ready for dinner, if you're hungry you're welcome to join.",
-                "I'm out here to get some vegetables, I'll need 5 carrots to take you back."
-            ]
+            return new TextBox([
+                new Speech("Farmer", [
+                    "Hello traveler! Nice to have a visitor here.",
+                    "You're passing through my carrot farm! Pretty impressive, right?",
+                ]),
+                new Speech(PLAYER_NAME, [
+                    "Yes! I love it",
+                ]),
+                new Speech("Farmer", [
+                    "Aw thank you!",
+                    "We're getting ready for dinner, if you're hungry you're welcome to join.",
+                    "I'm out here to get some vegetables,",
+                    "I'll need 5 carrots to take you back.",
+                ]),
+                new Speech(PLAYER_NAME, [
+                    "Got it! I'll grab some for you!",
+                ]),
+            ])
         } else if (!this.has_enough_carrots) {
-            return [
+            return new TextBox([
+                new Speech("Farmer", [
                 "Please, I need at least 5 carrots for dinner tonight."
-            ]
+                ])
+            ])
         } else {
-            return [
-                "Thanks!",
-                "I'm going to do some weeding and will meet you at the house."
-            ]
+            return new TextBox([
+                new Speech(PLAYER_NAME, [
+                    "I have 5 carrots!",
+                ]),
+                new Speech("Farmer", [
+                    "Thanks!",
+                    "I'm going to do some weeding and will meet you at the house."
+                ])
+            ])
         }
     }
 }
@@ -113,7 +136,9 @@ class NPC {
 
     converse() {
         this.state.update()
-        debug.log(this.state.curr_text()[0])
+        // TODO: temp, store the dialogue box so it persists
+        this.dialogueBox = this.state.getDialogue()
+        this.dialogueBox.startDialogue()
     }
 
     // faceInDir() {
