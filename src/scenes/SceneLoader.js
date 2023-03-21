@@ -1,4 +1,4 @@
-import { ART_SIZE, k, MANUAL_ART_SCALE } from "../kaboom_globals.js"
+import { ART_SIZE, k, MANUAL_ART_SCALE, TOPDOWN_VERT_SCALING } from "../kaboom_globals.js"
 import { PLAYER } from "../player.js"
 import { SceneChange } from "./SceneChange.js"
 
@@ -51,6 +51,8 @@ let load_tiled_levels = function(map_json) {
                         // The size of each grid
                         width: ART_SIZE*MANUAL_ART_SCALE,
                         height: ART_SIZE*MANUAL_ART_SCALE,
+						// TODO: this should be here, so why is it so bad with it??
+                        // height: ART_SIZE*MANUAL_ART_SCALE*TOPDOWN_VERT_SCALING,
                         ...level_symbols
                     })
                 }
