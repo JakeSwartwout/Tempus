@@ -5,12 +5,12 @@
         {
          "data":[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
             14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
-            22, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 21,
+            22, 4, 5, 5, 5, 5, 5, 5, 5, 5, 6, 22,
             22, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 22,
-            22, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 22,
+            21, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 22,
             22, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 22,
             22, 16, 17, 17, 17, 17, 17, 17, 17, 17, 18, 22,
-            22, 28, 22, 22, 22, 22, 22, 22, 22, 28, 21, 28],
+            22, 22, 22, 22, 22, 22, 22, 22, 28, 22, 22, 22],
          "height":8,
          "id":1,
          "name":"Tile Layer 1",
@@ -21,7 +21,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":3,
+ "nextlayerid":2,
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
@@ -31,30 +31,30 @@
         {
          "columns":6,
          "firstgid":1,
-         "image":"..\/www\/sprites\/grounds_atlas.png",
+         "image":"TileArt\/grounds_atlas.png",
          "imageheight":80,
          "imagewidth":96,
          "margin":0,
-         "name":"FarmGrounds",
+         "name":"Grounds",
          "spacing":0,
          "tilecount":30,
          "tileheight":16,
          "tiles":[
                 {
                  "id":20,
-                 "probability":0.0299999993294477
+                 "probability":0.03
                 }, 
                 {
                  "id":21,
-                 "probability":0.910000026226044
+                 "probability":0.91
                 }, 
                 {
                  "id":26,
-                 "probability":0.0299999993294477
+                 "probability":0.03
                 }, 
                 {
                  "id":27,
-                 "probability":0.0299999993294477
+                 "probability":0.03
                 }],
          "tilewidth":16,
          "wangsets":[
@@ -74,11 +74,11 @@
                         }, 
                         {
                          "color":"#0000ff",
-                         "name":"Dirt",
+                         "name":"Farm",
                          "probability":1,
                          "tile":-1
                         }],
-                 "name":"FarmGrounds",
+                 "name":"Grass_Path_Farm_",
                  "tile":-1,
                  "type":"corner",
                  "wangtiles":[

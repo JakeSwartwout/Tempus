@@ -1,9 +1,10 @@
-import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, TOPDOWN_VERT_SCALING, SIDE } from "./scene_globals"
+import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, TOPDOWN_VERT_SCALING, SIDE, SCENE_WIDTH } from "./scene_globals"
 import { crop, CROPS } from "../crops"
-import { all_scenes } from "./all_scenes"
-import { sc_01_Wakeup } from "./sc_01_Wakeup"
 import { FARMER } from "../npc.js"
 import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
+import { all_scenes } from "./all_scenes"
+import { sc_01_Wakeup } from "./sc_01_Wakeup"
+import { sc_03_PetraFarm } from "./sc_03_PetraFarm"
 
 import map_json from '../../TiledMaps/02_CarrotFarm.json' assert { type: "json" }
 
@@ -47,7 +48,19 @@ all_scenes["sc_01_Wakeup"].load.then(() => {
         appearOn: SIDE.RIGHT,
 
         destId: "1->2",
-        dest: sc_01_Wakeup,
+        dest: sc_01_Wakeup
+    })
+})
+
+all_scenes["sc_03_PetraFarm"].load.then(() => {
+    sc_02_CarrotFarm.addSceneChange({
+        thisId: "2->3",
+        tileX: SCENE_WIDTH + .5,
+        tileY: 1,
+        appearOn: SIDE.LEFT,
+
+        destId: "3->2",
+        dest: sc_03_PetraFarm,
         unlockBy: FARMER.on_complete(Q_GATHER_5_CARROTS)
     })
 })
