@@ -165,6 +165,7 @@ class Inventory {
     }
 
     remove(item_counts) {
+        console.log(item_counts)
         /* counts should be structured the same as for contains(reqs)
             {
                 id1 : {
@@ -174,7 +175,7 @@ class Inventory {
                 },
                 id2 : count_any
             }
-            use ALL_ITEMS to get rid of everything
+            use ALL_ITEMS as the count to get rid of everything
             otherwise, it gets rid of as many as it can up to the count
         */
         // this hack is apparently the js standard for deepcloning objects
@@ -193,7 +194,9 @@ class Inventory {
                 if (typeof(counts[item.id]) == "number"){
                     // update the counts
                     let num_taken = 0
-                    if(item.count > counts[item.id]) {
+                    if(counts[item.id] == ALL_ITEMS) {
+                        num_taken = item.count
+                    } else if(item.count > counts[item.id]) {
                         num_taken = counts[item.id]
                     } else {
                         num_taken = item.count
@@ -212,7 +215,9 @@ class Inventory {
                         continue
                     // update the counts
                     let num_taken = 0
-                    if(item.count > counts[item.id][state]) {
+                    if(counts[item.id][state] == ALL_ITEMS) {
+                        num_taken = item.count
+                    } else if(item.count > counts[item.id][state]) {
                         num_taken = counts[item.id][state]
                     } else {
                         num_taken = item.count

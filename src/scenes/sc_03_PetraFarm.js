@@ -7,6 +7,7 @@ import { sc_02_CarrotFarm } from "./sc_02_CarrotFarm.js"
 
 import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 import { UNITS } from "../kaboom_globals"
+import { FARMERS_WIFE } from "../npc"
 
 export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
     k.addLevel([
@@ -29,8 +30,8 @@ export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
             origin("center"),
             crop(CROPS.PETRA),
         ],
-        // "F": (position) => FARMERS_WIFE.build(position)
     })
+    FARMERS_WIFE.build(k.vec2(5, 1.5))
 })
 
 all_scenes["sc_02_CarrotFarm"].load.then(() => {

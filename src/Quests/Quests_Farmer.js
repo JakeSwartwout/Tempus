@@ -15,7 +15,6 @@ class Quests_Farmer extends QuestStates {
     constructor() {
         super([Q_GATHER_5_CARROTS])
         this.num_meetings = 0;
-        this.carrots_left = 5;
         this.has_enough_carrots = false
     }
     update() {
@@ -51,7 +50,7 @@ class Quests_Farmer extends QuestStates {
         } else if (!this.has_enough_carrots) {
             return new TextBox([
                 new Speech("Farmer", [
-                "Please, I need at least 5 carrots for dinner tonight."
+                    "Please, I need at least 5 carrots for dinner tonight."
                 ])
             ])
         } else {

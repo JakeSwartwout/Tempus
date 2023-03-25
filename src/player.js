@@ -34,6 +34,9 @@ class Player {
         this.isDead = false
         this.inventory = new Inventory("basket_inventory", 5,3, 18,5)
         this.comp = null
+        this.awaitSpawn = new Promise((resolve) => {
+            this.spawn_complete = resolve
+        })
     }
 
     kill() {
@@ -152,6 +155,16 @@ class Player {
             }
             // else
             //     this.kill()
+        })
+
+        this.spawn_complete()
+        
+        // when the scene gets unloaded
+        this.comp.onDestroy(() => {
+            this.comp = null
+            this.awaitSpawn = new Promise((resolve) => {
+                this.spawn_complete = resolve
+            })
         })
 
         return this.comp

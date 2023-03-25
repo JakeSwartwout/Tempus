@@ -17,7 +17,7 @@ const CLAIM_QUEST_ID = function() {
     constructor(questIdList) {
         this.promise_funcs = {}
         this.promises = {}
-        for (let id in questIdList) {
+        for (let id of questIdList) {
             this.promises[id] = new Promise((resolve, reject) => {
                 this.promise_funcs[id] = [resolve, reject]
             })
