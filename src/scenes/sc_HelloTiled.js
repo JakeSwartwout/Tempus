@@ -1,4 +1,4 @@
-import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, TOPDOWN_VERT_SCALING, TILE_WIDTH } from "./scene_globals"
+import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE } from "./scene_globals"
 import { player } from "../player"
 import { crop, CROPS } from "../crops"
 
@@ -18,7 +18,7 @@ export let sc_HelloTiled = new SceneLoader("HelloTiled", map_json, () => {
     ], {
         // The size of each grid
         width: ART_SIZE*MANUAL_ART_SCALE,
-        height: ART_SIZE*MANUAL_ART_SCALE*TOPDOWN_VERT_SCALING,
+        height: ART_SIZE*MANUAL_ART_SCALE,
         // The position of the top left block
         pos: vec2(ART_SIZE/2*MANUAL_ART_SCALE),
         // Define what each symbol means (in components)
@@ -35,7 +35,7 @@ export let sc_HelloTiled = new SceneLoader("HelloTiled", map_json, () => {
         "p": () => [
             sprite("crop", {anim: "petra_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.PETRA),
@@ -43,7 +43,7 @@ export let sc_HelloTiled = new SceneLoader("HelloTiled", map_json, () => {
         "s": () => [
             sprite("crop", {anim: "sluck_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.SLUCK),
@@ -51,7 +51,7 @@ export let sc_HelloTiled = new SceneLoader("HelloTiled", map_json, () => {
         "c": () => [
             sprite("crop", {anim: "carrot_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.CARROT),
@@ -59,7 +59,7 @@ export let sc_HelloTiled = new SceneLoader("HelloTiled", map_json, () => {
         "t": () => [
             sprite("crop", {anim: "tomato_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.TOMATO),
@@ -73,7 +73,7 @@ export let sc_HelloTiled = new SceneLoader("HelloTiled", map_json, () => {
         "X": () => [
             sprite("enemy", {anim: "idle"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             enemy(),

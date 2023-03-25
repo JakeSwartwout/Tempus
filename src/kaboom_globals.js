@@ -14,6 +14,9 @@ const MANUAL_ART_SCALE = SCALE_ART_MANUALLY ? ART_SCALING : 1
 
 const UNITS = MANUAL_ART_SCALE * ART_SIZE
 
+// this only applies to motion
+// we want the art to stay the same
+// so, it takes longer to walk vertical than horizontal
 const TOPDOWN_VERT_SCALING = .75
 
 

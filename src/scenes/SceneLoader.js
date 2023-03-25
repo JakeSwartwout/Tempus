@@ -1,4 +1,4 @@
-import { ART_SIZE, k, MANUAL_ART_SCALE, TOPDOWN_VERT_SCALING } from "../kaboom_globals.js"
+import { ART_SIZE, k, MANUAL_ART_SCALE } from "../kaboom_globals.js"
 import { PLAYER } from "../player.js"
 import { SceneChange } from "./SceneChange.js"
 
@@ -23,6 +23,8 @@ import { SceneChange } from "./SceneChange.js"
  * I also suggest modifying the terrain name (like add an underscore)
  * to tell it apart from the non-embedded one.
  */
+
+// Generally the easiest approach is to copy an existing map json and change it as needed
 
 // load in the tiled levels from a given map json and return a function
 // that builds them in kaboom
@@ -51,8 +53,6 @@ let load_tiled_levels = function(map_json) {
                         // The size of each grid
                         width: ART_SIZE*MANUAL_ART_SCALE,
                         height: ART_SIZE*MANUAL_ART_SCALE,
-						// TODO: this should be here, so why is it so bad with it??
-                        // height: ART_SIZE*MANUAL_ART_SCALE*TOPDOWN_VERT_SCALING,
                         ...level_symbols
                     })
                 }

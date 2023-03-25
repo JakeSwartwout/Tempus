@@ -1,7 +1,7 @@
 import { player } from "../player.js"
 import { enemy } from "../enemy.js"
 import { k, ART_SIZE } from "./scene_globals.js"
-import { MANUAL_ART_SCALE, TOPDOWN_VERT_SCALING } from "../kaboom_globals.js"
+import { MANUAL_ART_SCALE } from "../kaboom_globals.js"
 
 k.scene("HelloWorld", () => {
 
@@ -70,7 +70,7 @@ k.scene("HelloWorld", () => {
         "X": () => [
             sprite("enemy", {anim: "idle" }),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             enemy(),

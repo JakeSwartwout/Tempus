@@ -1,4 +1,4 @@
-import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, TOPDOWN_VERT_SCALING, SIDE, SCENE_WIDTH } from "./scene_globals"
+import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, SIDE, SCENE_WIDTH } from "./scene_globals"
 import { crop, CROPS } from "../crops"
 import { FARMER } from "../npc.js"
 import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
@@ -13,31 +13,30 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
         // Design the level layout with symbols
         "     C      ",
         "            ",
-        "     F      ",
+        "            ",
         "            ",
         "            ",
         "          C ",
         " CCCCCCCCCC ",
         " CCCCCCCCCC ",
         "  CCCCCCCC  ",
-        "            ",
     ], {
         // The size of each grid
         width: ART_SIZE*MANUAL_ART_SCALE,
-        height: ART_SIZE*MANUAL_ART_SCALE*TOPDOWN_VERT_SCALING,
+        height: ART_SIZE*MANUAL_ART_SCALE*.75, // look better squished
         // The position of the top left block
         pos: k.vec2(ART_SIZE/2*MANUAL_ART_SCALE),
         // Define what each symbol means (in components)
         "C": () => [
             sprite("crop", {anim: "carrot_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.CARROT),
         ],
-        "F": (position) => FARMER.build(position)
     })
+    FARMER.build(k.vec2(5, 1.5))
 })
 
 all_scenes["sc_01_Wakeup"].load.then(() => {

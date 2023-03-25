@@ -1,4 +1,4 @@
-import { k, TILE_WIDTH, TOPDOWN_VERT_SCALING, MANUAL_ART_SCALE, UNITS } from "./kaboom_globals.js"
+import { k, TILE_WIDTH, MANUAL_ART_SCALE, UNITS } from "./kaboom_globals.js"
 import { PLAYER } from "./player.js";
 import { Quests_Farmer } from "./Quests/Quests_Farmer.js";
 
@@ -74,7 +74,6 @@ class NPC {
         let spawnPoint = k
             .vec2(grid_loc)                 // original pos
             .scale(UNITS)                   // scale to right size
-            .scale(1, TOPDOWN_VERT_SCALING) // angle for 3/4 view
             .add(k.vec2(UNITS/2))           // offset to center on tiles
 
         this.comp = k.add([
@@ -90,7 +89,7 @@ class NPC {
 
         // player tries to talk to them
         k.onKeyPress("e", () => {
-            if (this.comp.pos.dist(PLAYER.comp.pos) <= 1.5*UNITS) {
+            if (this.comp.pos.dist(PLAYER.comp.pos) <= 1*UNITS) {
                 this.converse()
             }
         })

@@ -1,6 +1,6 @@
 import { player } from "../player.js"
 import { k, ART_SIZE } from "./scene_globals.js"
-import { MANUAL_ART_SCALE, TOPDOWN_VERT_SCALING } from "../kaboom_globals.js"
+import { MANUAL_ART_SCALE } from "../kaboom_globals.js"
 import { crop, CROPS } from "../crops.js"
 
 
@@ -69,7 +69,7 @@ k.scene("Farm", () => {
         "p": () => [
             sprite("crop", {anim: "petra_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.PETRA),
@@ -77,7 +77,7 @@ k.scene("Farm", () => {
         "s": () => [
             sprite("crop", {anim: "sluck_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.SLUCK),
@@ -85,7 +85,7 @@ k.scene("Farm", () => {
         "c": () => [
             sprite("crop", {anim: "carrot_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.CARROT),
@@ -93,7 +93,7 @@ k.scene("Farm", () => {
         "t": () => [
             sprite("crop", {anim: "tomato_raw"}),
             scale(MANUAL_ART_SCALE),
-            area({shape: "circle", width: 11, height: 11 * TOPDOWN_VERT_SCALING, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
             // solid(),
             origin("center"),
             crop(CROPS.TOMATO),
