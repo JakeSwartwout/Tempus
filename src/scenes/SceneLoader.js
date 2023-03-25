@@ -132,14 +132,15 @@ class SceneLoader {
 		})
 	}
 
-	addSceneChange({tileX, tileY, appearOn, dest, thisId, destId}) {
+	addSceneChange({tileX, tileY, appearOn, dest, thisId, destId, unlockBy = null}) {
 		if (thisId in this.sceneChangers) {
 			debug.log("Duplicate scene ID!! " + thisId)
 			return
 		}
 		this.sceneChangers[thisId] = new SceneChange(
 			tileX, tileY, appearOn,
-			dest, thisId, destId
+			dest, thisId, destId,
+			unlockBy
 		)
 	}
 

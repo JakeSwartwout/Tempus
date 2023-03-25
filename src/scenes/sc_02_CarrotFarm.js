@@ -3,6 +3,7 @@ import { crop, CROPS } from "../crops"
 import { all_scenes } from "./all_scenes"
 import { sc_01_Wakeup } from "./sc_01_Wakeup"
 import { FARMER } from "../npc.js"
+import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
 
 import map_json from '../../TiledMaps/02_CarrotFarm.json' assert { type: "json" }
 
@@ -40,12 +41,14 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
 
 all_scenes["sc_01_Wakeup"].load.then(() => {
     sc_02_CarrotFarm.addSceneChange({
+        thisId: "2->1",
         tileX: -.5,
         tileY: 2,
         appearOn: SIDE.RIGHT,
-        dest: sc_01_Wakeup,
-        thisId: "2->1",
+
         destId: "1->2",
+        dest: sc_01_Wakeup,
+        unlockBy: FARMER.on_complete(Q_GATHER_5_CARROTS)
     })
 })
 

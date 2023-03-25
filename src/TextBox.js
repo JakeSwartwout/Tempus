@@ -25,7 +25,6 @@ class TextBox {
     }
 
     incrementLine() {
-        console.log("incrementing line")
         let speech = this.dialogue[this.speech_num]
         // more lines in the speech
         if (speech.curr_line < speech.lines.length - 1) {

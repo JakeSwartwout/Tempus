@@ -1,4 +1,4 @@
-import { PLAYER, PLAYER_NAME, TextBox, Speech, ITEM_IDS, QuestStates } from "./QuestStates.js"
+import { PLAYER, PLAYER_NAME, TextBox, Speech, ITEM_IDS, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
 import { CROPS } from "../crops.js"
 
 /********************* Local Variables *********************/
@@ -6,15 +6,17 @@ import { CROPS } from "../crops.js"
 let five_carrots = {
     [ITEM_IDS.crops[CROPS.CARROT]] : 5
 }
+const Q_GATHER_5_CARROTS = CLAIM_QUEST_ID()
 
 
 /********************* Farmer Class *********************/
 
-export class Quests_Farmer extends QuestStates {
+class Quests_Farmer extends QuestStates {
     constructor() {
-        super()
+        super([Q_GATHER_5_CARROTS])
         this.num_meetings = 0;
         this.carrots_left = 5;
+        this.has_enough_carrots = false
     }
     update() {
         this.num_meetings += 1
@@ -53,6 +55,7 @@ export class Quests_Farmer extends QuestStates {
                 ])
             ])
         } else {
+            this.finish(Q_GATHER_5_CARROTS)
             return new TextBox([
                 new Speech(PLAYER_NAME, [
                     "I have 5 carrots!",
@@ -64,4 +67,12 @@ export class Quests_Farmer extends QuestStates {
             ])
         }
     }
+}
+
+
+/********************* Exports *********************/
+
+export {
+    Quests_Farmer,
+    Q_GATHER_5_CARROTS
 }

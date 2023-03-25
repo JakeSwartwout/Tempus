@@ -42,7 +42,7 @@ class NPC {
         this.anim_info = anim_info
         this.comp = null
 
-        this.state = state_machine
+        this.state_machine = state_machine
         // this.lastDir = k.vec2(0,1)
     }
 
@@ -51,10 +51,14 @@ class NPC {
     }
 
     converse() {
-        this.state.update()
+        this.state_machine.update()
         // TODO: temp, store the dialogue box so it persists
-        this.dialogueBox = this.state.getDialogue()
+        this.dialogueBox = this.state_machine.getDialogue()
         this.dialogueBox.startDialogue()
+    }
+
+    on_complete(questId) {
+        return this.state_machine.promises[questId]
     }
 
     // faceInDir() {

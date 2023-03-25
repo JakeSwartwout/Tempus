@@ -10,12 +10,13 @@ export let sc_01_Wakeup = new SceneLoader("01_Wakeup", map_json, () => {
 
 all_scenes["sc_02_CarrotFarm"].load.then(() => {
     sc_01_Wakeup.addSceneChange({
+        thisId: "1->2",
         tileX: SCENE_WIDTH + .5,
         tileY: 2,
         appearOn: SIDE.LEFT,
-        dest: sc_02_CarrotFarm,
-        thisId: "1->2",
+
         destId: "2->1",
+        dest: sc_02_CarrotFarm,
     })
 })
 
