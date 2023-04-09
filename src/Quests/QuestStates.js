@@ -23,10 +23,17 @@ const CLAIM_QUEST_ID = function() {
             })
         }
     }
+    setChapter(chapter){
+        // update the states based on the chapter
+        // used when building the component in non-story order
+    }
     update_state(){
-        // pass
+        // call this before talking to someone to update their dialogue
+        // changes the internal state
     }
     getDialogue() {
+        // call this to get the text conversation that will happen for that quest
+        // this does not change the internal state
         return new TextBox([
             new Speech("...", [
                 "...",

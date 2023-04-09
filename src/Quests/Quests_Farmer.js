@@ -1,6 +1,6 @@
 import { PLAYER, PLAYER_NAME, TextBox, Speech, ITEM_IDS, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
 import { CROPS } from "../crops.js"
-import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters.js"
+import { Chapter, SET_CHAPTER } from "../chapters.js"
 
 /********************* Local Variables *********************/
 
@@ -23,10 +23,14 @@ const farmer_convo = {
 class Quests_Farmer extends QuestStates {
     constructor() {
         super([Q_GATHER_5_CARROTS])
-        if (GET_CHAPTER() == Chapter.CARROT_GATHERING) {
+        this.convo_stage = farmer_convo.NOT_MET
+    }
+    setChapter(chapter) {
+        if (chapter == Chapter.CARROT_GATHERING) {
             this.convo_stage = farmer_convo.NOT_MET
         } else {
             this.convo_stage = farmer_convo.NEXT_STEPS
+            this.finish(Q_GATHER_5_CARROTS)
         }
     }
     update() {
@@ -99,6 +103,7 @@ class Quests_Farmer extends QuestStates {
                     ])
                 ])
             default:
+                console.log("Default state in Quest_Farmer convo!")
                 return;
         }
     }

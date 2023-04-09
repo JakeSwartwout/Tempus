@@ -1,3 +1,4 @@
+import { GET_CHAPTER } from "./chapters.js";
 import { k, TILE_WIDTH, MANUAL_ART_SCALE, UNITS } from "./kaboom_globals.js"
 import { PLAYER } from "./player.js";
 import { Quests_Farmer } from "./Quests/Quests_Farmer.js";
@@ -71,6 +72,8 @@ class NPC {
 /********************* Component *********************/
     build(grid_loc) {
         if(!this.missing()) return
+
+        this.state_machine.setChapter(GET_CHAPTER())
 
         let spawnPoint = k
             .vec2(grid_loc)                 // original pos

@@ -29,6 +29,9 @@ const farmer_convo = {
 class Quests_FarmersWife extends QuestStates {
     constructor() {
         super([Q_GATHER_7_PETRAS])
+        this.convo_stage = farmer_convo.NOT_MET
+    }
+    setChapter(chapter) {
         switch(GET_CHAPTER()) {
             case Chapter.CARROT_GATHERING:
                 SET_CHAPTER(Chapter.PETRA_GATHERING)
@@ -37,6 +40,7 @@ class Quests_FarmersWife extends QuestStates {
                 break;
             default:
                 this.convo_stage = farmer_convo.NEXT_STEPS
+                this.finish(Q_GATHER_7_PETRAS)
                 break;
         }
     }

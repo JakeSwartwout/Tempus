@@ -18,12 +18,16 @@ const convo = {
 class Quests_TsokaScaring extends QuestStates {
     constructor() {
         super([Q_SCARE_AWAY_TSOKAS])
+        this.convo = convo.CREATURES_LEFT
+    }
+    setChapter(chapter) {
         switch(GET_CHAPTER()) {
             case Chapter.TSOKA_ATTACK:
                 this.convo = convo.CREATURES_LEFT
                 break;
             case Chapter.TSOKA_INVESTIGATION:
                 this.convo = convo.NEXT_STEPS
+                this.finish(Q_SCARE_AWAY_TSOKAS)
                 break;
             default:
                 SET_CHAPTER(Chapter.TSOKA_ATTACK)

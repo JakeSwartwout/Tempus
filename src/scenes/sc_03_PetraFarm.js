@@ -10,6 +10,7 @@ import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 
 import { NPC } from "../npc"
 import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
+import { enemy } from "../enemy"
 let FARMERS_WIFE_COPY = new NPC("farmer", {anim: "idle", flipX: true}, new Quests_TsokaScaring())
 
 export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
