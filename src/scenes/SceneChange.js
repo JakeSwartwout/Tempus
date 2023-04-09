@@ -12,25 +12,25 @@ const SIDE = {
 
 // Scene changes are placed within scenes to allow the player to travel between scenes
 class SceneChange {
-    constructor(tileX, tileY, appearOn, dest_scene, thisId, destId, unlockBy = null) {
+    constructor(tile_x, tile_y, appear_on, dest_scene, this_id, dest_id, unlock_by = null) {
 		// Where to draw on the screen
-        this.x = tileX * ART_SIZE * MANUAL_ART_SCALE
-        this.y = tileY * ART_SIZE * MANUAL_ART_SCALE
+        this.x = tile_x * ART_SIZE * MANUAL_ART_SCALE
+        this.y = tile_y * ART_SIZE * MANUAL_ART_SCALE
         // When the player is spawned, where to spawn them
-        let [appearX, appearY] = appearOn
-        this.spawnX = this.x + (appearX * ART_SIZE * MANUAL_ART_SCALE)
-        this.spawnY = this.y + (appearY * ART_SIZE * MANUAL_ART_SCALE)
+        let [appear_x, appear_y] = appear_on
+        this.spawnX = this.x + (appear_x * ART_SIZE * MANUAL_ART_SCALE)
+        this.spawnY = this.y + (appear_y * ART_SIZE * MANUAL_ART_SCALE)
         // references for scene transition
-        this.thisId = thisId
+        this.this_id = this_id
         this.dest_scene = dest_scene
-        this.destId = destId
+        this.dest_id = dest_id
         // add locking information
-        if(unlockBy && unlockBy instanceof Promise) {
+        if(unlock_by && unlock_by instanceof Promise) {
             // TODO: pass locking information in as an object/struct
             // that way we can just have one variable to know if there's locking behavior
             // It will contain starting status, then promises to lock and to unlock
             this.locked = true
-            unlockBy.then(() => {
+            unlock_by.then(() => {
                 this.locked = false
             })
         }
@@ -45,24 +45,24 @@ class SceneChange {
             k.pos(this.x, this.y),
         ]
 
-        const loadArea = k.add(basicProps.concat([
+        const load_area = k.add(basicProps.concat([
             "SceneChangeLoadArea",
             k.area({width: TILE_WIDTH(2), height: TILE_WIDTH(2)}),
         ]))
-        loadArea.onCollide("player", (player) => {
+        load_area.onCollide("player", (player) => {
             if (!this.locked) {
                 this.dest_scene.load()
             }
         })
 
-        const travelArea = k.add(basicProps.concat([
+        const travel_area = k.add(basicProps.concat([
             "SceneChangeTravelArea",
             k.area({shape: "circle", width: TILE_WIDTH(1), height: TILE_WIDTH(1)}),
             k.solid(),
         ]))
-        travelArea.onCollide("player", (player) => {
+        travel_area.onCollide("player", (player) => {
             if (!this.locked) {
-                this.dest_scene.go_ch(this.destId)
+                this.dest_scene.go_ch(this.dest_id)
             }
         })
     }

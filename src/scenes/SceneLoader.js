@@ -28,7 +28,7 @@ import { SceneChange } from "./SceneChange.js"
 
 // load in the tiled levels from a given map json and return a function
 // that builds them in kaboom
-let load_tiled_levels = function(map_json) {
+let loadTiledLevels = function(map_json) {
     // loading the map is asynch, so need a promise
     return new Promise((resolve) => {
         // load in the given map using tiled-kaboom module
@@ -46,7 +46,7 @@ let load_tiled_levels = function(map_json) {
                 }
             }
             // what we need to do when adding a new kaboom scene
-            let add_tiled_levels = function() {
+            let addTiledLevels = function() {
                 // layer the levels on top of each other
                 for (let design of levels) {
                     let level = k.addLevel(design, {
@@ -58,7 +58,7 @@ let load_tiled_levels = function(map_json) {
                 }
             }
             // let it know that we're done
-            resolve(add_tiled_levels)
+            resolve(addTiledLevels)
         }
         // if there's error, just let it chain upwards
         )
@@ -72,12 +72,12 @@ let load_tiled_levels = function(map_json) {
 // Ensure each scene is added to all_scenes to allow for SceneChange objects
 // to link to it
 class SceneLoader {
-	constructor(scene_name, map_json, build_scene_func = () => {}){
+	constructor(scene_name, map_json, buildSceneFunc = () => {}){
 		this.name = scene_name
 		this.map_json = map_json
 		this.load_scene = null
-		this.buildScene = build_scene_func
-		this.sceneChangers = []
+		this.buildScene = buildSceneFunc
+		this.scene_changers = []
 	}
 
 	isLoaded() {
@@ -90,11 +90,11 @@ class SceneLoader {
 			return
 		this.load_scene = new Promise((resolve, reject) => {
 			// load the background levels
-			load_tiled_levels(this.map_json).then((build_tiled_levels) => {
+			loadTiledLevels(this.map_json).then((buildTiledLevels) => {
 				// build the scene
 				k.scene(this.name, ({spawnPoint}) => {
 					// 1: do the tiled levels in the back
-					build_tiled_levels()
+					buildTiledLevels()
 		
 					// 2: add all the other info to the scene
 					this.buildScene()
@@ -115,8 +115,8 @@ class SceneLoader {
 
 	// version of go where we can just pass the scene changer ID
 	go_ch(changerId) {
-		const spawnX = this.sceneChangers[changerId].spawnX
-		const spawnY = this.sceneChangers[changerId].spawnY
+		const spawnX = this.scene_changers[changerId].spawnX
+		const spawnY = this.scene_changers[changerId].spawnY
 		this.go(k.vec2(spawnX, spawnY))
 	}
 
@@ -133,11 +133,11 @@ class SceneLoader {
 	}
 
 	addSceneChange({tileX, tileY, appearOn, dest, thisId, destId, unlockBy = null}) {
-		if (thisId in this.sceneChangers) {
+		if (thisId in this.scene_changers) {
 			debug.log("Duplicate scene ID!! " + thisId)
 			return
 		}
-		this.sceneChangers[thisId] = new SceneChange(
+		this.scene_changers[thisId] = new SceneChange(
 			tileX, tileY, appearOn,
 			dest, thisId, destId,
 			unlockBy
@@ -145,8 +145,8 @@ class SceneLoader {
 	}
 
 	buildChangers() {
-		for (let changerId in this.sceneChangers) {
-			this.sceneChangers[changerId].build()
+		for (let changerId in this.scene_changers) {
+			this.scene_changers[changerId].build()
 		}
 	}
 }

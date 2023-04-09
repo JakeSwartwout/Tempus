@@ -78,7 +78,7 @@ function crop(cropVariety) {
         id: "crop",
 
         add() {
-            PLAYER.awaitSpawn.then(() => {
+            PLAYER.await_spawn.then(() => {
                 k.onKeyPress("e", () => {
                     if (!picked && this.isColliding(PLAYER.comp)) {
                         PLAYER.give(this.harvest())

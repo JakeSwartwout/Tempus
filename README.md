@@ -25,7 +25,9 @@ Run `npm run dev` in the root directory, then open a browser onto the localhost 
 ## Naming Conventions
 * Variable names are snake_case
 * Function names are camelCase
+* Promises are camelCase
 * Globals are ALLCAPS
+* Classes are PascalCase
 
 ## Controls
 

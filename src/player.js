@@ -30,20 +30,20 @@ const PLAYER_NAME = "Chay"
 
 class Player {
     constructor() {
-        this.lastDir = k.vec2(0,1)
-        this.isDead = false
+        this.last_dir = k.vec2(0,1)
+        this.is_dead = false
         this.inventory = new Inventory("basket_inventory", 5,3, 18,5)
         this.comp = null
-        this.awaitSpawn = new Promise((resolve) => {
-            this.spawn_complete = resolve
+        this.await_spawn = new Promise((resolve) => {
+            this.spawnComplete = resolve
         })
     }
 
     kill() {
-        this.isDead = true
+        this.is_dead = true
         if (this.missing()) return
         this.comp.quad = k.quad(0,0,1,1)
-        this.comp.flipX(this.lastDir.x < 0)
+        this.comp.flipX(this.last_dir.x < 0)
         this.comp.play("death")
     }
 
@@ -58,7 +58,7 @@ class Player {
     faceInDir() {
         if (this.missing()) return
         // quad works in terms of which slices
-        this.comp.quad = k.quad(this.lastDir.x+1, this.lastDir.y+1, 1, 1)
+        this.comp.quad = k.quad(this.last_dir.x+1, this.last_dir.y+1, 1, 1)
     }
 
     missing() {
@@ -69,7 +69,7 @@ class Player {
     build(spawnPoint) {
         this.comp = k.add([
             "player",
-            sprite("player", {anim: "facing", quad: k.quad(this.lastDir.x+1, this.lastDir.y+1, 1, 1)}),
+            sprite("player", {anim: "facing", quad: k.quad(this.last_dir.x+1, this.last_dir.y+1, 1, 1)}),
             scale(MANUAL_ART_SCALE),
             area({width: 8, height: 10, offset: k.vec2(0, 4*MANUAL_ART_SCALE)}), // collision checking
             solid(), // collision stopping
@@ -80,20 +80,20 @@ class Player {
         ])
         // link up other listener events
         k.onKeyDown(["left", "right", "up", "down"], () => {
-            if (this.isDead)
+            if (this.is_dead)
                 return
             if (this.inventory && this.inventory.showing)
                 return
             
             // Left
             if(k.isKeyDown("left") && !k.isKeyDown("right")) {
-                this.lastDir.x = -1
+                this.last_dir.x = -1
             // Neither
             } else if (!k.isKeyDown("left") && !k.isKeyDown("right")) {
-                this.lastDir.x = 0
+                this.last_dir.x = 0
             // Right
             } else if (!k.isKeyDown("left") && k.isKeyDown("right")) {
-                this.lastDir.x = 1
+                this.last_dir.x = 1
             // Both
             } else {
                 // don't update
@@ -101,13 +101,13 @@ class Player {
 
             // Up
             if(k.isKeyDown("up") && !k.isKeyDown("down")) {
-                this.lastDir.y = -1
+                this.last_dir.y = -1
             // Neither
             } else if (!k.isKeyDown("up") && !k.isKeyDown("down")) {
-                this.lastDir.y = 0
+                this.last_dir.y = 0
             // Down
             } else if (!k.isKeyDown("up") && k.isKeyDown("down")) {
-                this.lastDir.y = 1
+                this.last_dir.y = 1
             // Both
             } else {
                 // don't update
@@ -116,7 +116,7 @@ class Player {
             this.faceInDir()
 
             // get the directions
-            let motion = k.vec2(this.lastDir)
+            let motion = k.vec2(this.last_dir)
             if (motion.len() == 0)
                 return;
             // always move at SPEED total speed
@@ -146,24 +146,24 @@ class Player {
 
         k.onClick(() => {
             addKaboom(mousePos())
-            if(this.isDead){
-                this.isDead = false
+            if(this.is_dead){
+                this.is_dead = false
                 if (this.missing()) return
                 this.comp.play("facing")
-                this.faceInDir(this.lastDir)
+                this.faceInDir(this.last_dir)
                 this.comp.flipX(false)
             }
             // else
             //     this.kill()
         })
 
-        this.spawn_complete()
+        this.spawnComplete()
         
         // when the scene gets unloaded
         this.comp.onDestroy(() => {
             this.comp = null
-            this.awaitSpawn = new Promise((resolve) => {
-                this.spawn_complete = resolve
+            this.await_spawn = new Promise((resolve) => {
+                this.spawnComplete = resolve
             })
         })
 

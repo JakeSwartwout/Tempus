@@ -34,12 +34,12 @@ function enemy() {
     const ENEMY_SPEED = 20 * MANUAL_ART_SCALE;
 
     // which way was it facing last
-    let lastDir = k.vec2(0, 0)
+    let last_dir = k.vec2(0, 0)
 
     const WALK_WAIT_inFRAMES = 250
-    let walkWaitFramesPassed = Math.random() * WALK_WAIT_inFRAMES
+    let walk_wait_frames_passed = Math.random() * WALK_WAIT_inFRAMES
     const WALK_TIME_inFRAMES = 50
-    let walkTimeFramesPassed = 0
+    let walk_time_frames_passed = 0
 
     return {
 /********************* Setup *********************/
@@ -53,11 +53,11 @@ function enemy() {
 
         update() {
             // waiting
-            if (walkWaitFramesPassed < WALK_WAIT_inFRAMES) {
-                walkWaitFramesPassed++
-                if (walkWaitFramesPassed >= WALK_WAIT_inFRAMES) {
+            if (walk_wait_frames_passed < WALK_WAIT_inFRAMES) {
+                walk_wait_frames_passed++
+                if (walk_wait_frames_passed >= WALK_WAIT_inFRAMES) {
                     // start the walking animation
-                    walkTimeFramesPassed = 0
+                    walk_time_frames_passed = 0
                     // choose a direction
                     let dir = k.randi(8)
                     switch(dir) {
@@ -65,44 +65,44 @@ function enemy() {
                         case 0:
                         case 1:
                         case 2:
-                            lastDir = k.vec2(dir - 1, -1)
+                            last_dir = k.vec2(dir - 1, -1)
                             break;
                         // down
                         case 3:
                         case 4:
                         case 5:
-                            lastDir = k.vec2(dir - 4, 1)
+                            last_dir = k.vec2(dir - 4, 1)
                             break;
                         // left
                         case 6:
-                            lastDir = k.vec2(-1, 0)
+                            last_dir = k.vec2(-1, 0)
                             break;
                         // right
                         case 7:
-                            lastDir = k.vec2(1, 0)
+                            last_dir = k.vec2(1, 0)
                             break;
                         // impossible, just stay still
                         default:
-                            lastDir = k.vec2(0, 0)
+                            last_dir = k.vec2(0, 0)
                     }
                     // use the sprite for the direction we're facing
                     this.play("facing")
-                    this.quad = k.quad(lastDir.x+1, lastDir.y+1, 1, 1)
+                    this.quad = k.quad(last_dir.x+1, last_dir.y+1, 1, 1)
                     this.flipX(false);
                 } // if (start walking)
             } // if (waiting)
             // walking
-            else if (walkTimeFramesPassed < WALK_TIME_inFRAMES) {
-                walkTimeFramesPassed++
-                if (walkTimeFramesPassed >= WALK_TIME_inFRAMES) {
+            else if (walk_time_frames_passed < WALK_TIME_inFRAMES) {
+                walk_time_frames_passed++
+                if (walk_time_frames_passed >= WALK_TIME_inFRAMES) {
                     // start the waiting animation
-                    walkWaitFramesPassed = 0
+                    walk_wait_frames_passed = 0
                     this.play("idle")
                     this.quad = k.quad(0,0,1,1)
-                    this.flipX(lastDir.x < 0)
+                    this.flipX(last_dir.x < 0)
                 }
                 // get the directions
-                let motion = lastDir
+                let motion = last_dir
                 if (motion.len() == 0)
                     return;
                 // always move at SPEED total speed
@@ -113,8 +113,8 @@ function enemy() {
             } // if (walking)
             // error, reset to get back to a good state
             else {
-                walkTimeFramesPassed = 0
-                walkWaitFramesPassed = 0
+                walk_time_frames_passed = 0
+                walk_wait_frames_passed = 0
             }
         },
 

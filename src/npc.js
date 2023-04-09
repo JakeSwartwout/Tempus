@@ -44,7 +44,7 @@ class NPC {
         this.comp = null
 
         this.state_machine = state_machine
-        // this.lastDir = k.vec2(0,1)
+        // this.last_dir = k.vec2(0,1)
     }
 
     missing() {
@@ -65,7 +65,7 @@ class NPC {
     // faceInDir() {
     //     if (this.missing()) return
     //     // quad works in terms of which slices
-    //     this.comp.quad = k.quad(this.lastDir.x+1, this.lastDir.y+1, 1, 1)
+    //     this.comp.quad = k.quad(this.last_dir.x+1, this.last_dir.y+1, 1, 1)
     // }
 
 /********************* Component *********************/
