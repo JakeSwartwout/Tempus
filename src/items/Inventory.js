@@ -165,7 +165,6 @@ class Inventory {
     }
 
     remove(item_counts) {
-        console.log(item_counts)
         /* counts should be structured the same as for contains(reqs)
             {
                 id1 : {
