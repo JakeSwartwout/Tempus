@@ -14,7 +14,18 @@ Run `npm run dev` in the root directory, then open a browser onto the localhost 
 * crops are being eaten by bouncing guys
 * oh no! go out and scare them away
 * hit them with a hoe, they run away
-* 
+* they head west
+* go after them to investigate
+* ???
+* need to gather some more fruit to lure them
+* Study it
+* Name it
+
+
+## Naming Conventions
+* Variable names are snake_case
+* Function names are camelCase
+* Globals are ALLCAPS
 
 ## Controls
 
@@ -59,9 +70,11 @@ wasd based controls
 * use cookies as a way to save player data? or just have it be story based and have each link be a different part of the story. Could stick it on different files, or in the #, or in the query string ?
 * complex dialogue systems (add branches and use choice? idk if I want this)
 * dialogue should actually show up in bubbles, as a component on the screen
-* a better way to handle events. I'm thinking of a dict that maps key to 2 functions, one what to do when pressed, the other the canceller function if it's active (and maybe a bool if_active). Then we can pass in stuff that pauses the behavior of other keys, like opening the inventory stops motion, or how opening a dialogue bubble with e makes e now progress text rather than opening a new bubble. It has its own dict which stores the old listeners that it covered and cancels them for kaboom. Then when you end an interaction, it cancels its own listeners, and uses its internal dict to re-instate the next layer's listeners
+* a better way to handle key events. I'm thinking of a dict that maps key to 2 functions, one what to do when pressed, the other the canceller function if it's active (and maybe a bool if_active). Then we can pass in stuff that pauses the behavior of other keys, like opening the inventory stops motion, or how opening a dialogue bubble with e makes e now progress text rather than opening a new bubble. It has its own dict which stores the old listeners that it covered and cancels them for kaboom. Then when you end an interaction, it cancels its own listeners, and uses its internal dict to re-instate the next layer's listeners
 * Add in a way to do talking scenes. Ie, no controls other than talking, just having npcs talking and walking around.
 * let certain key words in text do the classic ~highlighting~, ie or Carrot, West, Farmer, etc. Have it be a text option, so like /Farmer/ would do it
+* better scene locking mechanics. Pass a locking object, null for open. The object has the same onComplete promise for when to unlock/lock it, so it can change based on quests. Then also add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars.
+* plot storage info -> a way to pass info between scenes. So can go into the farmhouse, the Tsokas attack, then you leave and it draws them on the farm instead of the farmers wife.
 ### Narrative
 * figure out where to go after the farmhouse
 * figure out a general plot arc

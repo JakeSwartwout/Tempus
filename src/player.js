@@ -150,7 +150,7 @@ class Player {
                 this.isDead = false
                 if (this.missing()) return
                 this.comp.play("facing")
-                this.comp.faceInDir(lastDir)
+                this.faceInDir(this.lastDir)
                 this.comp.flipX(false)
             }
             // else

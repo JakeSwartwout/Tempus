@@ -1,10 +1,11 @@
 import { k, MANUAL_ART_SCALE, TILE_OFFSET, TILE_WIDTH, TOPDOWN_VERT_SCALING } from "./kaboom_globals.js"
+import { PLAYER } from "./player.js";
 
 /********************* Sprites *********************/
 
 const BOUNCE_SPEED = 5
 
-k.loadSpriteAtlas("sprites/enemy_atlas.png", {
+k.loadSpriteAtlas("sprites/tsoka_atlas.png", {
     "enemy": {
         x: 0,
         y: 0,
@@ -36,7 +37,7 @@ function enemy() {
     let lastDir = k.vec2(0, 0)
 
     const WALK_WAIT_inFRAMES = 250
-    let walkWaitFramesPassed = 0
+    let walkWaitFramesPassed = Math.random() * WALK_WAIT_inFRAMES
     const WALK_TIME_inFRAMES = 50
     let walkTimeFramesPassed = 0
 
@@ -45,9 +46,8 @@ function enemy() {
         id: "enemy",
 
         add() {
-            this.onCollide("player", (player) => {
-                debug.log("kill!")
-                player.kill()
+            this.onCollide("player", () => {
+                PLAYER.kill()
             })
         },
 
@@ -55,7 +55,7 @@ function enemy() {
             // waiting
             if (walkWaitFramesPassed < WALK_WAIT_inFRAMES) {
                 walkWaitFramesPassed++
-                if (walkWaitFramesPassed == WALK_WAIT_inFRAMES) {
+                if (walkWaitFramesPassed >= WALK_WAIT_inFRAMES) {
                     // start the walking animation
                     walkTimeFramesPassed = 0
                     // choose a direction
@@ -94,7 +94,7 @@ function enemy() {
             // walking
             else if (walkTimeFramesPassed < WALK_TIME_inFRAMES) {
                 walkTimeFramesPassed++
-                if (walkTimeFramesPassed == WALK_TIME_inFRAMES) {
+                if (walkTimeFramesPassed >= WALK_TIME_inFRAMES) {
                     // start the waiting animation
                     walkWaitFramesPassed = 0
                     this.play("idle")

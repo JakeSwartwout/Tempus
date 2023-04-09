@@ -44,7 +44,7 @@ const k = kaboom({
 	scale : GAME_SCALE,
 })
 
-debug.inspect = true
+// debug.inspect = true
 
 
 /********************* Exports *********************/

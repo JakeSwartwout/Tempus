@@ -14,8 +14,9 @@ const Q_GATHER_5_CARROTS = CLAIM_QUEST_ID()
 class Quests_Farmer extends QuestStates {
     constructor() {
         super([Q_GATHER_5_CARROTS])
-        this.num_meetings = 0;
+        this.num_meetings = 0
         this.has_enough_carrots = false
+        this.got_final_dialogue = false
     }
     update() {
         this.num_meetings += 1
@@ -24,7 +25,11 @@ class Quests_Farmer extends QuestStates {
             this.has_enough_carrots = PLAYER.inventory.contains(five_carrots)
             if (this.has_enough_carrots) {
                 PLAYER.inventory.remove(five_carrots)
+                this.finish(Q_GATHER_5_CARROTS)
             }
+        } else {
+            // log if they've gotten the completion dialogue or not
+            this.got_final_dialogue = true
         }
     }
     getDialogue() {
@@ -53,8 +58,7 @@ class Quests_Farmer extends QuestStates {
                     "Please, I need at least 5 carrots for dinner tonight."
                 ])
             ])
-        } else {
-            this.finish(Q_GATHER_5_CARROTS)
+        } else if (!this.got_final_dialogue) {
             return new TextBox([
                 new Speech(PLAYER_NAME, [
                     "I have 5 carrots!",
@@ -62,6 +66,12 @@ class Quests_Farmer extends QuestStates {
                 new Speech("Farmer", [
                     "Thanks!",
                     "I'm going to do some weeding and will meet you at the house."
+                ])
+            ])
+        } else {
+            return new TextBox([
+                new Speech("Farmer", [
+                    "Just keep following this path and you'll reach the house!"
                 ])
             ])
         }

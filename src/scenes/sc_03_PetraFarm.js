@@ -1,13 +1,11 @@
-import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, SIDE } from "./scene_globals"
+import { k, SceneLoader, MANUAL_ART_SCALE, SIDE } from "./scene_globals"
 import { crop, CROPS } from "../crops"
 import { all_scenes } from "./all_scenes"
 import { sc_02_CarrotFarm } from "./sc_02_CarrotFarm.js"
-// import { FARMER } from "../npc.js"
-// import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
-
-import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 import { UNITS } from "../kaboom_globals"
 import { FARMERS_WIFE } from "../npc"
+
+import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 
 export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
     k.addLevel([
@@ -17,10 +15,10 @@ export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
         "PPPPPPPP",
     ], {
         // The size of each grid
-        width: ART_SIZE*MANUAL_ART_SCALE,
-        height: ART_SIZE*MANUAL_ART_SCALE,
+        width: UNITS,
+        height: UNITS,
         // The position of the top left block
-        pos: k.vec2(ART_SIZE/2*MANUAL_ART_SCALE).add(k.vec2(2*UNITS, 3*UNITS)),
+        pos: k.vec2(UNITS/2).add(k.vec2(2*UNITS, 3*UNITS)),
         // Define what each symbol means (in components)
         "P": () => [
             sprite("crop", {anim: "petra_raw"}),

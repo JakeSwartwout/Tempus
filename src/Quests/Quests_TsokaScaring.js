@@ -1,4 +1,5 @@
-import { PLAYER, PLAYER_NAME, TextBox, Speech, ITEM_IDS, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
+import { k } from "../kaboom_globals.js";
+import { PLAYER_NAME, TextBox, Speech, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
 
 /********************* Local Variables *********************/
 
@@ -21,6 +22,7 @@ class Quests_TsokaScaring extends QuestStates {
             // still more to get
         } else if (!this.scared_all_away) {
             this.scared_all_away = true
+            this.finish(Q_SCARE_AWAY_TSOKAS)
         } else {
             this.gave_quest = true
         }

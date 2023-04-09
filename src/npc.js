@@ -58,7 +58,7 @@ class NPC {
         this.dialogueBox.startDialogue()
     }
 
-    on_complete(questId) {
+    onComplete(questId) {
         return this.state_machine.promises[questId]
     }
 
@@ -113,3 +113,6 @@ const FARMERS_WIFE = new NPC("farmer", {anim: "idle", flipX: true}, new Quests_F
 /********************* Exports *********************/
 
 export { FARMER, FARMERS_WIFE }
+
+// TEMP, TODO: Remove
+export { NPC }

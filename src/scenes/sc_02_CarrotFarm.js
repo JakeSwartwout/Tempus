@@ -60,7 +60,7 @@ all_scenes["sc_03_PetraFarm"].load.then(() => {
 
         destId: "3->2",
         dest: sc_03_PetraFarm,
-        unlockBy: FARMER.on_complete(Q_GATHER_5_CARROTS)
+        unlockBy: FARMER.onComplete(Q_GATHER_5_CARROTS)
     })
 })
 

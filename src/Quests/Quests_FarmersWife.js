@@ -30,6 +30,7 @@ class Quests_FarmersWife extends QuestStates {
             this.has_enough_petras = PLAYER.inventory.contains(seven_petras)
             if (this.has_enough_petras) {
                 PLAYER.inventory.remove(all_crops)
+                this.finish(Q_GATHER_7_PETRAS)
             }
         }
     }
@@ -68,7 +69,6 @@ class Quests_FarmersWife extends QuestStates {
                 ]),
             ])
         } else {
-            this.finish(Q_GATHER_7_PETRAS)
             return new TextBox([
                 new Speech(PLAYER_NAME, [
                     "These are some strange vegetables...",
