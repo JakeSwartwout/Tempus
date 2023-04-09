@@ -9,14 +9,19 @@ import { crop, CROPS } from "../crops"
 import { all_scenes } from "./all_scenes"
 import { UNITS } from "../kaboom_globals"
 import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
-
-import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 import { enemy } from "../enemy"
 import { NPC } from "../npc"
+import { GET_CHAPTER } from "../chapters"
+
+import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 
 let FARMERS_WIFE_COPY = new NPC("farmer", {anim: "idle", flipX: true}, new Quests_TsokaScaring())
 
 export let sc_03_PetraFarmCopy = new SceneLoader("03_PetraFarmCopy", map_json, () => {
+    switch(GET_CHAPTER()){
+        default:
+            break;
+    }
     // The crops
     k.addLevel([
         "PPPPPPPP",

@@ -37,6 +37,8 @@ class SceneChange {
     }
 
     build() {
+        // TODO: use the chapter to change the locking
+
         const basicProps = [
             k.scale(MANUAL_ART_SCALE),
             k.origin("center"),

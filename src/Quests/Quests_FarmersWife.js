@@ -1,6 +1,7 @@
 import { PLAYER, PLAYER_NAME, TextBox, Speech, ITEM_IDS, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
 import { CROPS } from "../crops.js"
 import { ALL_ITEMS } from "../items/Inventory.js"
+import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters.js"
 
 /********************* Local Variables *********************/
 
@@ -28,7 +29,16 @@ const farmer_convo = {
 class Quests_FarmersWife extends QuestStates {
     constructor() {
         super([Q_GATHER_7_PETRAS])
-        this.convo_stage = farmer_convo.NOT_MET
+        switch(GET_CHAPTER()) {
+            case Chapter.CARROT_GATHERING:
+                SET_CHAPTER(Chapter.PETRA_GATHERING)
+            case Chapter.PETRA_GATHERING:
+                this.convo_stage = farmer_convo.NOT_MET
+                break;
+            default:
+                this.convo_stage = farmer_convo.NEXT_STEPS
+                break;
+        }
     }
     update() {
         switch(this.convo_stage) {
@@ -41,6 +51,8 @@ class Quests_FarmersWife extends QuestStates {
                     this.convo_stage = farmer_convo.TURN_IN
                     PLAYER.inventory.remove(all_crops)
                     this.finish(Q_GATHER_7_PETRAS)
+                    // TODO: set to farmhouse dinner
+                    SET_CHAPTER(Chapter.TSOKA_ATTACK)
                 } else {
                     this.convo_stage = farmer_convo.WAITING_ON_CROPS
                 }

@@ -4,10 +4,16 @@ import { all_scenes } from "./all_scenes"
 import { sc_02_CarrotFarm } from "./sc_02_CarrotFarm.js"
 import { UNITS } from "../kaboom_globals"
 import { FARMERS_WIFE } from "../npc"
+import { GET_CHAPTER } from "../chapters"
 
 import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 
 export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
+    switch(GET_CHAPTER()){
+        default:
+            break;
+    }
+
     k.addLevel([
         // Design the level layout with symbols
         "PPPPPPPP",

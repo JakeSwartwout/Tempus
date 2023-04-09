@@ -74,7 +74,7 @@ wasd based controls
 * Add in a way to do talking scenes. Ie, no controls other than talking, just having npcs talking and walking around.
 * let certain key words in text do the classic ~highlighting~, ie or Carrot, West, Farmer, etc. Have it be a text option, so like /Farmer/ would do it
 * better scene locking mechanics. Pass a locking object, null for open. The object has the same onComplete promise for when to unlock/lock it, so it can change based on quests. Then also add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars.
-* plot storage info -> a way to pass info between scenes. So can go into the farmhouse, the Tsokas attack, then you leave and it draws them on the farm instead of the farmers wife.
+* try using import operator rather than static import, see if that helps with the json issues with static html library. If not, make it conditional and load the json manually or something
 ### Narrative
 * figure out where to go after the farmhouse
 * figure out a general plot arc

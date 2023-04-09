@@ -1,5 +1,6 @@
 import { PLAYER, PLAYER_NAME, TextBox, Speech, ITEM_IDS, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
 import { CROPS } from "../crops.js"
+import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters.js"
 
 /********************* Local Variables *********************/
 
@@ -22,7 +23,11 @@ const farmer_convo = {
 class Quests_Farmer extends QuestStates {
     constructor() {
         super([Q_GATHER_5_CARROTS])
-        this.convo_stage = farmer_convo.NOT_MET
+        if (GET_CHAPTER() == Chapter.CARROT_GATHERING) {
+            this.convo_stage = farmer_convo.NOT_MET
+        } else {
+            this.convo_stage = farmer_convo.NEXT_STEPS
+        }
     }
     update() {
         switch(this.convo_stage) {
@@ -35,6 +40,7 @@ class Quests_Farmer extends QuestStates {
                     this.convo_stage = farmer_convo.TURN_IN
                     PLAYER.inventory.remove(five_carrots)
                     this.finish(Q_GATHER_5_CARROTS)
+                    SET_CHAPTER(Chapter.PETRA_GATHERING)
                 } else {
                     this.convo_stage = farmer_convo.WAITING_ON_CROPS
                 }

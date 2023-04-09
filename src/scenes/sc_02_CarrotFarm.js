@@ -5,22 +5,45 @@ import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
 import { all_scenes } from "./all_scenes"
 import { sc_01_Wakeup } from "./sc_01_Wakeup"
 import { sc_03_PetraFarm } from "./sc_03_PetraFarm"
+import { Chapter, GET_CHAPTER } from "../chapters"
 
 import map_json from '../../TiledMaps/02_CarrotFarm.json' assert { type: "json" }
 
 export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
-    k.addLevel([
-        // Design the level layout with symbols
-        "     C      ",
-        "            ",
-        "            ",
-        "            ",
-        "            ",
-        "          C ",
-        " CCCCCCCCCC ",
-        " CCCCCCCCCC ",
-        "  CCCCCCCC  ",
-    ], {
+    switch(GET_CHAPTER()){
+        case Chapter.CARROT_GATHERING:
+            carrot_design = [
+                // Design the level layout with symbols
+                "     C      ",
+                "            ",
+                "            ",
+                "            ",
+                "            ",
+                "          C ",
+                " CCCCCCCCCC ",
+                " CCCCCCCCCC ",
+                "  CCCCCCCC  ",
+            ]
+            break;
+        default:
+            carrot_design = [
+                // Design the level layout with symbols
+                "           ",
+                "            ",
+                "            ",
+                "            ",
+                "            ",
+                "          C ",
+                "  C     C C ",
+                " C  CCC C   ",
+                "   C   C C  ",
+            ]
+            break;
+    }
+
+    k.addLevel(
+        carrot_design,
+    {
         // The size of each grid
         width: ART_SIZE*MANUAL_ART_SCALE,
         height: ART_SIZE*MANUAL_ART_SCALE*.75, // look better squished
