@@ -66,12 +66,12 @@ k.loadSpriteAtlas("sprites/crops_atlas.png", {
 })
 
 
-function crop(cropVariety) {
+function crop(crop_variety, already_picked = false) {
 /********************* Properties *********************/
 
-    const variety = cropVariety; // this is a string
+    const variety = crop_variety; // this is a string
 
-    let picked = false;
+    let picked = already_picked;
 
     return {
 /********************* Setup *********************/

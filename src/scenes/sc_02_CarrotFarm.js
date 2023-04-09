@@ -28,15 +28,15 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
         default:
             carrot_design = [
                 // Design the level layout with symbols
-                "           ",
+                "     c      ",
                 "            ",
                 "            ",
                 "            ",
                 "            ",
                 "          C ",
-                "  C     C C ",
-                " C  CCC C   ",
-                "   C   C C  ",
+                " cCcccccCcC ",
+                " CccCCCcCcc ",
+                "  cCcccCcC  ",
             ]
             break;
     }
@@ -57,6 +57,14 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
             // solid(),
             origin("center"),
             crop(CROPS.CARROT),
+        ],
+        "c": () => [
+            sprite("crop", {anim: "carrot_picked"}),
+            scale(MANUAL_ART_SCALE),
+            area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+            // solid(),
+            origin("center"),
+            crop(CROPS.CARROT, true),
         ],
     })
     FARMER.build(k.vec2(5, 1.5))
