@@ -13,6 +13,7 @@ export const all_scenes = {
     "sc_01_Wakeup": new scene_resolver(),
     "sc_02_CarrotFarm": new scene_resolver(),
     "sc_03_PetraFarm": new scene_resolver(),
+    "sc_04_Farmhouse": new scene_resolver(),
 }
 
 let all_promises = []

@@ -48,7 +48,7 @@ wasd based controls
 
 ## To Do Next:
 ### Art
-* create a walking animation for the enemies
+* create a walking animation for the player
 * draw a basic farmhouse (KISS method)
 * Complete the path/grass/farm ground set
 * Draw some more scenes
@@ -60,6 +60,9 @@ wasd based controls
 * fix up the farmers dialogue to be written better
 * have inventory items actually show how many are stacked
 * limit the size of item stacks
+* when the tsokas move, make it arc-ed so it looks like a jump (or, draw a walking animation)
+* trap the Tsokas into the fields and where you can chase them, don't let them hit the farmer or run off screen except that one direction.
+* let the scene changers take on any size
 ### Tech Debt
 * instead of having enemy be a component (() => {}) have them be a function that returns all the components (() => [{}, {}, {}])
 * Pull the walking code out into its own component, seems like it's basically the same between enemy and player and potential other things
@@ -77,6 +80,7 @@ wasd based controls
 * let certain key words in text do the classic ~highlighting~, ie or Carrot, West, Farmer, etc. Have it be a text option, so like /Farmer/ would do it
 * better scene locking mechanics. Pass a locking object, null for open. The object has the same onComplete promise for when to unlock/lock it, so it can change based on quests. Then also add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars.
 * try using import operator rather than static import, see if that helps with the json issues with static html library. If not, make it conditional and load the json manually or something
+* let changers have quest-like tasks, so when you enter the room it can start a story and update quests as you go, then change you once the story is done
 ### Narrative
 * figure out where to go after the farmhouse
 * figure out a general plot arc

@@ -4,14 +4,13 @@ import { all_scenes } from "./all_scenes"
 import { sc_02_CarrotFarm } from "./sc_02_CarrotFarm.js"
 import { UNITS } from "../kaboom_globals"
 import { FARMERS_WIFE } from "../npc"
+import { enemy } from "../enemy"
 import { Chapter, GET_CHAPTER } from "../chapters"
+import { sc_04_Farmhouse } from "./sc_04_Farmhouse"
+import { Q_GATHER_7_PETRAS } from "../Quests/Quests_FarmersWife"
 
 import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 
-import { NPC } from "../npc"
-import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
-import { enemy } from "../enemy"
-let FARMERS_WIFE_COPY = new NPC("farmer", {anim: "idle", flipX: true}, new Quests_TsokaScaring())
 
 export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
     let add_tsokas = false
@@ -86,7 +85,7 @@ export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
                 enemy(),
             ]
         })
-        FARMERS_WIFE_COPY.build(k.vec2(5, 0.5))
+        FARMERS_WIFE.build(k.vec2(5, 0.5))
     } else {
         FARMERS_WIFE.build(k.vec2(5, 1.5))
     }
@@ -97,10 +96,23 @@ all_scenes["sc_02_CarrotFarm"].load.then(() => {
         thisId: "3->2",
         tileX: -.5,
         tileY: 1,
-        appearOn: SIDE.RIGHT,
+        appear_on: SIDE.RIGHT,
 
         destId: "2->3",
         dest: sc_02_CarrotFarm,
+    })
+})
+
+all_scenes["sc_04_Farmhouse"].load.then(() => {
+    sc_03_PetraFarm.addSceneChange({
+        thisId: "3->4",
+        tileX: 6,
+        tileY: -.5,
+        appear_on: SIDE.DOWN,
+
+        destId: "4->3",
+        dest: sc_04_Farmhouse,
+        unlockBy: FARMERS_WIFE.onComplete(Q_GATHER_7_PETRAS)
     })
 })
 

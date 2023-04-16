@@ -1,7 +1,7 @@
 import { PLAYER, PLAYER_NAME, TextBox, Speech, ITEM_IDS, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
 import { CROPS } from "../crops.js"
 import { ALL_ITEMS } from "../items/Inventory.js"
-import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters.js"
+import { Chapter, SET_CHAPTER } from "../chapters.js"
 
 /********************* Local Variables *********************/
 
@@ -32,7 +32,7 @@ class Quests_FarmersWife extends QuestStates {
         this.convo_stage = farmer_convo.NOT_MET
     }
     setChapter(chapter) {
-        switch(GET_CHAPTER()) {
+        switch(chapter) {
             case Chapter.CARROT_GATHERING:
                 SET_CHAPTER(Chapter.PETRA_GATHERING)
             case Chapter.PETRA_GATHERING:
@@ -55,8 +55,7 @@ class Quests_FarmersWife extends QuestStates {
                     this.convo_stage = farmer_convo.TURN_IN
                     PLAYER.inventory.remove(all_crops)
                     this.finish(Q_GATHER_7_PETRAS)
-                    // TODO: set to farmhouse dinner
-                    SET_CHAPTER(Chapter.TSOKA_ATTACK)
+                    SET_CHAPTER(Chapter.FARMHOUSE_DINNER)
                 } else {
                     this.convo_stage = farmer_convo.WAITING_ON_CROPS
                 }
@@ -114,13 +113,13 @@ class Quests_FarmersWife extends QuestStates {
                     new Speech("Farmers Wife", [
                         "I'm sure they'll cook up fine!",
                         "I'll take whatever carrots you have too, might as well add them.",
-                        "I'll meet you back at the farmhouse, just keep heading that same direction."
+                        "I'll meet you back at the farmhouse, it's right across from the field."
                     ])
                 ])
             case farmer_convo.NEXT_STEPS:
                 return new TextBox([
                     new Speech("Farmers Wife", [
-                        "Keep following this trail and I'll meet you at the farmhouse!"
+                        "Just head up north, and I'll meet you at the farmhouse!"
                     ])
                 ])
             default:

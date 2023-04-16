@@ -1,4 +1,4 @@
-import { ART_SIZE, k, MANUAL_ART_SCALE, TILE_WIDTH } from "../kaboom_globals"
+import { k, MANUAL_ART_SCALE, TILE_WIDTH, UNITS } from "../kaboom_globals"
 
 const SIDE = {
     UP: [0, -1],
@@ -14,12 +14,14 @@ const SIDE = {
 class SceneChange {
     constructor(tile_x, tile_y, appear_on, dest_scene, this_id, dest_id, unlock_by = null) {
 		// Where to draw on the screen
-        this.x = tile_x * ART_SIZE * MANUAL_ART_SCALE
-        this.y = tile_y * ART_SIZE * MANUAL_ART_SCALE
+        this.x = tile_x * UNITS
+        this.y = tile_y * UNITS
         // When the player is spawned, where to spawn them
         let [appear_x, appear_y] = appear_on
-        this.spawnX = this.x + (appear_x * ART_SIZE * MANUAL_ART_SCALE)
-        this.spawnY = this.y + (appear_y * ART_SIZE * MANUAL_ART_SCALE)
+        this.spawnX = this.x + (appear_x * UNITS)
+        this.spawnY = this.y + (appear_y * UNITS)
+        // the player collision box is 4 pixels down, so offset by that
+        this.spawnY -= 4*MANUAL_ART_SCALE
         // references for scene transition
         this.this_id = this_id
         this.dest_scene = dest_scene

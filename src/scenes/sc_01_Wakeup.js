@@ -15,7 +15,7 @@ all_scenes["sc_02_CarrotFarm"].load.then(() => {
         thisId: "1->2",
         tileX: SCENE_WIDTH + .5,
         tileY: 2,
-        appearOn: SIDE.LEFT,
+        appear_on: SIDE.LEFT,
 
         destId: "2->1",
         dest: sc_02_CarrotFarm,

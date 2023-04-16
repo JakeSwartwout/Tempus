@@ -21,7 +21,7 @@ class Quests_TsokaScaring extends QuestStates {
         this.convo = convo.CREATURES_LEFT
     }
     setChapter(chapter) {
-        switch(GET_CHAPTER()) {
+        switch(chapter) {
             case Chapter.TSOKA_ATTACK:
                 this.convo = convo.CREATURES_LEFT
                 break;

@@ -1,4 +1,4 @@
-import { k, SceneLoader, MANUAL_ART_SCALE, ART_SIZE, SIDE, SCENE_WIDTH } from "./scene_globals"
+import { k, SceneLoader, MANUAL_ART_SCALE, SIDE, SCENE_WIDTH } from "./scene_globals"
 import { crop, CROPS } from "../crops"
 import { FARMER } from "../npc.js"
 import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
@@ -6,6 +6,7 @@ import { all_scenes } from "./all_scenes"
 import { sc_01_Wakeup } from "./sc_01_Wakeup"
 import { sc_03_PetraFarm } from "./sc_03_PetraFarm"
 import { Chapter, GET_CHAPTER } from "../chapters"
+import { UNITS } from "../kaboom_globals"
 
 import map_json from '../../TiledMaps/02_CarrotFarm.json' assert { type: "json" }
 
@@ -14,29 +15,17 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
         case Chapter.CARROT_GATHERING:
             carrot_design = [
                 // Design the level layout with symbols
-                "     C      ",
-                "            ",
-                "            ",
-                "            ",
-                "            ",
-                "          C ",
-                " CCCCCCCCCC ",
-                " CCCCCCCCCC ",
-                "  CCCCCCCC  ",
+                "    CCCCCC",
+                "CCCCCCCCCC",
+                "CCCCCCCCCC",
             ]
             break;
         default:
             carrot_design = [
                 // Design the level layout with symbols
-                "     c      ",
-                "            ",
-                "            ",
-                "            ",
-                "            ",
-                "          C ",
-                " cCcccccCcC ",
-                " CccCCCcCcc ",
-                "  cCcccCcC  ",
+                "    CccCcC",
+                "cCcCcccCcC",
+                "cCCccCCcCC",
             ]
             break;
     }
@@ -45,10 +34,10 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
         carrot_design,
     {
         // The size of each grid
-        width: ART_SIZE*MANUAL_ART_SCALE,
-        height: ART_SIZE*MANUAL_ART_SCALE*.75, // look better squished
+        width: UNITS,
+        height: UNITS*.75, // look better squished
         // The position of the top left block
-        pos: k.vec2(ART_SIZE/2*MANUAL_ART_SCALE),
+        pos: k.vec2(UNITS/2).add(k.vec2(1, 3.65).scale(UNITS)),
         // Define what each symbol means (in components)
         "C": () => [
             sprite("crop", {anim: "carrot_raw"}),
@@ -67,7 +56,7 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
             crop(CROPS.CARROT, true),
         ],
     })
-    FARMER.build(k.vec2(5, 1.5))
+    FARMER.build(k.vec2(7, 1.5))
 })
 
 all_scenes["sc_01_Wakeup"].load.then(() => {
@@ -75,7 +64,7 @@ all_scenes["sc_01_Wakeup"].load.then(() => {
         thisId: "2->1",
         tileX: -.5,
         tileY: 2,
-        appearOn: SIDE.RIGHT,
+        appear_on: SIDE.RIGHT,
 
         destId: "1->2",
         dest: sc_01_Wakeup
@@ -87,7 +76,7 @@ all_scenes["sc_03_PetraFarm"].load.then(() => {
         thisId: "2->3",
         tileX: SCENE_WIDTH + .5,
         tileY: 1,
-        appearOn: SIDE.LEFT,
+        appear_on: SIDE.LEFT,
 
         destId: "3->2",
         dest: sc_03_PetraFarm,

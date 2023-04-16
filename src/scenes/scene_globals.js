@@ -56,7 +56,7 @@ k.loadSpriteAtlas("TileArt/grounds_atlas.png", {
 /********************* Constants *********************/
 
 const SCENE_WIDTH = 12
-const SCENE_HEIGHT = 8
+const SCENE_HEIGHT = 7
 
 
 /********************* Exports *********************/
