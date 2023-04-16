@@ -36,6 +36,8 @@ class SceneChange {
                 this.locked = false
             })
         }
+        // don't re-log scene changes
+        this.is_changing = false
     }
 
     build() {
@@ -46,6 +48,7 @@ class SceneChange {
             k.origin("center"),
             k.pos(this.x, this.y),
         ]
+        this.is_changing = false
 
         const load_area = k.add(basicProps.concat([
             "SceneChangeLoadArea",
@@ -63,7 +66,8 @@ class SceneChange {
             k.solid(),
         ]))
         travel_area.onCollide("player", (player) => {
-            if (!this.locked) {
+            if (!this.locked && !this.is_changing) {
+                this.is_changing = true
                 this.dest_scene.go_ch(this.dest_id)
             }
         })

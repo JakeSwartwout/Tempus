@@ -63,6 +63,13 @@ class NPC {
         return this.state_machine.promises[questId]
     }
 
+    swapToQuest(state_machine, complete_current = true) {
+        if (complete_current) {
+            this.state_machine.closeQuestline()
+        }
+        this.state_machine = state_machine
+    }
+
     // faceInDir() {
     //     if (this.missing()) return
     //     // quad works in terms of which slices
@@ -115,7 +122,7 @@ const FARMERS_WIFE = new NPC("farmer", {anim: "idle", flipX: true}, new Quests_F
 
 /********************* Exports *********************/
 
-export { FARMER, FARMERS_WIFE }
-
-// TEMP, TODO: Remove
-export { NPC }
+export {
+    FARMER,
+    FARMERS_WIFE
+}

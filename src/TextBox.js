@@ -7,13 +7,19 @@ class TextBox {
         this.dialogue = dialogue
         this.speech_num = 0
         this.cancel_keypress = () => {}
+        this.onCompleteCallback = () => {}
     }
 
-    startDialogue() {
+    startDialogue(onCompleteCallback = () => {}) {
         // TODO: animate box opening
-        this.speech_num = 0
-        this.cancel_keypress = k.onKeyPress("t", () => {this.tryAdvanceDialogue()})
-        this.showCurrentLine()
+        if (this.dialogue.length > 0) {
+            this.speech_num = 0
+            this.cancel_keypress = k.onKeyPress("t", () => {this.tryAdvanceDialogue()})
+            this.onCompleteCallback = onCompleteCallback
+            this.showCurrentLine()
+        } else {
+            this.onCompleteCallback()
+        }
     }
 
     showCurrentLine() {
@@ -51,6 +57,7 @@ class TextBox {
     endDialogue() {
         this.cancel_keypress()
         debug.log("")
+        this.onCompleteCallback()
     }
 }
 

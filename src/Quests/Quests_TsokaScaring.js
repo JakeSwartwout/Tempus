@@ -1,4 +1,4 @@
-import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters.js";
+import { Chapter, SET_CHAPTER } from "../chapters.js";
 import { k } from "../kaboom_globals.js";
 import { PLAYER_NAME, TextBox, Speech, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
 
@@ -62,6 +62,9 @@ class Quests_TsokaScaring extends QuestStates {
                         "Please scare them away for us!",
                         "Press D to swing the hoe at them."
                     ]),
+                    new Speech("Creature", [
+                        "SQUEAK!",
+                    ])
                 ])
             case convo.DONE_SCARING:
                 return new TextBox([
