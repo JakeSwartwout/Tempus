@@ -1,25 +1,34 @@
 # Tempus
 ## The Video Game
 Developed by Jake Swartwout
-February 2023
+Started February 2023
 
 ## to run
 Run `npm run dev` in the root directory, then open a browser onto the localhost port it opens
 
 ## Narrative Plan
 
-* Go eat dinner with the family
-* CRASH
-* What was that?
 * crops are being eaten by bouncing guys
 * oh no! go out and scare them away
 * hit them with a hoe, they run away
 * they head west
 * go after them to investigate
-* ???
-* need to gather some more fruit to lure them
-* Study it
-* Name it
+* the ones you scared now attacking someone else, a researcher
+* daughter is trapped in a tree or something
+* scare them away again
+* thanks
+* could you corral one into a pen so we could study it
+* gonna name it tsoka, for the one who moves
+* try to do it, they just bounce away
+* talking to npc again and again eventually he gives up
+* oh but they like Petra
+* a what
+* oh it's another corrupted veggie
+* lets gather some
+* go back to farmers to grab some, let them know whats up
+* run back to researcher and place food
+* lure them into a pen
+* daughter wants to keep it as pet, they're fluffy
 
 
 ## Naming Conventions
@@ -45,6 +54,7 @@ wasd based controls
 * e : interact (pick, start talking)
 * t : continue talking
 * d : attack
+* click : come back to life
 
 ## To Do Next:
 ### Art
@@ -62,7 +72,7 @@ wasd based controls
 * limit the size of item stacks
 * when the tsokas move, make it arc-ed so it looks like a jump (or, draw a walking animation)
 * trap the Tsokas into the fields and where you can chase them, don't let them hit the farmer or run off screen except that one direction.
-* let the scene changers take on any size
+* let the scene changers take on any size on screen
 ### Tech Debt
 * instead of having enemy be a component (() => {}) have them be a function that returns all the components (() => [{}, {}, {}])
 * Pull the walking code out into its own component, seems like it's basically the same between enemy and player and potential other things
@@ -76,15 +86,14 @@ wasd based controls
 * complex dialogue systems (add branches and use choice? idk if I want this)
 * dialogue should actually show up in bubbles, as a component on the screen
 * a better way to handle key events. I'm thinking of a dict that maps key to 2 functions, one what to do when pressed, the other the canceller function if it's active (and maybe a bool if_active). Then we can pass in stuff that pauses the behavior of other keys, like opening the inventory stops motion, or how opening a dialogue bubble with e makes e now progress text rather than opening a new bubble. It has its own dict which stores the old listeners that it covered and cancels them for kaboom. Then when you end an interaction, it cancels its own listeners, and uses its internal dict to re-instate the next layer's listeners
-* Add in a way to do talking scenes. Ie, no controls other than talking, just having npcs talking and walking around.
+* Expand the cutscene functionality
 * let certain key words in text do the classic ~highlighting~, ie or Carrot, West, Farmer, etc. Have it be a text option, so like /Farmer/ would do it
 * better scene locking mechanics. Pass a locking object, null for open. The object has the same onComplete promise for when to unlock/lock it, so it can change based on quests. Then also add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars.
 * try using import operator rather than static import, see if that helps with the json issues with static html library. If not, make it conditional and load the json manually or something
-* let changers have quest-like tasks, so when you enter the room it can start a story and update quests as you go, then change you once the story is done
 ### Narrative
-* figure out where to go after the farmhouse
 * figure out a general plot arc
-* figure out how to add weapons and fighting and enemies in (attack the farmhouse?)
+* where to go after studying the tsokas
+* squeeze the name of the Petra's into the first story part
 ### Miscellaneous
 * Log an issue that pingpong doesn't actually do anything
 * Set it up to work in just an html file
