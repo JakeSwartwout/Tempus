@@ -1,25 +1,24 @@
-import { k, TILE_WIDTH } from "./kaboom_globals.js"
+import { Chapter, SET_CHAPTER } from "./chapters.js"
+import { k } from "./kaboom_globals.js"
 import { all_scenes_loaded } from "./scenes/all_scenes.js"
 
 
 import { initial_spawnpoint, sc_01_Wakeup } from "./scenes/sc_01_Wakeup.js"
 
-k.loadSprite("farmer", "sprites/npc_atlas.png", {
-    sliceX: 4,
-    sliceY: 4,
-    width: TILE_WIDTH(4),
-    height: TILE_WIDTH(1),
-    anims: {
-        "idle": {
-            from: 0,
-            to: 3,
-            loop: true,
-            speed: 6,
-            // pingpong: true
-        }
-    }
-})
+import { sc_02_CarrotFarm } from "./scenes/sc_02_CarrotFarm.js"
+import { sc_03_PetraFarm } from "./scenes/sc_03_PetraFarm.js"
+let debug_spawnpoint = k
+    .vec2(3, 2)
+    .scale(16)
+    .scale(6)
 
 all_scenes_loaded.then(() => {
+    SET_CHAPTER(Chapter.CARROT_GATHERING)
     sc_01_Wakeup.go(initial_spawnpoint)
+
+    // SET_CHAPTER(Chapter.CARROT_GATHERING)
+    // sc_02_CarrotFarm.go(debug_spawnpoint)
+    // SET_CHAPTER(Chapter.PETRA_GATHERING)
+    // SET_CHAPTER(Chapter.TSOKA_ATTACK)
+    // sc_03_PetraFarm.go(debug_spawnpoint)
 })

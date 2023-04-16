@@ -4,3 +4,4 @@ dist/
 *.lnk
 Server.py
 *.tiled-session
+debug_*
