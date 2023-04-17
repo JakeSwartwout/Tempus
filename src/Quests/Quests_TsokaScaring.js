@@ -7,9 +7,11 @@ import { PLAYER_NAME, TextBox, Speech, QuestStates, CLAIM_QUEST_ID } from "./Que
 const Q_SCARE_AWAY_TSOKAS = CLAIM_QUEST_ID()
 
 const convo = {
-    CREATURES_LEFT: 1,
-    DONE_SCARING: 2,
-    NEXT_STEPS: 3,
+    NOT_MET: 0,
+    FIRST_EXPLAIN: 1,
+    CREATURES_LEFT: 2,
+    DONE_SCARING: 3,
+    NEXT_STEPS: 4,
 }
 
 
@@ -23,7 +25,7 @@ class Quests_TsokaScaring extends QuestStates {
     setChapter(chapter) {
         switch(chapter) {
             case Chapter.TSOKA_ATTACK:
-                this.convo = convo.CREATURES_LEFT
+                this.convo = convo.NOT_MET
                 break;
             case Chapter.TSOKA_INVESTIGATION:
                 this.convo = convo.NEXT_STEPS
@@ -31,12 +33,17 @@ class Quests_TsokaScaring extends QuestStates {
                 break;
             default:
                 SET_CHAPTER(Chapter.TSOKA_ATTACK)
-                this.convo = convo.CREATURES_LEFT
+                this.convo = convo.NOT_MET
                 break;
         }
     }
     update() {
         switch(this.convo) {
+            case convo.NOT_MET:
+                this.convo = convo.FIRST_EXPLAIN
+                break;
+            case convo.FIRST_EXPLAIN:
+                this.convo = convo.CREATURES_LEFT
             case convo.CREATURES_LEFT:
                 if (k.get("tsoka").length == 0) {
                     this.convo = convo.DONE_SCARING
@@ -55,6 +62,16 @@ class Quests_TsokaScaring extends QuestStates {
     }
     getDialogue() {
         switch(this.convo) {
+            case convo.NOT_MET:
+                return;
+            case convo.FIRST_EXPLAIN:
+                return new TextBox([
+                    new Speech("Farmers Wife", [
+                        "Oh no! Some sort of create has gotten into our garden!",
+                        "And they're destroying all of our crops!",
+                        "Please help us get rid of them!",
+                    ])
+                ])
             case convo.CREATURES_LEFT:
                 return new TextBox([
                     new Speech("Farmers Wife", [

@@ -1,17 +1,20 @@
 import { k, SceneLoader, MANUAL_ART_SCALE, SIDE, SCENE_WIDTH } from "./scene_globals"
 import { crop, CROPS } from "../crops"
-import { FARMER } from "../npc.js"
+import { FARMER } from "../Npc.js"
 import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
-import { all_scenes } from "./all_scenes"
+import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
 import { sc_01_Wakeup } from "./sc_01_Wakeup"
 import { sc_03_PetraFarm } from "./sc_03_PetraFarm"
-import { Chapter, GET_CHAPTER } from "../chapters"
+import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters"
 import { UNITS } from "../kaboom_globals"
 
 import map_json from '../../TiledMaps/02_CarrotFarm.json' assert { type: "json" }
 
 export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
-    switch(GET_CHAPTER()){
+    let chapter = GET_CHAPTER()
+    switch(chapter){
+        case Chapter.WAKEUP:
+            SET_CHAPTER(Chapter.CARROT_GATHERING)
         case Chapter.CARROT_GATHERING:
             carrot_design = [
                 // Design the level layout with symbols
@@ -57,9 +60,17 @@ export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
         ],
     })
     FARMER.build(k.vec2(7, 1.5))
+}, (chapter) => {
+    switch(chapter) {
+        case Chapter.WAKEUP:
+        case Chapter.CARROT_GATHERING:
+            return k.vec2(.5, 2).scale(UNITS)
+        default:
+            return k.vec2(SCENE_WIDTH -.5, 2).scale(UNITS)
+    }
 })
 
-all_scenes["sc_01_Wakeup"].load.then(() => {
+all_scenes["01_Wakeup"].load.then((l_sc_01_Wakeup) => {
     sc_02_CarrotFarm.addSceneChange({
         thisId: "2->1",
         tileX: -.5,
@@ -67,11 +78,11 @@ all_scenes["sc_01_Wakeup"].load.then(() => {
         appear_on: SIDE.RIGHT,
 
         destId: "1->2",
-        dest: sc_01_Wakeup
+        dest: l_sc_01_Wakeup,
     })
 })
 
-all_scenes["sc_03_PetraFarm"].load.then(() => {
+all_scenes["03_PetraFarm"].load.then((l_sc_03_PetraFarm) => {
     sc_02_CarrotFarm.addSceneChange({
         thisId: "2->3",
         tileX: SCENE_WIDTH + .5,
@@ -79,9 +90,9 @@ all_scenes["sc_03_PetraFarm"].load.then(() => {
         appear_on: SIDE.LEFT,
 
         destId: "3->2",
-        dest: sc_03_PetraFarm,
+        dest: l_sc_03_PetraFarm,
         unlockBy: FARMER.onComplete(Q_GATHER_5_CARROTS)
     })
 })
 
-all_scenes["sc_02_CarrotFarm"].completeLoading()
+DONE_LOADING_SCENE(sc_02_CarrotFarm)

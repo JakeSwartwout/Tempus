@@ -1,14 +1,14 @@
 import { SceneLoader, SIDE, SCENE_HEIGHT, k } from "./scene_globals"
 import { crop, CROPS } from "../crops"
-import { all_scenes } from "./all_scenes"
-import { FARMER, FARMERS_WIFE } from "../npc"
-import { Chapter, SET_CHAPTER } from "../chapters"
+import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
+import { FARMER, FARMERS_WIFE } from "../Npc"
+import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters"
 import { Speech, TextBox } from "../TextBox"
 import { sc_03_PetraFarm } from "./sc_03_PetraFarm"
 import { CS_Chapter, CS_NpcState, CS_Scene, CS_Text, Cutscene } from "../Cutscene"
 import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
 import { Quest_Null } from "../Quests/QuestStates"
-import { PLAYER_NAME } from "../player"
+import { PLAYER_NAME } from "../Player"
 
 // TODO: import the files with the sprites I need
 
@@ -50,7 +50,14 @@ const DINNER_CONVO = new Cutscene([
 
 
 export let sc_04_Farmhouse = new SceneLoader("04_Farmhouse", map_json, () => {
-    SET_CHAPTER(Chapter.FARMHOUSE_DINNER)
+    switch(GET_CHAPTER()) {
+        case Chapter.TSOKA_ATTACK:
+        case Chapter.TSOKA_INVESTIGATION:
+            break;
+        default:
+            SET_CHAPTER(Chapter.FARMHOUSE_DINNER)
+            break;
+    }
 
     // TODO: replace these with calls to the NPCs to draw just their sprite
     // FARMER.draw(location)
@@ -61,10 +68,12 @@ export let sc_04_Farmhouse = new SceneLoader("04_Farmhouse", map_json, () => {
     FARMERS_WIFE.build(k.vec2(6, 3))
 
     DINNER_CONVO.playCutscene()
+}, (chapter) => {
+    return k.vec2(6, SCENE_HEIGHT -.5).scale(UNITS)
 })
 
 // TODO: Remove and teleport automatically using the cutscene
-all_scenes["sc_03_PetraFarm"].load.then(() => {
+all_scenes["03_PetraFarm"].load.then((l_sc_03_PetraFarm) => {
     sc_04_Farmhouse.addSceneChange({
         thisId: "4->3",
         tileX: 6,
@@ -72,8 +81,8 @@ all_scenes["sc_03_PetraFarm"].load.then(() => {
         appear_on: SIDE.UP,
 
         destId: "3->4",
-        dest: sc_03_PetraFarm,
+        dest: l_sc_03_PetraFarm,
     })
 })
 
-all_scenes["sc_04_Farmhouse"].completeLoading()
+DONE_LOADING_SCENE(sc_04_Farmhouse)

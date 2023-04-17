@@ -37,6 +37,7 @@ Run `npm run dev` in the root directory, then open a browser onto the localhost 
 * Promises are camelCase
 * Globals are ALLCAPS
 * Classes are PascalCase
+* File names are either the ClassName or snake_case
 
 ## Controls
 
@@ -82,7 +83,6 @@ wasd based controls
 ### Features
 * Add trees into the scene too, another layer in tiled
 * pick up the basket and it's what gives you an inventory
-* use cookies as a way to save player data? or just have it be story based and have each link be a different part of the story. Could stick it on different files, or in the #, or in the query string ?
 * complex dialogue systems (add branches and use choice? idk if I want this)
 * dialogue should actually show up in bubbles, as a component on the screen
 * a better way to handle key events. I'm thinking of a dict that maps key to 2 functions, one what to do when pressed, the other the canceller function if it's active (and maybe a bool if_active). Then we can pass in stuff that pauses the behavior of other keys, like opening the inventory stops motion, or how opening a dialogue bubble with e makes e now progress text rather than opening a new bubble. It has its own dict which stores the old listeners that it covered and cancels them for kaboom. Then when you end an interaction, it cancels its own listeners, and uses its internal dict to re-instate the next layer's listeners

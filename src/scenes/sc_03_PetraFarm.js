@@ -1,9 +1,9 @@
 import { k, SceneLoader, MANUAL_ART_SCALE, SIDE } from "./scene_globals"
 import { crop, CROPS } from "../crops"
-import { all_scenes } from "./all_scenes"
+import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
 import { sc_02_CarrotFarm } from "./sc_02_CarrotFarm.js"
 import { UNITS } from "../kaboom_globals"
-import { FARMERS_WIFE } from "../npc"
+import { FARMERS_WIFE } from "../Npc"
 import { enemy } from "../enemy"
 import { Chapter, GET_CHAPTER } from "../chapters"
 import { sc_04_Farmhouse } from "./sc_04_Farmhouse"
@@ -89,9 +89,21 @@ export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
     } else {
         FARMERS_WIFE.build(k.vec2(5, 1.5))
     }
+}, (chapter) => {
+    switch(chapter) {
+        case Chapter.WAKEUP:
+        case Chapter.CARROT_GATHERING:
+        case Chapter.PETRA_GATHERING:
+            return k.vec2(.5, 1).scale(UNITS)
+        case Chapter.FARMHOUSE_DINNER:
+        case Chapter.TSOKA_ATTACK:
+            return k.vec2(6, .5).scale(UNITS)
+        default:
+            return k.vec2(SCENE_WIDTH -.5, 1).scale(UNITS)
+    }
 })
 
-all_scenes["sc_02_CarrotFarm"].load.then(() => {
+all_scenes["02_CarrotFarm"].load.then((l_sc_02_CarrotFarm) => {
     sc_03_PetraFarm.addSceneChange({
         thisId: "3->2",
         tileX: -.5,
@@ -99,11 +111,11 @@ all_scenes["sc_02_CarrotFarm"].load.then(() => {
         appear_on: SIDE.RIGHT,
 
         destId: "2->3",
-        dest: sc_02_CarrotFarm,
+        dest: l_sc_02_CarrotFarm,
     })
 })
 
-all_scenes["sc_04_Farmhouse"].load.then(() => {
+all_scenes["04_Farmhouse"].load.then((l_sc_04_Farmhouse) => {
     sc_03_PetraFarm.addSceneChange({
         thisId: "3->4",
         tileX: 6,
@@ -111,9 +123,9 @@ all_scenes["sc_04_Farmhouse"].load.then(() => {
         appear_on: SIDE.DOWN,
 
         destId: "4->3",
-        dest: sc_04_Farmhouse,
+        dest: l_sc_04_Farmhouse,
         unlockBy: FARMERS_WIFE.onComplete(Q_GATHER_7_PETRAS)
     })
 })
 
-all_scenes["sc_03_PetraFarm"].completeLoading()
+DONE_LOADING_SCENE(sc_03_PetraFarm)

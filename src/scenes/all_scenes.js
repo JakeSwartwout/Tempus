@@ -1,19 +1,26 @@
+/********************* Store information on load status *********************/
 
 class scene_resolver {
     constructor() {
         this.ready = false
         this.load = new Promise((resolve, reject) => {
-            this.completeLoading = () => {this.ready = true; resolve(); }
+            this.completeLoading = (scene_obj) => {
+                this.ready = true;
+                resolve(scene_obj);
+            }
             this.reject = reject
         })
     }
 }
 
-export const all_scenes = {
-    "sc_01_Wakeup": new scene_resolver(),
-    "sc_02_CarrotFarm": new scene_resolver(),
-    "sc_03_PetraFarm": new scene_resolver(),
-    "sc_04_Farmhouse": new scene_resolver(),
+
+/********************* All current scenes *********************/
+
+const all_scenes = {
+    "01_Wakeup": new scene_resolver(),
+    "02_CarrotFarm": new scene_resolver(),
+    "03_PetraFarm": new scene_resolver(),
+    "04_Farmhouse": new scene_resolver(),
 }
 
 let all_promises = []
@@ -21,9 +28,10 @@ for (let scene in all_scenes) {
     all_promises.push(all_scenes[scene].load)
 }
 
-export const all_scenes_loaded = Promise.all(all_promises)
+const all_scenes_loaded = Promise.all(all_promises)
 
-// all_scenes_loaded.then(() => {console.log("all loaded!")})
+
+/********************* Backup debug catcher *********************/
 
 // after 4 seconds, print which scenes still haven't loaded
 setTimeout(() => {
@@ -39,3 +47,19 @@ setTimeout(() => {
         debug.log("Having trouble loading all of the scenes...")
     }
 }, 4000)
+
+
+/********************* Marking a scene as done *********************/
+
+const DONE_LOADING_SCENE = function(scene) {
+    all_scenes[scene.name].completeLoading(scene)
+}
+
+
+/********************* Exports *********************/
+
+export {
+    all_scenes,
+    all_scenes_loaded,
+    DONE_LOADING_SCENE
+}

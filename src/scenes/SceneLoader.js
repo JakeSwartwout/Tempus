@@ -1,5 +1,6 @@
 import { ART_SIZE, k, MANUAL_ART_SCALE } from "../kaboom_globals.js"
-import { PLAYER } from "../player.js"
+import { PLAYER } from "../Player.js"
+import { GET_CHAPTER, UPDATE_QUERY_SCENE } from "../chapters.js"
 import { SceneChange } from "./SceneChange.js"
 
 /********************* Using Tiled for Sprites *********************/
@@ -65,6 +66,7 @@ let loadTiledLevels = function(map_json) {
     })
 }
 
+
 /********************* Loading functionality for scenes *********************/
 
 // The scene loader wraps up everything needed for a scene to ensure
@@ -72,12 +74,17 @@ let loadTiledLevels = function(map_json) {
 // Ensure each scene is added to all_scenes to allow for SceneChange objects
 // to link to it
 class SceneLoader {
-	constructor(scene_name, map_json, buildSceneFunc = () => {}){
+	constructor(scene_name, map_json, buildSceneFunc = () => {}, getDefaultSpawnPoint = null){
 		this.name = scene_name
 		this.map_json = map_json
 		this.load_scene = null
 		this.buildScene = buildSceneFunc
 		this.scene_changers = []
+		if(getDefaultSpawnPoint == null) {
+			this.getDefaultSpawnPoint = (chapter) => {console.log("Using default getDefaultSpawnPoint"); return k.vec2(0,0)}
+		} else {
+			this.getDefaultSpawnPoint = getDefaultSpawnPoint
+		}
 	}
 
 	isLoaded() {
@@ -126,10 +133,15 @@ class SceneLoader {
 			this.load()
 		return new Promise((resolve, reject) => {
 			this.load_scene.then(() => {
+				UPDATE_QUERY_SCENE(this.name)
 				k.go(this.name, {spawnPoint: spawnPoint})
 				resolve()
 			})
 		})
+	}
+
+	goDefault() {
+		this.go(this.getDefaultSpawnPoint(GET_CHAPTER()))
 	}
 
 	addSceneChange({tileX, tileY, appear_on, dest, thisId, destId, unlockBy = null}) {

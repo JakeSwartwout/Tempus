@@ -78,4 +78,4 @@ class Quest_Null extends QuestStates {
 export { QuestStates, CLAIM_QUEST_ID, Quest_Null }
 export { ITEM_IDS } from "../items/ItemInfo.js"
 export { Speech, TextBox } from "../TextBox.js"
-export { PLAYER, PLAYER_NAME } from "../player.js"
+export { PLAYER, PLAYER_NAME } from "../Player.js"
