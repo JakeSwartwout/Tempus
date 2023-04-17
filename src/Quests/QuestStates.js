@@ -51,6 +51,9 @@ const CLAIM_QUEST_ID = function() {
             this.promise_funcs[id][successful? 0 : 1]()
         }
     }
+    containsQuest(quest_id) {
+        return quest_id in this.promises
+    }
 }
 
 

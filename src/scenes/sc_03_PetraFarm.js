@@ -7,7 +7,8 @@ import { FARMERS_WIFE } from "../Npc"
 import { enemy } from "../enemy"
 import { Chapter, GET_CHAPTER } from "../chapters"
 import { sc_04_Farmhouse } from "./sc_04_Farmhouse"
-import { Q_GATHER_7_PETRAS } from "../Quests/Quests_FarmersWife"
+import { Q_GATHER_7_PETRAS, Quests_FarmersWife } from "../Quests/Quests_FarmersWife"
+import { Q_SCARE_AWAY_TSOKAS, Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
 
 import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 
@@ -86,8 +87,10 @@ export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
             ]
         })
         FARMERS_WIFE.build(k.vec2(5, 0.5))
+        FARMERS_WIFE.ensureQuest(Q_SCARE_AWAY_TSOKAS, new Quests_TsokaScaring())
     } else {
         FARMERS_WIFE.build(k.vec2(5, 1.5))
+        FARMERS_WIFE.ensureQuest(Q_GATHER_7_PETRAS, new Quests_FarmersWife())
     }
 }, (chapter) => {
     switch(chapter) {

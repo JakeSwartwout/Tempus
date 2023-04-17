@@ -68,6 +68,13 @@ class NPC {
             this.state_machine.closeQuestline()
         }
         this.state_machine = state_machine
+        this.state_machine.setChapter(GET_CHAPTER())
+    }
+
+    ensureQuest(quest_id, else_quest_state_machine) {
+        if (!this.state_machine.containsQuest(quest_id)) {
+            this.swapToQuest(else_quest_state_machine, false)
+        }
     }
 
     // faceInDir() {

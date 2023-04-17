@@ -20,7 +20,7 @@ const convo = {
 class Quests_TsokaScaring extends QuestStates {
     constructor() {
         super([Q_SCARE_AWAY_TSOKAS])
-        this.convo = convo.CREATURES_LEFT
+        this.convo = convo.NOT_MET
     }
     setChapter(chapter) {
         switch(chapter) {
