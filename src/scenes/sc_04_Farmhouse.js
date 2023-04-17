@@ -49,7 +49,7 @@ const DINNER_CONVO = new Cutscene([
 ], )
 
 
-export let sc_04_Farmhouse = new SceneLoader("04_Farmhouse", map_json, () => {
+let sc_04_Farmhouse = new SceneLoader("04_Farmhouse", map_json, () => {
     switch(GET_CHAPTER()) {
         case Chapter.TSOKA_ATTACK:
         case Chapter.TSOKA_INVESTIGATION:

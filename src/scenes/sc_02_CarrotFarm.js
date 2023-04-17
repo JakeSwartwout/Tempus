@@ -8,7 +8,7 @@ import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../Story/chapters"
 
 import map_json from '../../TiledMaps/02_CarrotFarm.json' assert { type: "json" }
 
-export let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
+let sc_02_CarrotFarm = new SceneLoader("02_CarrotFarm", map_json, () => {
     let chapter = GET_CHAPTER()
     switch(chapter){
         case Chapter.WAKEUP:

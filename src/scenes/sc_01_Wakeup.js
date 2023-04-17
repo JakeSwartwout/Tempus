@@ -4,7 +4,7 @@ import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
 
 import map_json from '../../TiledMaps/01_Wakeup.json' assert { type: "json" }
 
-export let sc_01_Wakeup = new SceneLoader("01_Wakeup", map_json, () => {
+let sc_01_Wakeup = new SceneLoader("01_Wakeup", map_json, () => {
     // will add the player in manually, nothing to do
 
     // TODO: add some trees

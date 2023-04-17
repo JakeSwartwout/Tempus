@@ -11,7 +11,7 @@ import { Q_SCARE_AWAY_TSOKAS, Quests_TsokaScaring } from "../Quests/Quests_Tsoka
 import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 
 
-export let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
+let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
     let add_tsokas = false
     let petra_design = []
     switch(GET_CHAPTER()){
