@@ -68,6 +68,11 @@ class Quests_TsokaScaring extends QuestStates {
                 return new TextBox([
                     new Speech("Farmers Wife", [
                         "Oh no! Some sort of create has gotten into our garden!",
+                    ]),
+                    new Speech("Creature", [
+                        "SQUEAK!",
+                    ]),
+                    new Speech("Farmers Wife", [
                         "And they're destroying all of our crops!",
                         "Please help us get rid of them!",
                     ])

@@ -80,6 +80,7 @@ wasd based controls
 * Break NPC into the two different classes, idle quest-giver and mobile commentator
 * Only let the player do one thing each interaction (currently they all trigger, multiple crop picking, multiple dialogues, etc)(could make a list with priorities then pick the highest)
 * In a Speech, go through the lines and break up any that are too long for a text box
+* Rather than recursion for the Cutscene, do trampoline code. When the promise resolves, it returns the next action. Then can do a while loop, calling "then" and getting the new action until we end
 ### Features
 * Add trees into the scene too, another layer in tiled
 * pick up the basket and it's what gives you an inventory

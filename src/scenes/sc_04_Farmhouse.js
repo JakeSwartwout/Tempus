@@ -1,3 +1,4 @@
+import { UNITS } from "../kaboom_globals"
 import { SceneLoader, SIDE, SCENE_HEIGHT, k } from "./scene_globals"
 import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
 import { crop, CROPS } from "../Entities/crops"
@@ -44,7 +45,7 @@ const DINNER_CONVO = new Cutscene([
     new CS_NpcState("Give the wife the new quest", FARMERS_WIFE, new Quests_TsokaScaring()),
     new CS_Chapter("Change the the tsoka attack chapter", Chapter.TSOKA_ATTACK),
     // player leave animation
-    new CS_Scene("Leave to the farm", sc_03_PetraFarm, "3->4"),
+    new CS_Scene("Leave to the farm", "03_PetraFarm", "3->4"),
 ], )
 
 
@@ -68,7 +69,7 @@ export let sc_04_Farmhouse = new SceneLoader("04_Farmhouse", map_json, () => {
 
     DINNER_CONVO.playCutscene()
 }, (chapter) => {
-    return k.vec2(6, SCENE_HEIGHT -.5).scale(UNITS)
+    return k.vec2(6, SCENE_HEIGHT -1).scale(UNITS)
 })
 
 // TODO: Remove and teleport automatically using the cutscene

@@ -1,3 +1,4 @@
+import { all_scenes } from "../Scenes/all_scenes.js"
 import { TextBox } from "./TextBox.js"
 import { SET_CHAPTER } from "./chapters"
 
@@ -98,16 +99,17 @@ class CS_Scene extends CutsceneElement {
     /**
      * Moves to a new scene
      */
-    constructor(name, scene, changer_id) {
+    constructor(name, scene_name, changer_id) {
         super(name, CUTSCENE_TYPE.CS_Scene)
-        this.scene = scene
+        this.scene_name = scene_name
         this.changer_id = changer_id
     }
 
     perform() {
-        // TODO: implement this
-        console.log("Scene changer not implemented yet")
-        this.nextAction()
+        all_scenes[this.scene_name].load.then((scene) => {
+            scene.go_ch(this.changer_id)
+            this.nextAction()
+        })
     }
 }
 
