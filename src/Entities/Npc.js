@@ -1,8 +1,8 @@
-import { GET_CHAPTER } from "./chapters.js";
-import { k, TILE_WIDTH, MANUAL_ART_SCALE, UNITS } from "./kaboom_globals.js"
+import { k, TILE_WIDTH, MANUAL_ART_SCALE, UNITS } from "../kaboom_globals.js"
+import { Quests_Farmer } from "../Quests/Quests_Farmer.js";
+import { Quests_FarmersWife } from "../Quests/Quests_FarmersWife.js";
+import { GET_CHAPTER } from "../Story/chapters.js";
 import { PLAYER } from "./Player.js";
-import { Quests_Farmer } from "./Quests/Quests_Farmer.js";
-import { Quests_FarmersWife } from "./Quests/Quests_FarmersWife.js";
 
 
 /********************* Sprites *********************/

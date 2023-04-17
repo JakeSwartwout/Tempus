@@ -1,14 +1,13 @@
 import { SceneLoader, SIDE, SCENE_HEIGHT, k } from "./scene_globals"
-import { crop, CROPS } from "../crops"
 import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
-import { FARMER, FARMERS_WIFE } from "../Npc"
-import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters"
-import { Speech, TextBox } from "../TextBox"
-import { sc_03_PetraFarm } from "./sc_03_PetraFarm"
-import { CS_Chapter, CS_NpcState, CS_Scene, CS_Text, Cutscene } from "../Cutscene"
-import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
+import { crop, CROPS } from "../Entities/crops"
+import { FARMER, FARMERS_WIFE } from "../Entities/Npc"
+import { PLAYER_NAME } from "../Entities/Player"
+import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../Story/chapters"
+import { CS_Chapter, CS_NpcState, CS_Scene, CS_Text, Cutscene } from "../Story/Cutscene.js"
+import { Speech, TextBox } from "../Story/TextBox.js"
 import { Quest_Null } from "../Quests/QuestStates"
-import { PLAYER_NAME } from "../Player"
+import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
 
 // TODO: import the files with the sprites I need
 

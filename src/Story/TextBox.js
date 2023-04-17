@@ -1,4 +1,4 @@
-import { k } from "./kaboom_globals"
+import { k } from "../kaboom_globals"
 
 
 class TextBox {

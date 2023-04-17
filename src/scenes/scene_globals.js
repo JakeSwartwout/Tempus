@@ -1,5 +1,5 @@
 import { k, ART_SIZE, TILE_OFFSET, MANUAL_ART_SCALE } from "../kaboom_globals.js"
-import { PLAYER } from "../Player.js"
+import { PLAYER } from "../Entities/Player.js"
 import { SceneChange } from "./SceneChange.js"
 
 

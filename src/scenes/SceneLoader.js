@@ -1,6 +1,6 @@
 import { ART_SIZE, k, MANUAL_ART_SCALE } from "../kaboom_globals.js"
-import { PLAYER } from "../Player.js"
-import { GET_CHAPTER, UPDATE_QUERY_SCENE } from "../chapters.js"
+import { PLAYER } from "../Entities/Player.js"
+import { GET_CHAPTER, UPDATE_QUERY_SCENE } from "../Story/chapters.js"
 import { SceneChange } from "./SceneChange.js"
 
 /********************* Using Tiled for Sprites *********************/

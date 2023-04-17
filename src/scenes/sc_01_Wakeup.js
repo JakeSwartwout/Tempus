@@ -1,6 +1,6 @@
+import { UNITS } from "../kaboom_globals"
 import { k, SceneLoader, SIDE, SCENE_WIDTH } from "./scene_globals"
 import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
-import { UNITS } from "../kaboom_globals"
 
 import map_json from '../../TiledMaps/01_Wakeup.json' assert { type: "json" }
 

@@ -1,4 +1,4 @@
-import { k, MANUAL_ART_SCALE, TILE_OFFSET, TILE_WIDTH, TOPDOWN_VERT_SCALING } from "./kaboom_globals.js"
+import { k, MANUAL_ART_SCALE, TILE_WIDTH, TOPDOWN_VERT_SCALING } from "../kaboom_globals.js"
 import { PLAYER } from "./Player.js";
 
 /********************* Sprites *********************/

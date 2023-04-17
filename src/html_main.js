@@ -1,6 +1,6 @@
 
 
-import { sc_01_Wakeup } from "./scenes/sc_01_Wakeup";
+import { sc_01_Wakeup } from "./Scenes/sc_01_Wakeup";
 
 console.log(test)
 

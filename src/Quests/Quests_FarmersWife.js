@@ -1,7 +1,7 @@
 import { PLAYER, PLAYER_NAME, TextBox, Speech, ITEM_IDS, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
-import { CROPS } from "../crops.js"
-import { ALL_ITEMS } from "../items/Inventory.js"
-import { Chapter, SET_CHAPTER } from "../chapters.js"
+import { CROPS } from "../Entities/crops.js"
+import { ALL_ITEMS } from "../Items/Inventory.js"
+import { Chapter, SET_CHAPTER } from "../Story/chapters.js"
 
 /********************* Local Variables *********************/
 

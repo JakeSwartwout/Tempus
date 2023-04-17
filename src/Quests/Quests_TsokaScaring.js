@@ -1,6 +1,6 @@
-import { Chapter, SET_CHAPTER } from "../chapters.js";
 import { k } from "../kaboom_globals.js";
 import { PLAYER_NAME, TextBox, Speech, QuestStates, CLAIM_QUEST_ID } from "./QuestStates.js"
+import { Chapter, SET_CHAPTER } from "../Story/chapters.js";
 
 /********************* Local Variables *********************/
 

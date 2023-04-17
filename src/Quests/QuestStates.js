@@ -1,4 +1,4 @@
-import { Speech, TextBox } from "../TextBox.js"
+import { Speech, TextBox } from "../Story/TextBox.js"
 
 
 /********************* Giving Quests IDs *********************/
@@ -79,6 +79,6 @@ class Quest_Null extends QuestStates {
 /********************* Exports *********************/
 
 export { QuestStates, CLAIM_QUEST_ID, Quest_Null }
-export { ITEM_IDS } from "../items/ItemInfo.js"
-export { Speech, TextBox } from "../TextBox.js"
-export { PLAYER, PLAYER_NAME } from "../Player.js"
+export { ITEM_IDS } from "../Items/ItemInfo.js"
+export { Speech, TextBox } from "../Story/TextBox.js"
+export { PLAYER, PLAYER_NAME } from "../Entities/Player.js"

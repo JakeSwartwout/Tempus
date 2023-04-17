@@ -1,7 +1,7 @@
-import { k, TILE_OFFSET, TILE_WIDTH } from "./kaboom_globals.js"
+import { k, TILE_OFFSET, TILE_WIDTH } from "../kaboom_globals.js"
+import { ItemInstance } from "../Items/ItemInstance.js"
+import { ITEM_IDS } from "../Items/ItemInfo.js"
 import { PLAYER } from "./Player.js"
-import { ItemInstance } from "./items/ItemInstance.js"
-import { ITEM_IDS } from "./items/ItemInfo.js"
 
 /********************* Constants *********************/
 

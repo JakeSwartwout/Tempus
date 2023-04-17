@@ -1,12 +1,10 @@
-import { k, SceneLoader, MANUAL_ART_SCALE, SIDE, SCENE_WIDTH } from "./scene_globals"
-import { crop, CROPS } from "../crops"
-import { FARMER } from "../Npc.js"
-import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
-import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
-import { sc_01_Wakeup } from "./sc_01_Wakeup"
-import { sc_03_PetraFarm } from "./sc_03_PetraFarm"
-import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../chapters"
 import { UNITS } from "../kaboom_globals"
+import { k, SceneLoader, MANUAL_ART_SCALE, SIDE, SCENE_WIDTH } from "./scene_globals"
+import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
+import { crop, CROPS } from "../Entities/crops"
+import { FARMER } from "../Entities/Npc.js"
+import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
+import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../Story/chapters"
 
 import map_json from '../../TiledMaps/02_CarrotFarm.json' assert { type: "json" }
 

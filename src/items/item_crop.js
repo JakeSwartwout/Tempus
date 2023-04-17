@@ -1,7 +1,7 @@
 import { k, TILE_OFFSET, TILE_WIDTH } from "../kaboom_globals.js"
 import { ITEM_INFOS, ITEM_IDS, DEFINE_ITEM } from "./ItemInfo.js"
 
-import { CROPS, CROP_LOC, CROP_TOTAL_ANIM_FRAMES } from "../crops.js"
+import { CROPS, CROP_LOC, CROP_TOTAL_ANIM_FRAMES } from "../Entities/crops.js"
 
 
 // let crop_states = {

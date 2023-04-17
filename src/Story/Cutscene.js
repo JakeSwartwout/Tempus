@@ -1,4 +1,4 @@
-import { TextBox } from "./TextBox"
+import { TextBox } from "./TextBox.js"
 import { SET_CHAPTER } from "./chapters"
 
 

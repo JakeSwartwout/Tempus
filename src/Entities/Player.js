@@ -1,5 +1,5 @@
-import { Inventory } from "./items/Inventory.js";
-import { k, TILE_WIDTH, TILE_OFFSET, TOPDOWN_VERT_SCALING, MANUAL_ART_SCALE, ART_SIZE } from "./kaboom_globals.js"
+import { k, TILE_WIDTH, TOPDOWN_VERT_SCALING, MANUAL_ART_SCALE } from "../kaboom_globals.js"
+import { Inventory } from "../Items/Inventory.js";
 
 
 /********************* Sprites *********************/
