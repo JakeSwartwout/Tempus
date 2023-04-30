@@ -10,9 +10,9 @@
 	],
 	"main": "src/main.js",
 	"scripts": {
-		"build": "esbuild --bundle src/main.js --outfile=www/main.js --minify",
-		"dev": "esbuild --bundle src/main.js --outfile=www/main.js --servedir=www",
-		"zip": "npm run build && mkdir -p dist && zip -r dist/game.zip www -x \"**/.DS_Store\""
+		"build": "esbuild --bundle src/main.js --outfile=docs/main.js --minify",
+		"dev": "esbuild --bundle src/main.js --outfile=docs/main.js --servedir=docs",
+		"zip": "npm run build && mkdir -p dist && zip -r dist/game.zip docs -x \"**/.DS_Store\""
 	},
 	"engines": {
 		"node": "16.x"
