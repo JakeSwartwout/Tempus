@@ -1,10 +1,15 @@
 # Tempus
 ## The Video Game
 Developed by Jake Swartwout
+
 Started February 2023
 
 ## to run
-Run `npm run dev` in the root directory, then open a browser onto the localhost port it opens
+Run `npm run dev` in the root directory, then open a browser onto the localhost port it opens.
+
+To build the game, run `npm run build` and it will compile everything into a single file `www/main.js`.
+
+Or, view the last-built iteration of the game on github pages at https://jakeswartwout.github.io/Tempus
 
 ## Narrative Plan
 
@@ -97,5 +102,3 @@ wasd based controls
 * squeeze the name of the Petra's into the first story part
 ### Miscellaneous
 * Log an issue that pingpong doesn't actually do anything
-* Set it up to work in just an html file
-* Upload the code to github and create a github pages site to play the game

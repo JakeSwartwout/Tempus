@@ -1,10 +1,22 @@
 {
 	"name": "tempus_game",
+	"description": "A 2D pixel art game about chaos",
+	"author": "Jake Swartwout",
+	"keywords": [
+		"pixel_art",
+		"chaos",
+		"farming_simulator",
+		"kaboom"
+	],
+	"main": "src/main.js",
 	"scripts": {
 		"build": "esbuild --bundle src/main.js --outfile=www/main.js --minify",
 		"dev": "esbuild --bundle src/main.js --outfile=www/main.js --servedir=www",
 		"zip": "npm run build && mkdir -p dist && zip -r dist/game.zip www -x \"**/.DS_Store\""
 	},
+	"engines": {
+		"node": "16.x"
+	},	  
 	"dependencies": {
 		"kaboom": "^2000.2.10",
 		"query-string": "^8.1.0",
