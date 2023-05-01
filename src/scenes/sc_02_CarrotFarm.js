@@ -1,6 +1,7 @@
 import { UNITS } from "../kaboom_globals"
 import { k, SceneLoader, MANUAL_ART_SCALE, SIDE, SCENE_WIDTH } from "./scene_globals"
 import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
+import { SL, SceneLocker } from "./SceneLocker.js"
 import { crop, CROPS } from "../Entities/crops"
 import { FARMER } from "../Entities/Npc.js"
 import { Q_GATHER_5_CARROTS } from "../Quests/Quests_Farmer"
@@ -89,7 +90,8 @@ all_scenes["03_PetraFarm"].load.then((l_sc_03_PetraFarm) => {
 
         destId: "3->2",
         dest: l_sc_03_PetraFarm,
-        unlockBy: FARMER.onComplete(Q_GATHER_5_CARROTS)
+        locking: new SceneLocker(SL.LOCKED)
+            .unlockBy(FARMER.onComplete(Q_GATHER_5_CARROTS))
     })
 })
 

@@ -26,7 +26,8 @@ class Quests_Farmer extends QuestStates {
         this.convo_stage = farmer_convo.NOT_MET
     }
     setChapter(chapter) {
-        if (chapter == Chapter.CARROT_GATHERING) {
+        if (chapter == Chapter.WAKEUP ||
+            chapter == Chapter.CARROT_GATHERING) {
             this.convo_stage = farmer_convo.NOT_MET
         } else {
             this.convo_stage = farmer_convo.NEXT_STEPS

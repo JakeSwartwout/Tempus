@@ -1,6 +1,7 @@
 import { UNITS } from "../kaboom_globals"
 import { k, SceneLoader, MANUAL_ART_SCALE, SIDE } from "./scene_globals"
 import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
+import { SL, SceneLocker } from "./SceneLocker.js"
 import { crop, CROPS } from "../Entities/crops"
 import { enemy } from "../Entities/enemy"
 import { FARMERS_WIFE } from "../Entities/Npc"
@@ -113,6 +114,8 @@ all_scenes["02_CarrotFarm"].load.then((l_sc_02_CarrotFarm) => {
 
         destId: "2->3",
         dest: l_sc_02_CarrotFarm,
+        locking: new SceneLocker(SL.OPEN)
+            .lockAtChapter(Chapter.FARMHOUSE_DINNER)
     })
 })
 
@@ -125,7 +128,9 @@ all_scenes["04_Farmhouse"].load.then((l_sc_04_Farmhouse) => {
 
         destId: "4->3",
         dest: l_sc_04_Farmhouse,
-        unlockBy: FARMERS_WIFE.onComplete(Q_GATHER_7_PETRAS)
+        locking: new SceneLocker(SL.LOCKED)
+            .unlockBy(FARMERS_WIFE.onComplete(Q_GATHER_7_PETRAS))
+            .lockAtChapter(Chapter.TSOKA_ATTACK)
     })
 })
 

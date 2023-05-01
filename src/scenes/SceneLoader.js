@@ -2,6 +2,7 @@ import { ART_SIZE, k, MANUAL_ART_SCALE } from "../kaboom_globals.js"
 import { PLAYER } from "../Entities/Player.js"
 import { GET_CHAPTER, UPDATE_QUERY_SCENE } from "../Story/chapters.js"
 import { SceneChange } from "./SceneChange.js"
+import { SceneLocker, SL } from "./SceneLocker.js"
 
 /********************* Using Tiled for Sprites *********************/
 
@@ -144,15 +145,18 @@ class SceneLoader {
 		this.go(this.getDefaultSpawnPoint(GET_CHAPTER()))
 	}
 
-	addSceneChange({tileX, tileY, appear_on, dest, thisId, destId, unlockBy = null}) {
+	addSceneChange({tileX, tileY, appear_on, dest, thisId, destId, locking = null}) {
 		if (thisId in this.scene_changers) {
 			debug.log("Duplicate scene ID!! " + thisId)
 			return
 		}
+		if (locking == null) {
+			locking = new SceneLocker(SL.OPEN)
+		}
 		this.scene_changers[thisId] = new SceneChange(
 			tileX, tileY, appear_on,
 			dest, thisId, destId,
-			unlockBy
+			locking
 		)
 	}
 

@@ -12,7 +12,7 @@ const SIDE = {
 
 // Scene changes are placed within scenes to allow the player to travel between scenes
 class SceneChange {
-    constructor(tile_x, tile_y, appear_on, dest_scene, this_id, dest_id, unlock_by = null) {
+    constructor(tile_x, tile_y, appear_on, dest_scene, this_id, dest_id, scene_locker) {
 		// Where to draw on the screen
         this.x = tile_x * UNITS
         this.y = tile_y * UNITS
@@ -27,15 +27,7 @@ class SceneChange {
         this.dest_scene = dest_scene
         this.dest_id = dest_id
         // add locking information
-        if(unlock_by && unlock_by instanceof Promise) {
-            // TODO: pass locking information in as an object/struct
-            // that way we can just have one variable to know if there's locking behavior
-            // It will contain starting status, then promises to lock and to unlock
-            this.locked = true
-            unlock_by.then(() => {
-                this.locked = false
-            })
-        }
+        this.locker = scene_locker
         // don't re-log scene changes
         this.is_changing = false
     }
@@ -55,7 +47,7 @@ class SceneChange {
             k.area({width: TILE_WIDTH(2), height: TILE_WIDTH(2)}),
         ]))
         load_area.onCollide("player", (player) => {
-            if (!this.locked) {
+            if (this.locker.isOpen()) {
                 this.dest_scene.load()
             }
         })
@@ -66,7 +58,7 @@ class SceneChange {
             k.solid(),
         ]))
         travel_area.onCollide("player", (player) => {
-            if (!this.locked && !this.is_changing) {
+            if (!this.is_changing && this.locker.isOpen()) {
                 this.is_changing = true
                 this.dest_scene.go_ch(this.dest_id)
             }
