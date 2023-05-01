@@ -134,4 +134,11 @@ all_scenes["04_Farmhouse"].load.then((l_sc_04_Farmhouse) => {
     })
 })
 
+// all_scenes["05____"].load.then((l_sc_05_____) => {
+//     sc_03_PetraFarm.addSceneChange({
+//         locking: new SceneLocker(SL.LOCKED)
+//             .unlockBy(FARMERS_WIFE.onComplete(Q_SCARE_AWAY_TSOKAS))
+//     })
+// })
+
 DONE_LOADING_SCENE(sc_03_PetraFarm)

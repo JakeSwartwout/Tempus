@@ -46,6 +46,9 @@ class NPC {
 
         this.state_machine = state_machine
         // this.last_dir = k.vec2(0,1)
+
+        // we'll store any potential quests for this NPC
+        // this.awaiting_locks = {}
     }
 
     missing() {
@@ -60,7 +63,16 @@ class NPC {
     }
 
     onComplete(questId) {
-        return this.state_machine.promises[questId]
+        if (questId in this.state_machine.promises) {
+            return this.state_machine.promises[questId]
+        // } else {
+        //     let awaiting_lock = {"id": questId}
+        //     awaiting_lock["promise"] = new Promise((resolve, reject) => {
+        //         awaiting_lock["resolve"] = resolve
+        //         awaiting_lock["reject"] = reject
+        //     })
+        //     this.awaiting_locks[questId] = awaiting_lock
+        }
     }
 
     swapToQuest(state_machine, complete_current = true) {

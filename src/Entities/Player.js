@@ -9,12 +9,13 @@ k.loadSpriteAtlas("sprites/player_atlas.png", {
         x: 0,
         y: 0,
         width: TILE_WIDTH(4),
-        height: TILE_WIDTH(4),
+        height: TILE_WIDTH(5),
         sliceX: 4,
-        sliceY: 4,
+        sliceY: 5,
         "anims" : {
             "facing": 0, // use quad to pick the right direction
-            "death": { from: 12, to: 15, loop: false, pingpong: false },
+            "idle": { from: 12, to: 15, loop: true, pingpong: false },
+            "death": { from: 16, to: 19, loop: false, pingpong: false, speed: 6 },
         }
     }
 })
@@ -24,6 +25,8 @@ k.loadSpriteAtlas("sprites/player_atlas.png", {
 
 const PLAYER_SPEED = 60 * MANUAL_ART_SCALE;
 const PLAYER_NAME = "Chay"
+
+const WALK_KEYS = ["left", "right", "up", "down"]
 
 
 /********************* Player Class (singleton) *********************/
@@ -61,6 +64,18 @@ class Player {
         this.comp.quad = k.quad(this.last_dir.x+1, this.last_dir.y+1, 1, 1)
     }
 
+    idleInDir(be_idle) {
+        if (this.missing()) return
+        if(be_idle) {
+            this.comp.quad = k.quad(0,0,1,1)
+            this.comp.flipX(this.last_dir.x < 0)
+            this.comp.play("idle")
+        } else {
+            this.comp.flipX(false)
+            this.comp.play("facing")
+        }
+    }
+
     missing() {
         return this.comp == null
     }
@@ -69,6 +84,7 @@ class Player {
     build(spawnPoint) {
         this.comp = k.add([
             "player",
+            // sprite("player", {anim: "idle"}),
             sprite("player", {anim: "facing", quad: k.quad(this.last_dir.x+1, this.last_dir.y+1, 1, 1)}),
             scale(MANUAL_ART_SCALE),
             area({width: 8, height: 10, offset: k.vec2(0, 4*MANUAL_ART_SCALE)}), // collision checking
@@ -79,7 +95,7 @@ class Player {
             // health(), // deals with hp
         ])
         // link up other listener events
-        k.onKeyDown(["left", "right", "up", "down"], () => {
+        k.onKeyDown(WALK_KEYS, () => {
             if (this.is_dead)
                 return
             if (this.inventory && this.inventory.showing)
@@ -133,6 +149,19 @@ class Player {
 
             this.comp.move(motion)
         })
+
+        // k.onKeyRelease(WALK_KEYS, () => {
+        //     for(let key in WALK_KEYS){
+        //         if(k.isKeyDown(key)){
+        //             // this.idleInDir(false)
+        //             return
+        //         }
+        //     }
+        //     this.idleInDir(true)
+        // })
+        // k.onKeyDown(WALK_KEYS, () => {
+        //     this.idleInDir(false)
+        // })
 
         k.onKeyPress("i", () => {
             if (this.inventory)

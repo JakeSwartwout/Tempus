@@ -16,8 +16,9 @@ Or, view the last-built iteration of the game on github pages at https://jakeswa
 * crops are being eaten by bouncing guys
 * oh no! go out and scare them away
 * hit them with a hoe, they run away
-* they head west
+* they head east
 * go after them to investigate
+* next scene is just a path, cutscene of them continue bouncing east, walk after them
 * the ones you scared now attacking someone else, a researcher
 * daughter is trapped in a tree or something
 * scare them away again
@@ -94,8 +95,7 @@ wasd based controls
 * a better way to handle key events. I'm thinking of a dict that maps key to 2 functions, one what to do when pressed, the other the canceller function if it's active (and maybe a bool if_active). Then we can pass in stuff that pauses the behavior of other keys, like opening the inventory stops motion, or how opening a dialogue bubble with e makes e now progress text rather than opening a new bubble. It has its own dict which stores the old listeners that it covered and cancels them for kaboom. Then when you end an interaction, it cancels its own listeners, and uses its internal dict to re-instate the next layer's listeners
 * Expand the cutscene functionality
 * let certain key words in text do the classic ~highlighting~, ie or Carrot, West, Farmer, etc. Have it be a text option, so like /Farmer/ would do it
-* better scene locking mechanics. Pass a locking object, null for open. The object has the same onComplete promise for when to unlock/lock it, so it can change based on quests. Then also add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars.
-* try using import operator rather than static import, see if that helps with the json issues with static html library. If not, make it conditional and load the json manually or something
+* better scene locking mechanics. Add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars.
 ### Narrative
 * figure out a general plot arc
 * where to go after studying the tsokas
