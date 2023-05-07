@@ -1,3 +1,4 @@
+import { Weapon } from "../Entities/Weapon.js"
 import { k, MANUAL_ART_SCALE, ART_SIZE } from "../kaboom_globals.js"
 import "./ItemInstance.js"
 
@@ -29,6 +30,9 @@ class Inventory {
         this.y_size = y_size
         this.items = Array.from(Array(this.x_size), () => new Array(this.y_size) )
         // accessed as this.items[x][y]
+
+        this.weapon_slot = null
+        this.weapon_obj = null
 
         this.showing = false
         this.gameObj = null
@@ -98,6 +102,18 @@ class Inventory {
                 }
             }
         }
+        // add in the weapon slot
+        // TODO: draw sprite for item slot background
+        if(this.weapon_slot) {
+            let grid_spot = k
+                .vec2(-1, 0)                                        // start to the left of the top-left most point
+                .add(k.vec2(.5, .5))                                // move to center of cell
+                .sub(k.vec2(this.x_size, this.y_size).scale(.5))    // shift to be relative to middle of the grid
+                .scale(this.opening_size + this.opening_gap)        // bring up to size
+                .scale(MANUAL_ART_SCALE)                            // scale it up from pixel art
+                .add(screen_center)                                 // move it relative to screen center
+            this.weapon_slot.showInInventory(grid_spot)
+        }
     }
 
     hide() {
@@ -110,9 +126,12 @@ class Inventory {
                     this.items[x][y].hideInInventory()
             }
         }
+        if(this.weapon_slot) {
+            this.weapon_slot.hideInInventory()
+        }
     }
 
-    contains(item_reqs) {
+    contains(item_reqs, check_weapon = false) {
         /* reqs should be an object formatted like:
             {
                 id1 : {
@@ -144,6 +163,19 @@ class Inventory {
                     reqs[item.id]["any"] -= item.count
                 }
                 // we might not accept this state
+            }
+        }
+        // TODO: check all specific first, then anythings
+        // that way if we overfill the specific, can have the rest go to anys
+        // and align with remove func below
+        if(check_weapon && this.weapon_slot && this.weapon_slot.id in reqs) {
+            let item = this.weapon_slot
+            if (typeof(reqs[item.id]) == "number") {    // p1: anything always works
+                reqs[item.id] -= item.count
+            } else if (item.state in reqs[item.id]) {   // p2: want specific, have it
+                reqs[item.id][item.state] -= item.count
+            } else if("any" in reqs[item.id]) {         // p3: want specific, allow any
+                reqs[item.id]["any"] -= item.count
             }
         }
         // gone through the items, see if any reqs weren't satisfied
@@ -231,6 +263,28 @@ class Inventory {
                 }
             }
         }
+        // TODO: let them remove the weapon too
+    }
+
+    getEquipped() {
+        return this.weapon_obj
+    }
+
+    equipNew(weapon_item_instance) {
+        this.weapon_obj = new Weapon(weapon_item_instance.itemInfo)
+        if(this.weapon_slot && !this.addItem(this.weapon_slot)) {
+            // TODO:
+            // dropItem(this.weapon_slot)
+        }
+        this.weapon_slot = weapon_item_instance
+    }
+
+    equipFromInventory(slotX, slotY) {
+        let choice_weapon_item_instance = this.items[slotX][slotY]
+        this.weapon_obj = new Weapon(choice_weapon_item_instance.itemInfo)
+        // swap the item instances
+        this.items[slotX][slotY] = this.weapon_slot
+        this.weapon_slot = choice_weapon_item_instance
     }
 }
 

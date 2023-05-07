@@ -1,5 +1,5 @@
 import { k, TILE_OFFSET, TILE_WIDTH } from "../kaboom_globals.js"
-import { ITEM_INFOS, ITEM_IDS, DEFINE_ITEM } from "./ItemInfo.js"
+import { ITEM_INFOS, ITEM_IDS, DEFINE_ITEM, IS_STACKABLE } from "./ItemInfo.js"
 
 import { CROPS, CROP_LOC, CROP_TOTAL_ANIM_FRAMES } from "../Entities/crops.js"
 
@@ -15,7 +15,7 @@ ITEM_IDS.crops = {}
 for (let crop in CROPS) {
     crop_sprite_name = CROPS[crop] + "_obj"
     possible_anims = []// crop_states.keys
-    ITEM_IDS.crops[CROPS[crop]] = DEFINE_ITEM(CROPS[crop], true, crop_sprite_name, possible_anims)
+    ITEM_IDS.crops[CROPS[crop]] = DEFINE_ITEM(CROPS[crop], IS_STACKABLE, crop_sprite_name, possible_anims)
 }
 
 let crop_atlas_data = {}

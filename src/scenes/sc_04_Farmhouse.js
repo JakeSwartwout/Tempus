@@ -4,8 +4,10 @@ import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
 import { crop, CROPS } from "../Entities/crops"
 import { FARMER, FARMERS_WIFE } from "../Entities/Npc"
 import { PLAYER_NAME } from "../Entities/Player"
+import { WEAPONS } from "../Entities/Weapon"
+import { ITEM_IDS } from "../Items/ItemInfo"
 import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../Story/chapters"
-import { CS_Chapter, CS_NpcState, CS_Scene, CS_Text, Cutscene } from "../Story/Cutscene.js"
+import { CS_Chapter, CS_GiveItem, CS_NpcState, CS_Scene, CS_Text, Cutscene } from "../Story/Cutscene.js"
 import { Speech, TextBox } from "../Story/TextBox.js"
 import { Quest_Null } from "../Quests/QuestStates"
 import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
@@ -45,6 +47,7 @@ const DINNER_CONVO = new Cutscene([
     new CS_NpcState("Give the wife the new quest", FARMERS_WIFE, new Quests_TsokaScaring()),
     new CS_Chapter("Change the the tsoka attack chapter", Chapter.TSOKA_ATTACK),
     // player leave animation
+    new CS_GiveItem("Give the player a rake", ITEM_IDS.weapons[WEAPONS.RAKE], 1, true),
     new CS_Scene("Leave to the farm", "03_PetraFarm", "3->4"),
 ], )
 

@@ -104,7 +104,7 @@ class Quests_Farmer extends QuestStates {
                     ])
                 ])
             default:
-                console.log("Default state in Quest_Farmer convo!")
+                BAD_DEFAULT(this.convo_stage, "Quests_Farmer.getDialogue")
                 return;
         }
     }

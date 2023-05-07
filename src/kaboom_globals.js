@@ -36,6 +36,12 @@ const ASSERT = function(bool_val, text = "") {
 	}
 }
 
+const BAD_DEFAULT = function(obj, location) {
+	console.error("Switch statement hit the default case with the following object")
+	console.error(obj)
+	throw new Error("Bad default in " + location)
+}
+
 
 /********************* Game Setup *********************/
 
@@ -55,6 +61,6 @@ export {
 	TILE_OFFSET, TILE_WIDTH,
 	MANUAL_ART_SCALE,
 	TOPDOWN_VERT_SCALING,
-	ASSERT,
+	ASSERT, BAD_DEFAULT,
 	UNITS
 }

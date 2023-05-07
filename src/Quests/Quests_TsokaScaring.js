@@ -119,7 +119,7 @@ class Quests_TsokaScaring extends QuestStates {
                     ])
                 ])
             default:
-                return null
+                BAD_DEFAULT(this.convo, "Quests_TsokaScaring.getDialogue")
         }
     }
 }

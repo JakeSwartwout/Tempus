@@ -5,6 +5,11 @@ import { SL, SceneLocker } from "./SceneLocker.js"
 import { crop, CROPS } from "../Entities/crops"
 import { enemy } from "../Entities/enemy"
 import { FARMERS_WIFE } from "../Entities/Npc"
+import { PLAYER } from "../Entities/Player"
+import { WEAPONS } from "../Entities/Weapon"
+import "../Items/all_items"
+import { ITEM_IDS } from "../Items/ItemInfo"
+import { ItemInstance } from "../Items/ItemInstance"
 import { Chapter, GET_CHAPTER } from "../Story/chapters"
 import { Q_GATHER_7_PETRAS, Quests_FarmersWife } from "../Quests/Quests_FarmersWife"
 import { Q_SCARE_AWAY_TSOKAS, Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
@@ -14,6 +19,7 @@ import map_json from '../../TiledMaps/03_PetraFarm.json' assert { type: "json" }
 
 let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
     let add_tsokas = false
+    let give_rake = false
     let petra_design = []
     switch(GET_CHAPTER()){
         case Chapter.PETRA_GATHERING:
@@ -26,6 +32,7 @@ let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
             break;
         case Chapter.TSOKA_ATTACK:
             add_tsokas = true
+            give_rake = true
         case Chapter.FARMHOUSE_DINNER:
             petra_design = [
                 "ppPPPppp",
@@ -90,6 +97,14 @@ let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
     } else {
         FARMERS_WIFE.build(k.vec2(5, 1.5))
         FARMERS_WIFE.ensureQuest(Q_GATHER_7_PETRAS, new Quests_FarmersWife())
+    }
+
+    if(give_rake) {
+        // TODO: Make this a function and just move above
+        // ensureContains checks if we have it, giving if not
+        let rake = new ItemInstance(ITEM_IDS.weapons[WEAPONS.RAKE])
+        PLAYER.inventory.equipNew(rake)
+        PLAYER.buildWeapon()
     }
 }, (chapter) => {
     switch(chapter) {

@@ -37,6 +37,7 @@ class Player {
         this.is_dead = false
         this.inventory = new Inventory("basket_inventory", 5,3, 18,5)
         this.comp = null
+        this.weapon_comp = null
         this.await_spawn = new Promise((resolve) => {
             this.spawnComplete = resolve
         })
@@ -94,6 +95,9 @@ class Player {
             // stay(), // persist across scenes
             // health(), // deals with hp
         ])
+
+        this.buildWeapon()
+
         // link up other listener events
         k.onKeyDown(WALK_KEYS, () => {
             if (this.is_dead)
@@ -197,6 +201,16 @@ class Player {
         })
 
         return this.comp
+    }
+
+    buildWeapon() {
+        if(this.missing() || this.weapon_comp)
+            return
+
+        let weapon = this.inventory.getEquipped()
+        if(weapon) {
+            this.weapon_comp = weapon.build(this.comp)
+        }
     }
 
 }

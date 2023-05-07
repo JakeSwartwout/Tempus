@@ -108,7 +108,7 @@ class NPC {
 
         this.comp = k.add([
             "npc",
-            this.sprite,
+            { name: this.sprite },
             sprite(this.sprite, this.anim_info),
             scale(MANUAL_ART_SCALE),
             area({width: 8, height: 10, offset: k.vec2(0, 4*MANUAL_ART_SCALE)}),

@@ -6,6 +6,10 @@ let ITEM_INFOS = []
 // Object to help find items easier, a nested object structure that stores the ID
 let ITEM_IDS = {}
 
+const IS_STACKABLE = true
+const NOT_STACKABLE = false
+
+
 
 /********************* The base class *********************/
 class ItemInfo {
@@ -32,4 +36,5 @@ export {
     ItemInfo,
     ITEM_INFOS, ITEM_IDS,
     DEFINE_ITEM,
+    IS_STACKABLE, NOT_STACKABLE
 }

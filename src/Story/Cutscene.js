@@ -61,6 +61,7 @@ const CUTSCENE_TYPE  = {
     CS_Scene : 3,       // Teleports the player to a new scene
     CS_Move : 4,        // Moves sprites on the screen
     CS_NpcState : 5,    // Updates the state macines of an npc
+    CS_GiveItem : 6,    // Gives the player an instance of that item
 }
 
 
@@ -129,10 +130,27 @@ class CS_NpcState extends CutsceneElement {
     }
 }
 
+class CS_GiveItem extends CutsceneElement {
+    /**
+     * Gives the player an instance of that item
+     */
+    constructor(name, item_id, num_items = 1, try_equip = false) {
+        super(name, CUTSCENE_TYPE.CS_GiveItem)
+        this.item_id = item_id
+        this.num_items = num_items
+        this.try_equip = try_equip
+    }
+
+    perform() {
+        // TODO give item
+        this.nextAction()
+    }
+}
+
 
 /********************* Exports *********************/
 
 export {
     Cutscene,
-    CS_Text, CS_Chapter, CS_Scene, CS_NpcState
+    CS_Text, CS_Chapter, CS_Scene, CS_NpcState, CS_GiveItem
 }

@@ -4,6 +4,8 @@ Developed by Jake Swartwout
 
 Started February 2023
 
+"A Farming Sim turned RPG"
+
 ## to run
 Run `npm run dev` in the root directory, then open a browser onto the localhost port it opens.
 
@@ -36,6 +38,7 @@ Or, view the last-built iteration of the game on github pages at https://jakeswa
 * lure them into a pen
 * daughter wants to keep it as pet, they're fluffy
 
+* make it feel like a farming sim
 
 ## Naming Conventions
 * Variable names are snake_case
@@ -95,7 +98,7 @@ wasd based controls
 * a better way to handle key events. I'm thinking of a dict that maps key to 2 functions, one what to do when pressed, the other the canceller function if it's active (and maybe a bool if_active). Then we can pass in stuff that pauses the behavior of other keys, like opening the inventory stops motion, or how opening a dialogue bubble with e makes e now progress text rather than opening a new bubble. It has its own dict which stores the old listeners that it covered and cancels them for kaboom. Then when you end an interaction, it cancels its own listeners, and uses its internal dict to re-instate the next layer's listeners
 * Expand the cutscene functionality
 * let certain key words in text do the classic ~highlighting~, ie or Carrot, West, Farmer, etc. Have it be a text option, so like /Farmer/ would do it
-* better scene locking mechanics. Add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars.
+* better scene locking mechanics. Add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars. Also the closing is weird and bad. Just have the scene's chapter updater choose it. Depending on what chapter it is, change what's locked and what quest to do to open it
 ### Narrative
 * figure out a general plot arc
 * where to go after studying the tsokas

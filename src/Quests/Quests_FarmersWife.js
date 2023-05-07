@@ -123,7 +123,7 @@ class Quests_FarmersWife extends QuestStates {
                     ])
                 ])
             default:
-                break;
+                BAD_DEFAULT(this.convo_stage, "Quests_FarmersWife.getDialogue")
         }
     }
 }
