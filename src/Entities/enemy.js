@@ -31,7 +31,9 @@ function enemy() {
 
 /********************* Properties *********************/
 
-    const ENEMY_SPEED = 20 * MANUAL_ART_SCALE;
+    const ENEMY_SPEED = 20 * MANUAL_ART_SCALE
+    const PUSH_SPEED = 20 * MANUAL_ART_SCALE
+    const PUSH_FRAMES = 25
 
     // which way was it facing last
     let last_dir = k.vec2(0, 0)
@@ -40,6 +42,9 @@ function enemy() {
     let walk_wait_frames_passed = Math.random() * WALK_WAIT_inFRAMES
     const WALK_TIME_inFRAMES = 50
     let walk_time_frames_passed = 0
+
+    let push_time = 0
+    let push_amount = null
 
     return {
 /********************* Setup *********************/
@@ -52,8 +57,14 @@ function enemy() {
         },
 
         update() {
+            // getting pushed
+            if (push_amount != null) {
+                this.move(push_amount)
+                if(push_time++ > PUSH_FRAMES){
+                    push_amount = null
+                }
             // waiting
-            if (walk_wait_frames_passed < WALK_WAIT_inFRAMES) {
+            } else if (walk_wait_frames_passed < WALK_WAIT_inFRAMES) {
                 walk_wait_frames_passed++
                 if (walk_wait_frames_passed >= WALK_WAIT_inFRAMES) {
                     // start the walking animation
@@ -116,6 +127,12 @@ function enemy() {
                 walk_time_frames_passed = 0
                 walk_wait_frames_passed = 0
             }
+        },
+
+        push_back(dir) {
+            if(push_amount) return
+            push_time = 0
+            push_amount = dir.unit().scale(PUSH_SPEED)
         },
 
         kill() {

@@ -75,27 +75,29 @@ k.loadSpriteAtlas("sprites/weapons.png", {
 
 /********************* Enemy Interactions *********************/
 
-// TODO: actually implement all of these
-const pushEnemy = function(enemy_comp) {
-    console.log("pushed enemy")
-}
-
-const damageEnemy = function(enemy_comp, damage_level) {
-    console.log("pushed enemy with damage " + damage_level)
+const hitEnemy = function(enemy_comp, dir, damage_level) {
+    enemy_comp.hurt(damage_level)
+    enemy_comp.push_back(dir)
 }
 
 const getEnemyInteraction = function(weapon_type) {
+    let damage = 0
     switch(weapon_type) {
         case WEAPONS.RAKE:
-            return pushEnemy
+            damage = 0
+            break;
         case WEAPONS.HOE:
         case WEAPONS.SHOVEL:
+            damage = 5
+            break;
         case WEAPONS.PICKAXE:
         case WEAPONS.SAW:
-            return (enemy_comp) => {damageEnemy(enemy_comp, 10)}
+            damage = 10
+            break;
         default:
             BAD_DEFAULT(weapon_type, ".getEnemyInteraction")
     }
+    return (enemy_comp, dir) => {hitEnemy(enemy_comp, dir, damage)}
 }
 
 
@@ -185,6 +187,7 @@ function stab() {
             this.update_angle(dir)
         },
         update_angle(dir) {
+            this.direction = dir
             this.angle = Math.atan2(dir.y, dir.x) * 180/Math.PI + 90
             this.area.offset = dir.unit().scale(8).add(0, 2).scale(MANUAL_ART_SCALE)
         }
@@ -237,9 +240,15 @@ class Weapon {
             k.rotate(0),
             // spin(), // doesn't work with hitboxes yet
             stab(),
+            {
+                direction: k.vec2(0,0),
+            }
         ])
 
-        this.comp.onCollide("enemy", this.onHitEnemy)
+        this.comp.onCollide("enemy", (enemy_comp) => {
+            console.log(this.comp.direction)
+            this.onHitEnemy(enemy_comp, this.comp.direction)
+        })
 
         return this.comp
     }

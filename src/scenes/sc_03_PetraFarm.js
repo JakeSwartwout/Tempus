@@ -89,8 +89,13 @@ let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
                 scale(MANUAL_ART_SCALE),
                 area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
                 origin("center"),
+                health(3),
                 enemy(),
             ]
+        })
+        // TODO: move this to be part of every tsoka
+        k.get("tsoka").forEach((tsoka) => {
+            tsoka.on("death", tsoka.kill)
         })
         FARMERS_WIFE.build(k.vec2(5, 0.5))
         FARMERS_WIFE.ensureQuest(Q_SCARE_AWAY_TSOKAS, new Quests_TsokaScaring())
