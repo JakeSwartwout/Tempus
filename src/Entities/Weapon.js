@@ -126,6 +126,73 @@ const getNPCInteraction = function(weapon_type) {
 
 
 
+/********************* Attack Methods *********************/
+// Taken from the kaboom example: https://kaboomjs.com/doc/19-sprite-atlas
+
+function spin() {
+    let spinning = false
+    return {
+        id: "spin",
+        update() {
+            if (spinning) {
+                this.angle += 1200 * k.dt()
+                if (this.angle >= 360) {
+                    this.angle = 0
+                    spinning = false
+                }
+            }
+        },
+        attack() {
+            spinning = true
+        },
+    }
+}
+
+// modified from the above
+
+const STAB_DIST = 8 * MANUAL_ART_SCALE
+const STAB_STEPS = 15
+const INV_STAB_STEPS = 1 / STAB_STEPS
+
+function stab() {
+    let stabbing_out = false
+    let returning = false
+    let orig_offset
+    let goal_offset
+    let dt_offset
+    return {
+        id: "stab",
+        update() {
+            if (stabbing_out) {
+                this.follow.offset = this.follow.offset.add(dt_offset)
+                if (this.follow.offset.dist(goal_offset) <= 1) {
+                    stabbing_out = false
+                    returning = true
+                }
+            } else if (returning) {
+                this.follow.offset = this.follow.offset.sub(dt_offset)
+                if (this.follow.offset.dist(orig_offset) <= 1) {
+                    returning = false
+                }
+            }
+            // could use vec2.lerp?
+        },
+        attack(dir) {
+            stabbing_out = true
+            orig_offset = this.follow.offset
+            goal_offset = orig_offset.add(dir.scale(STAB_DIST))
+            dt_offset = goal_offset.sub(orig_offset).scale(INV_STAB_STEPS)
+            this.update_angle(dir)
+        },
+        update_angle(dir) {
+            this.angle = Math.atan2(dir.y, dir.x) * 180/Math.PI + 90
+            this.area.offset = dir.unit().scale(8).add(0, 2).scale(MANUAL_ART_SCALE)
+        }
+    }
+}
+
+
+
 /********************* Weapon Class *********************/
 
 class Weapon {
@@ -148,14 +215,13 @@ class Weapon {
 
 /********************* Weapon Component *********************/
     build(player_comp) {
-        let offset
+        let sprite_offset
         let hitbox
         switch(this.weapon_class) {
             case WEAPON_CLASS.ONE_HANDED:
                 // TODO: make these different
             case WEAPON_CLASS.TWO_HANDED:
-                offset = k.vec2(-1, -8).scale(MANUAL_ART_SCALE)
-                hitbox = k.area({width: HALF_ART_SIZE, height: ART_SIZE})
+                sprite_offset = k.vec2(0, 3).scale(MANUAL_ART_SCALE)
                 break;
         }
         
@@ -163,9 +229,14 @@ class Weapon {
             "weapon",
             k.sprite(this.type),
             k.scale(MANUAL_ART_SCALE),
-            k.pos(player_comp.pos.add(offset)),
-            k.follow(player_comp, offset),
-            hitbox,
+            k.pos(player_comp.pos.add(sprite_offset)),
+            k.follow(player_comp, sprite_offset),
+            // don't support shape: 'circle' yet, but that would be ideal
+            k.area({width: HALF_ART_SIZE, height: HALF_ART_SIZE}), // will set the area offset later
+            k.origin(k.vec2(-.125,.5)),
+            k.rotate(0),
+            // spin(), // doesn't work with hitboxes yet
+            stab(),
         ])
 
         this.comp.onCollide("enemy", this.onHitEnemy)

@@ -63,6 +63,8 @@ class Player {
         if (this.missing()) return
         // quad works in terms of which slices
         this.comp.quad = k.quad(this.last_dir.x+1, this.last_dir.y+1, 1, 1)
+        if(this.weapon_missing()) return
+        this.weapon_comp.update_angle(this.last_dir)
     }
 
     idleInDir(be_idle) {
@@ -79,6 +81,21 @@ class Player {
 
     missing() {
         return this.comp == null
+    }
+
+    weapon_missing() {
+        return this.weapon_comp == null
+    }
+
+    buildWeapon() {
+        if(this.missing() || this.weapon_comp)
+            return
+
+        let weapon = this.inventory.getEquipped()
+        if(weapon) {
+            this.weapon_comp = weapon.build(this.comp)
+            this.weapon_comp.update_angle(this.last_dir)
+        }
     }
 
 /********************* Player Component *********************/
@@ -172,6 +189,12 @@ class Player {
                 this.inventory.toggle_show()
         })
 
+        k.onKeyPress("d", () => {
+            if (this.weapon_comp) {
+                this.weapon_comp.attack(this.last_dir.unit())
+            }
+        })
+
         // technically the camera can follow you, but the tiles split up
         // player.onUpdate(() => {
         //     camPos(player.pos)
@@ -202,17 +225,6 @@ class Player {
 
         return this.comp
     }
-
-    buildWeapon() {
-        if(this.missing() || this.weapon_comp)
-            return
-
-        let weapon = this.inventory.getEquipped()
-        if(weapon) {
-            this.weapon_comp = weapon.build(this.comp)
-        }
-    }
-
 }
 
 const PLAYER = new Player()
