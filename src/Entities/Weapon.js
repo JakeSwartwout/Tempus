@@ -88,11 +88,11 @@ const getEnemyInteraction = function(weapon_type) {
             break;
         case WEAPONS.HOE:
         case WEAPONS.SHOVEL:
-            damage = 5
+            damage = 1
             break;
         case WEAPONS.PICKAXE:
         case WEAPONS.SAW:
-            damage = 10
+            damage = 2
             break;
         default:
             BAD_DEFAULT(weapon_type, ".getEnemyInteraction")
@@ -246,7 +246,6 @@ class Weapon {
         ])
 
         this.comp.onCollide("enemy", (enemy_comp) => {
-            console.log(this.comp.direction)
             this.onHitEnemy(enemy_comp, this.comp.direction)
         })
 

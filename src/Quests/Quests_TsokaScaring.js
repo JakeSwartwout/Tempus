@@ -96,14 +96,15 @@ class Quests_TsokaScaring extends QuestStates {
                         "I wonder where they came from?"
                     ]),
                     new Speech(PLAYER_NAME, [
-                        "They all ran to the West."
+                        "They all ran to the West, maybe they have a nest out there?"
                     ]),
                     new Speech("Farmers Wife", [
-                        "Oh, maybe they have a nest up there.",
-                        "I sure hope they don't come back."
+                        "Oh, that could be!",
+                        "...",
+                        "I just hope they don't come back."
                     ]),
                     new Speech(PLAYER_NAME, [
-                        "I can head that way and check it out!",
+                        "I can head that way and scare them a bit further!",
                     ]),
                     new Speech("Farmers Wife", [
                         "Aw, you'd do that for us?"
