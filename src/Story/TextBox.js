@@ -1,9 +1,10 @@
-import { k } from "../kaboom_globals"
+import { ASSERT, k } from "../kaboom_globals"
 
 
 class TextBox {
     constructor(dialogue) {
         // expects dialogue to be a list of Speeches
+        ASSERT(dialogue instanceof Array, "TextBox expects an array of speeches as input")
         this.dialogue = dialogue
         this.speech_num = 0
         this.cancel_keypress = () => {}

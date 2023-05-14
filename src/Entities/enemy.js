@@ -136,7 +136,7 @@ function enemy() {
         },
 
         kill() {
-            destroy(this)
+            k.destroy(this)
         }
     }
 

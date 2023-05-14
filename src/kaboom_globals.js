@@ -36,6 +36,10 @@ const ASSERT = function(bool_val, text = "") {
 	}
 }
 
+const WARNING = function(text) {
+	console.log(text)
+}
+
 const BAD_DEFAULT = function(obj, location) {
 	console.error("Switch statement hit the default case with the following object")
 	console.error(obj)
@@ -61,6 +65,6 @@ export {
 	TILE_OFFSET, TILE_WIDTH,
 	MANUAL_ART_SCALE,
 	TOPDOWN_VERT_SCALING,
-	ASSERT, BAD_DEFAULT,
+	ASSERT, WARNING, BAD_DEFAULT,
 	UNITS
 }

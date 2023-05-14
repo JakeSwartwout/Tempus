@@ -1,5 +1,5 @@
 import { UNITS } from "../kaboom_globals"
-import { k, SceneLoader, MANUAL_ART_SCALE, SIDE } from "./scene_globals"
+import { k, SceneLoader, MANUAL_ART_SCALE, SIDE, SCENE_WIDTH } from "./scene_globals"
 import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
 import { SL, SceneLocker } from "./SceneLocker.js"
 import { crop, CROPS } from "../Entities/crops"
@@ -40,7 +40,10 @@ let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
                 "PPpPPPpP",
             ]
             break;
+        case Chapter.TSOKA_INVESTIGATION:
         default:
+            add_tsokas = false
+            give_rake = true
             petra_design = [
                 "pppppppp",
                 "pppppppp",
@@ -85,11 +88,11 @@ let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
             // The components
             "T": () => [
                 "tsoka",
-                sprite("enemy", {anim: "idle"}),
-                scale(MANUAL_ART_SCALE),
-                area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
-                origin("center"),
-                health(3),
+                k.sprite("enemy", {anim: "idle"}),
+                k.scale(MANUAL_ART_SCALE),
+                k.area({shape: "circle", width: 11, height: 11, offset: k.vec2(0,5*MANUAL_ART_SCALE)}),
+                k.origin("center"),
+                k.health(3),
                 enemy(),
             ]
         })
@@ -97,11 +100,23 @@ let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
         k.get("tsoka").forEach((tsoka) => {
             tsoka.on("death", tsoka.kill)
         })
-        FARMERS_WIFE.build(k.vec2(5, 0.5))
-        FARMERS_WIFE.ensureQuest(Q_SCARE_AWAY_TSOKAS, new Quests_TsokaScaring())
-    } else {
-        FARMERS_WIFE.build(k.vec2(5, 1.5))
-        FARMERS_WIFE.ensureQuest(Q_GATHER_7_PETRAS, new Quests_FarmersWife())
+    }
+    
+    // want to build the farmers wife at the end so she's on top
+    // its just clearer to do a second switch statement
+    // the quest's internal code will handle the chapter differences
+    switch(GET_CHAPTER()) {
+        case Chapter.PETRA_GATHERING:
+        case Chapter.FARMHOUSE_DINNER:
+            FARMERS_WIFE.build(k.vec2(5, 1.5))
+            FARMERS_WIFE.ensureQuest(Q_GATHER_7_PETRAS, new Quests_FarmersWife())
+            break;
+        case Chapter.TSOKA_ATTACK:
+        case Chapter.TSOKA_INVESTIGATION:
+        default:
+            FARMERS_WIFE.build(k.vec2(5, 0.5))
+            FARMERS_WIFE.ensureQuest(Q_SCARE_AWAY_TSOKAS, new Quests_TsokaScaring())
+            break;
     }
 
     if(give_rake) {
@@ -120,6 +135,7 @@ let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
         case Chapter.FARMHOUSE_DINNER:
         case Chapter.TSOKA_ATTACK:
             return k.vec2(6, .5).scale(UNITS)
+        case Chapter.TSOKA_INVESTIGATION:
         default:
             return k.vec2(SCENE_WIDTH -.5, 1).scale(UNITS)
     }

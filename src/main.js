@@ -8,7 +8,7 @@ import "./Scenes/sc_04_Farmhouse.js"
 all_scenes_loaded.then(() => {
     scene_result = LOAD_FROM_QUERY()
     if (!(scene_result in all_scenes)){
-        console.log("URL does not contain a valid scene!")
+        WARNING("URL does not contain a valid scene!")
         scene_result = "01_Wakeup"
     }
     all_scenes[scene_result].load.then((l_scene) => {

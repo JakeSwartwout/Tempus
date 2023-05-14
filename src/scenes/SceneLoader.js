@@ -82,7 +82,7 @@ class SceneLoader {
 		this.buildScene = buildSceneFunc
 		this.scene_changers = []
 		if(getDefaultSpawnPoint == null) {
-			this.getDefaultSpawnPoint = (chapter) => {console.log("Using default getDefaultSpawnPoint"); return k.vec2(0,0)}
+			this.getDefaultSpawnPoint = (chapter) => {WARNING("Using default getDefaultSpawnPoint"); return k.vec2(0,0)}
 		} else {
 			this.getDefaultSpawnPoint = getDefaultSpawnPoint
 		}

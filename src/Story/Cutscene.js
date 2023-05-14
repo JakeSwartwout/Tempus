@@ -38,7 +38,7 @@ class Cutscene {
     constructor(name, type) {
         this.name = name
         this.type = type
-        this.nextAction = () => {console.log("Performing null next action")}
+        this.nextAction = () => {WARNING("Performing null next action")}
     }
 
     linkNext(nextAction) {
@@ -49,7 +49,7 @@ class Cutscene {
         // does whatever action it needs, then calls next action
         // overwrite this
         // make sure to call nextAction at the end
-        console.log("Running abstract CutsceneElement.perform()")
+        WARNING("Running abstract CutsceneElement.perform()")
         this.nextAction()
     }
 }

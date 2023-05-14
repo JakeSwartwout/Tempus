@@ -2,6 +2,8 @@ import { k, TILE_WIDTH, MANUAL_ART_SCALE, UNITS } from "../kaboom_globals.js"
 import { Quests_Farmer } from "../Quests/Quests_Farmer.js";
 import { Quests_FarmersWife } from "../Quests/Quests_FarmersWife.js";
 import { GET_CHAPTER } from "../Story/chapters.js";
+import { DFLT_NPC_DEFENSES } from "../Story/DefaultSpeeches.js";
+import { Speech, TextBox } from "../Story/TextBox.js";
 import { PLAYER } from "./Player.js";
 
 
@@ -39,7 +41,7 @@ k.loadSpriteAtlas("sprites/npc_atlas.png", {
  */
 
 class NPC {
-    constructor(sprite, anim_info, state_machine = null) {
+    constructor(sprite, anim_info, defense_dialogues = null, state_machine = null) {
         this.sprite = sprite
         this.anim_info = anim_info
         this.comp = null
@@ -47,8 +49,11 @@ class NPC {
         this.state_machine = state_machine
         // this.last_dir = k.vec2(0,1)
 
-        // we'll store any potential quests for this NPC
-        // this.awaiting_locks = {}
+        if(defense_dialogues == null || defense_dialogues.length == 0) {
+            this.defense_dialogues = DFLT_NPC_DEFENSES
+        } else {
+            this.defense_dialogues = defense_dialogues
+        }
     }
 
     missing() {
@@ -109,12 +114,23 @@ class NPC {
         this.comp = k.add([
             "npc",
             { name: this.sprite },
-            sprite(this.sprite, this.anim_info),
-            scale(MANUAL_ART_SCALE),
-            area({width: 8, height: 10, offset: k.vec2(0, 4*MANUAL_ART_SCALE)}),
-            solid(),
-            origin("center"),
-            pos(spawnPoint),
+            k.sprite(this.sprite, this.anim_info),
+            k.scale(MANUAL_ART_SCALE),
+            k.area({width: 8, height: 10, offset: k.vec2(0, 4*MANUAL_ART_SCALE)}),
+            k.solid(),
+            k.origin("center"),
+            k.pos(spawnPoint),
+            {
+                defense_dialogues: this.defense_dialogues,
+                slap() {
+                    // play random defense
+                    if (this.defense_dialogues.length == 0) return
+                    let choice = Math.floor(Math.random() * this.defense_dialogues.length)
+                    let speech = new Speech(this.name, [this.defense_dialogues[choice]])
+                    let textbox = new TextBox([speech])
+                    textbox.startDialogue()
+                }
+            }
         ])
 
         // player tries to talk to them
@@ -135,8 +151,8 @@ class NPC {
 
 /********************* Predefined NPCs *********************/
 
-const FARMER = new NPC("farmer", {anim: "idle", flipX: true}, new Quests_Farmer())
-const FARMERS_WIFE = new NPC("farmer", {anim: "idle", flipX: true}, new Quests_FarmersWife())
+const FARMER = new NPC("farmer", {anim: "idle", flipX: true}, DFLT_NPC_DEFENSES, new Quests_Farmer())
+const FARMERS_WIFE = new NPC("farmer", {anim: "idle", flipX: true}, DFLT_NPC_DEFENSES, new Quests_FarmersWife())
 
 
 /********************* Exports *********************/

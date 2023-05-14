@@ -42,8 +42,8 @@ setTimeout(() => {
         }
     }
     if (unloaded_scenes.length > 0){
-        console.log("Still haven't loaded the following scenes:")
-        console.log(unloaded_scenes)
+        WARNING("Still haven't loaded the following scenes:")
+        WARNING(unloaded_scenes)
         debug.log("Having trouble loading all of the scenes...")
     }
 }, 4000)

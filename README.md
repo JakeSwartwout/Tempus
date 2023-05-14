@@ -4,7 +4,7 @@ Developed by Jake Swartwout
 
 Started February 2023
 
-"A Farming Sim turned RPG"
+"A Farming Sim turned Pixel Art RPG"
 
 ## to run
 Run `npm run dev` in the root directory, then open a browser onto the localhost port it opens.
@@ -83,6 +83,9 @@ wasd based controls
 * when the tsokas move, make it arc-ed so it looks like a jump (or, draw a walking animation)
 * trap the Tsokas into the fields and where you can chase them, don't let them hit the farmer or run off screen except that one direction.
 * let the scene changers take on any size on screen
+* remove weapon attack keys when dead (ie, remove the key listener so it stops working)
+* revive and restart the level when player dies
+* make sure weapon always snaps back to original at the end, it's stopping at a weird offset if you run around and swing too much
 ### Tech Debt
 * instead of having enemy be a component (() => {}) have them be a function that returns all the components (() => [{}, {}, {}])
 * Pull the walking code out into its own component, seems like it's basically the same between enemy and player and potential other things

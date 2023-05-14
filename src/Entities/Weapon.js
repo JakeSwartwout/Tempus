@@ -104,26 +104,29 @@ const getEnemyInteraction = function(weapon_type) {
 
 /********************* NPC Interactions *********************/
 
-const threatenNPC = function(npc_comp) {
-    console.log("you threaten the npc " + npc_comp.name)
-}
-
-const damageNPC = function(npc, damage_level) {
-    console.log("you attack the npc " + npc_comp.name)
+const hitNPC = function(npc_comp, damage_level) {
+    npc_comp.slap()
+    // TODO: potentially deal damage to NPC?
 }
 
 const getNPCInteraction = function(weapon_type) {
+    let damage = 0
     switch(weapon_type) {
         case WEAPONS.RAKE:
+            damage = 0
+            break;
         case WEAPONS.HOE:
-        case WEAPONS.PICKAXE:
-            return threatenNPC
         case WEAPONS.SHOVEL:
+            damage = 1
+            break;
+        case WEAPONS.PICKAXE:
         case WEAPONS.SAW:
-            return (npc_comp) => {damageNPC(npc_comp, 10)}
+            damage = 2
+            break;
         default:
             BAD_DEFAULT(weapon_type, ".getNPCInteraction")
     }
+    return (npc_comp) => {hitNPC(npc_comp, damage)}
 }
 
 
@@ -213,7 +216,7 @@ class Weapon {
         this.weapon_class = WEAPON_CLASSES[weapon_type]
         this.comp = null
         this.onHitEnemy = getEnemyInteraction(weapon_type)
-        // TODO: link up NPC interaction
+        this.onHitNpc = getNPCInteraction(weapon_type)
     }
 
 /********************* Weapon Component *********************/
@@ -247,6 +250,10 @@ class Weapon {
 
         this.comp.onCollide("enemy", (enemy_comp) => {
             this.onHitEnemy(enemy_comp, this.comp.direction)
+        })
+
+        this.comp.onCollide("npc", (npc_comp) => {
+            this.onHitNpc(npc_comp)
         })
 
         return this.comp
