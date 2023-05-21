@@ -1,13 +1,13 @@
-import { UNITS } from "../kaboom_globals"
+import { MANUAL_ART_SCALE, UNITS } from "../kaboom_globals"
 import { SceneLoader, SIDE, SCENE_HEIGHT, k } from "./scene_globals"
 import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
-import { crop, CROPS } from "../Entities/crops"
+import { CROPS } from "../Entities/crops"
 import { FARMER, FARMERS_WIFE } from "../Entities/Npc"
-import { PLAYER_NAME } from "../Entities/Player"
+import { PLAYER, PLAYER_NAME } from "../Entities/Player"
 import { WEAPONS } from "../Entities/Weapon"
-import { ITEM_IDS } from "../Items/ItemInfo"
+import { ITEM_IDS, ITEM_INFOS } from "../Items/ItemInfo"
 import { Chapter, GET_CHAPTER, SET_CHAPTER } from "../Story/chapters"
-import { CS_Chapter, CS_GiveItem, CS_NpcState, CS_Scene, CS_Text, Cutscene } from "../Story/Cutscene.js"
+import { CS_Chapter, CS_GiveItem, CS_NpcState, CS_Scene, CS_Teleport, CS_Text, Cutscene } from "../Story/Cutscene.js"
 import { Speech, TextBox } from "../Story/TextBox.js"
 import { Quest_Null } from "../Quests/QuestStates"
 import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
@@ -19,6 +19,7 @@ import { Quests_TsokaScaring } from "../Quests/Quests_TsokaScaring"
 import map_json from '../../TiledMaps/04_Farmhouse.json' assert { type: "json" }
 
 const DINNER_CONVO = new Cutscene([
+    new CS_Teleport("Move the player to the table", PLAYER.await_spawn, 4.5, 1),
     new CS_NpcState("Clear the farmer", FARMER, new Quest_Null()),
     new CS_NpcState("Clear the wife", FARMERS_WIFE, new Quest_Null()),
     // shake screen
@@ -65,10 +66,22 @@ let sc_04_Farmhouse = new SceneLoader("04_Farmhouse", map_json, () => {
     // TODO: replace these with calls to the NPCs to draw just their sprite
     // FARMER.draw(location)
 
-    FARMER.build(k.vec2(4, 3))
+    FARMER.build(k.vec2(3, 2))
     FARMER.comp.flipX()
-    // CROP.CARROT.draw(k.vec2(5,3))
-    FARMERS_WIFE.build(k.vec2(6, 3))
+    FARMERS_WIFE.build(k.vec2(6, 2))
+    // Carrot
+    k.add([
+        // can technically get the id by just .carrot, but its good reminder to import that file
+        k.sprite(ITEM_INFOS[ITEM_IDS.crops[CROPS.CARROT]].sprite),
+        k.pos(k.vec2(5,2).scale(UNITS)),
+        k.scale(MANUAL_ART_SCALE / 2)
+    ])
+    // Petra
+    k.add([
+        k.sprite(ITEM_INFOS[ITEM_IDS.crops[CROPS.PETRA]].sprite),
+        k.pos(k.vec2(4.5,2).scale(UNITS)),
+        k.scale(MANUAL_ART_SCALE / 2)
+    ])
 
     DINNER_CONVO.playCutscene()
 }, (chapter) => {

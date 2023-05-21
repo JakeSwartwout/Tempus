@@ -1,5 +1,5 @@
 import { all_scenes } from "../Scenes/all_scenes.js"
-import { TextBox } from "./TextBox.js"
+import { UNITS, k } from "../kaboom_globals.js"
 import { SET_CHAPTER } from "./chapters"
 
 
@@ -60,8 +60,9 @@ const CUTSCENE_TYPE  = {
     CS_Chapter : 2,     // Changes to a chapter
     CS_Scene : 3,       // Teleports the player to a new scene
     CS_Move : 4,        // Moves sprites on the screen
-    CS_NpcState : 5,    // Updates the state macines of an npc
-    CS_GiveItem : 6,    // Gives the player an instance of that item
+    CS_Teleport : 5,    // Teleport an element somewhere on screen
+    CS_NpcState : 6,    // Updates the state macines of an npc
+    CS_GiveItem : 7,    // Gives the player an instance of that item
 }
 
 
@@ -114,6 +115,29 @@ class CS_Scene extends CutsceneElement {
     }
 }
 
+class CS_Teleport extends CutsceneElement {
+    /**
+     * Teleport an element somewhere on screen
+     * Useful for setup
+     */
+    constructor(name, componentPromise, grid_x, grid_y) {
+        super(name, CUTSCENE_TYPE.CS_Teleport)
+        this.componentPromise = componentPromise
+        this.grid_x = grid_x
+        this.grid_y = grid_y
+    }
+
+    perform() {
+        this.componentPromise.then((comp) => {
+            comp.pos = k
+                .vec2(this.grid_x, this.grid_y)
+                .add(.5)
+                .scale(UNITS)
+        })
+        this.nextAction()
+    }
+}
+
 class CS_NpcState extends CutsceneElement {
     /**
      * Swaps out the quests for a given npc
@@ -152,5 +176,5 @@ class CS_GiveItem extends CutsceneElement {
 
 export {
     Cutscene,
-    CS_Text, CS_Chapter, CS_Scene, CS_NpcState, CS_GiveItem
+    CS_Text, CS_Chapter, CS_Scene, CS_Teleport, CS_NpcState, CS_GiveItem
 }

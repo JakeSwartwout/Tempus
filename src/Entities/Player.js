@@ -212,8 +212,6 @@ class Player {
             // else
             //     this.kill()
         })
-
-        this.spawnComplete()
         
         // when the scene gets unloaded
         this.comp.onDestroy(() => {
@@ -222,6 +220,8 @@ class Player {
                 this.spawnComplete = resolve
             })
         })
+
+        this.spawnComplete(this.comp)
 
         return this.comp
     }
