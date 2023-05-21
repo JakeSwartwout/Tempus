@@ -21,7 +21,7 @@ import { SceneLocker, SL } from "./SceneLocker.js"
  * but it breaks the image link for some reason. So, change the image
  * to something else, then back to get it to reset the image link.
  * I just change the "TileMaps" to "www" so it's the same size and doesn't
- * try to re-scale anything.
+ * try to re-scale anything. You can also just check the transparent background box.
  * I also suggest modifying the terrain name (like add an underscore)
  * to tell it apart from the non-embedded one.
  */

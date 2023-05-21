@@ -12,7 +12,25 @@
             22, 21, 22, 22, 22, 13, 14, 15, 22, 22, 22, 21],
          "height":7,
          "id":1,
-         "name":"Tile Layer 1",
+         "name":"Ground",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":12,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[35, 0, 0, 31, 0, 0, 31, 0, 35, 0, 0, 0,
+            0, 31, 0, 35, 0, 0, 35, 0, 0, 0, 0, 0,
+            31, 35, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0,
+            35, 0, 0, 0, 0, 36, 0, 0, 0, 31, 0, 0,
+            0, 0, 31, 0, 0, 0, 0, 0, 0, 35, 31, 0,
+            31, 0, 35, 0, 0, 0, 0, 0, 0, 0, 35, 0,
+            35, 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0],
+         "height":7,
+         "id":2,
+         "name":"Trees",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
@@ -20,7 +38,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":2,
+ "nextlayerid":3,
  "nextobjectid":1,
  "orientation":"orthogonal",
  "renderorder":"right-down",
@@ -204,6 +222,19 @@
                          "wangid":[0, 3, 0, 3, 0, 3, 0, 2]
                         }]
                 }]
+        }, 
+        {
+         "columns":4,
+         "firstgid":31,
+         "image":"TileArt\/props.png",
+         "imageheight":64,
+         "imagewidth":64,
+         "margin":0,
+         "name":"Props",
+         "spacing":0,
+         "tilecount":16,
+         "tileheight":16,
+         "tilewidth":16
         }],
  "tilewidth":16,
  "type":"map",

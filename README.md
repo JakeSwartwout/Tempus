@@ -7,9 +7,14 @@ Started February 2023
 "A Farming Sim turned Pixel Art RPG"
 
 ## to run
-Run `npm run dev` in the root directory, then open a browser onto the localhost port it opens.
+I made some modifications to the tiled-kaboom project, so you'll have to use my custom version here:
+https://github.com/JakeSwartwout/tiled-kaboom
 
-To build the game, run `npm run build` and it will compile everything into a single file `www/main.js`.
+Clone it into the same directory that this repo is cloned into. Running `npm run get-tiled` will install it into this project. If you're running an older commit of this repo, check the package-lock to line up the versions.
+
+Once the dependency is set up, run `npm run dev` in the root directory, then open a browser onto the localhost port it opens.
+
+To build the game, run `npm run build` and it will compile everything into a single file `docs/main.js`. I've loaded this file into `docs/index.html`, so you can play the last compiled version of the game there.
 
 Or, view the last-built iteration of the game on github pages at https://jakeswartwout.github.io/Tempus
 
