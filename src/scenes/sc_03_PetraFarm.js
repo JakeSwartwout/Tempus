@@ -155,7 +155,7 @@ all_scenes["02_CarrotFarm"].load.then((l_sc_02_CarrotFarm) => {
     })
 })
 
-all_scenes["04_Farmhouse"].load.then((l_sc_04_Farmhouse) => {
+all_scenes["04_FarmhouseOutside"].load.then((l_sc_04_FarmhouseOutside) => {
     sc_03_PetraFarm.addSceneChange({
         thisId: "3->4",
         tileX: 6,
@@ -163,10 +163,7 @@ all_scenes["04_Farmhouse"].load.then((l_sc_04_Farmhouse) => {
         appear_on: SIDE.DOWN,
 
         destId: "4->3",
-        dest: l_sc_04_Farmhouse,
-        locking: new SceneLocker(SL.LOCKED)
-            .unlockBy(FARMERS_WIFE.onComplete(Q_GATHER_7_PETRAS))
-            .lockAtChapter(Chapter.TSOKA_ATTACK)
+        dest: l_sc_04_FarmhouseOutside,
     })
 })
 

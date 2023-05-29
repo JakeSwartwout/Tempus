@@ -1,6 +1,6 @@
 import { GET_CHAPTER } from "../Story/chapters"
 
-const SL = {
+const LOCKER = {
     OPEN: 0,
     LOCKED: 1,
 }
@@ -13,28 +13,28 @@ class SceneLocker {
     }
 
     unlockBy(unlock_by_promise) {
-        if(this.creating_last_state == SL.OPEN){
+        if(this.creating_last_state == LOCKER.OPEN){
             throw new TypeError("Trying to unlock an already open scene")
         }
         // first stored item should always be a chapter
         if(this.await_list.length == 0) {
             this.linkPromise(unlock_by_promise)
         }
-        this.creating_last_state = SL.OPEN
+        this.creating_last_state = LOCKER.OPEN
         return this
     }
 
     lockAtChapter(chapter) {
-        if(this.creating_last_state == SL.LOCKED){
+        if(this.creating_last_state == LOCKER.LOCKED){
             throw new TypeError("Trying to lock an already locked scene")
         }
         this.await_list.push(chapter)
-        this.creating_last_state = SL.LOCKED
+        this.creating_last_state = LOCKER.LOCKED
         return this
     }
 
     isOpen() {
-        if(this.open == SL.LOCKED) {
+        if(this.open == LOCKER.LOCKED) {
             // waiting for promise
             return false
         } else {
@@ -43,7 +43,7 @@ class SceneLocker {
                 return true
             } else {
                 // passed the chapter, need to re-lock
-                this.open = SL.LOCKED
+                this.open = LOCKER.LOCKED
                 if(this.await_list.length == 1) {
                     // just the one chapter re-locker, end there
                     this.await_list = []
@@ -58,7 +58,7 @@ class SceneLocker {
 
     linkPromise(promise) {
         promise.then(()=>{
-            this.open = SL.OPEN
+            this.open = LOCKER.OPEN
         })
     }
 }
@@ -67,6 +67,6 @@ class SceneLocker {
 /********************* Exports *********************/
 
 export {
-    SL,
+    LOCKER as SL,
     SceneLocker,
 }

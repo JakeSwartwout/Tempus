@@ -21,6 +21,14 @@ const SET_CHAPTER = function(new_chapter) {
     UPDATE_QUERY_CHAPTER(new_chapter)
 }
 
+const MINIMUM_CHAPTER = function(min_allowed_chapter) {
+    // update if it's earlier than that
+    if (curr_chapter < min_allowed_chapter){
+        SET_CHAPTER(min_allowed_chapter)
+    }
+    // otherwise leave it
+}
+
 
 /********************* URL Query Parsing *********************/
 
@@ -60,7 +68,7 @@ const UPDATE_QUERY_SCENE = function(new_scene) {
 
 export {
     Chapter,
-    GET_CHAPTER, SET_CHAPTER,
+    GET_CHAPTER, SET_CHAPTER, MINIMUM_CHAPTER,
     LOAD_FROM_QUERY,
     UPDATE_QUERY_SCENE
 }

@@ -91,6 +91,7 @@ wasd based controls
 * remove weapon attack keys when dead (ie, remove the key listener so it stops working)
 * revive and restart the level when player dies
 * make sure weapon always snaps back to original at the end, it's stopping at a weird offset if you run around and swing too much
+* Better way to name the maps, the numbers don't really make sense nor do they mean anything.
 ### Tech Debt
 * instead of having enemy be a component (() => {}) have them be a function that returns all the components (() => [{}, {}, {}])
 * Pull the walking code out into its own component, seems like it's basically the same between enemy and player and potential other things
@@ -107,6 +108,7 @@ wasd based controls
 * Expand the cutscene functionality
 * let certain key words in text do the classic ~highlighting~, ie or Carrot, West, Farmer, etc. Have it be a text option, so like /Farmer/ would do it
 * better scene locking mechanics. Add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars. Also the closing is weird and bad. Just have the scene's chapter updater choose it. Depending on what chapter it is, change what's locked and what quest to do to open it
+* Modify tiled-kaboom so that you can add custom components depending on the layer name. ie, everything has the default sprite, Props would have the area and solid components (fences and trees), Enemies would get the enemy component, maybe even do crops?
 ### Narrative
 * figure out a general plot arc
 * where to go after studying the tsokas

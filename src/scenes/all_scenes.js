@@ -20,7 +20,8 @@ const all_scenes = {
     "01_Wakeup": new scene_resolver(),
     "02_CarrotFarm": new scene_resolver(),
     "03_PetraFarm": new scene_resolver(),
-    "04_Farmhouse": new scene_resolver(),
+    "04_FarmhouseOutside": new scene_resolver(),
+    "05_FarmhouseInside": new scene_resolver(),
 }
 
 let all_promises = []

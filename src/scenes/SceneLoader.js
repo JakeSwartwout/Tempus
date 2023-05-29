@@ -123,6 +123,9 @@ class SceneLoader {
 
 	// version of go where we can just pass the scene changer ID
 	go_ch(changerId) {
+		if (!(changerId in this.scene_changers)) {
+			throw new Error("Could not find the scene changer " + changerId + " for scene " + this.name)
+		}
 		const spawnX = this.scene_changers[changerId].spawnX
 		const spawnY = this.scene_changers[changerId].spawnY
 		this.go(k.vec2(spawnX, spawnY))
