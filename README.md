@@ -100,7 +100,6 @@ wasd based controls
 * In a Speech, go through the lines and break up any that are too long for a text box
 * Rather than recursion for the Cutscene, do trampoline code. When the promise resolves, it returns the next action. Then can do a while loop, calling "then" and getting the new action until we end
 ### Features
-* Add trees into the scene too, another layer in tiled
 * pick up the basket and it's what gives you an inventory
 * complex dialogue systems (add branches and use choice? idk if I want this)
 * dialogue should actually show up in bubbles, as a component on the screen
@@ -108,10 +107,18 @@ wasd based controls
 * Expand the cutscene functionality
 * let certain key words in text do the classic ~highlighting~, ie or Carrot, West, Farmer, etc. Have it be a text option, so like /Farmer/ would do it
 * better scene locking mechanics. Add dialogue for if it's locked. Maybe have one var for locked_status and and one for message of why its locked. Then each promise when it completes will update the shared vars. Also the closing is weird and bad. Just have the scene's chapter updater choose it. Depending on what chapter it is, change what's locked and what quest to do to open it
-* Modify tiled-kaboom so that you can add custom components depending on the layer name. ie, everything has the default sprite, Props would have the area and solid components (fences and trees), Enemies would get the enemy component, maybe even do crops?
+* Modify tiled-kaboom so that you can add custom components depending on the layer name. ie, everything has the default sprite, Props would have the area and solid components (fences and trees), Enemies would get the enemy component, maybe even do crops? Start just by making layers other than the floor be solid
 ### Narrative
 * figure out a general plot arc
 * where to go after studying the tsokas
 * squeeze the name of the Petra's into the first story part
 ### Miscellaneous
 * Log an issue that pingpong doesn't actually do anything
+
+
+ISSUE
+If you start at the farmhouse (like fresh load there), then leave, then go back, it doesn't load again
+only the ground, and sometimes the plants
+why is that, whats wrong with it.
+It's fine if you start in the petras and go back and forth?? huh??
+like what could be breaking that.

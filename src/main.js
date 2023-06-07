@@ -3,7 +3,8 @@ import { all_scenes, all_scenes_loaded } from "./Scenes/all_scenes.js"
 import "./Scenes/sc_01_Wakeup.js"
 import "./Scenes/sc_02_CarrotFarm.js"
 import "./Scenes/sc_03_PetraFarm.js"
-import "./Scenes/sc_04_Farmhouse.js"
+import "./Scenes/sc_04_FarmhouseOutside.js"
+import "./Scenes/sc_05_FarmhouseInside.js"
 
 all_scenes_loaded.then(() => {
     scene_result = LOAD_FROM_QUERY()

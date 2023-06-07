@@ -100,11 +100,15 @@ class NPC {
     //     this.comp.quad = k.quad(this.last_dir.x+1, this.last_dir.y+1, 1, 1)
     // }
 
+    updateChapter() {
+        this.state_machine.setChapter(GET_CHAPTER())
+    }
+
 /********************* Component *********************/
     build(grid_loc) {
         if(!this.missing()) return
 
-        this.state_machine.setChapter(GET_CHAPTER())
+        this.updateChapter()
 
         let spawnPoint = k
             .vec2(grid_loc)                 // original pos

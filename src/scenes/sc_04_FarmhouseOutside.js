@@ -2,7 +2,7 @@ import { UNITS } from "../kaboom_globals"
 import { SceneLoader, SIDE, SCENE_HEIGHT, k } from "./scene_globals"
 import { DONE_LOADING_SCENE, all_scenes } from "./all_scenes"
 import { FARMERS_WIFE } from "../Entities/Npc"
-import { Chapter, MINIMUM_CHAPTER } from "../Story/chapters"
+import { Chapter, GET_CHAPTER, MINIMUM_CHAPTER } from "../Story/chapters"
 
 // TODO: import the files with the sprites I need
 
@@ -12,7 +12,10 @@ import { Q_GATHER_7_PETRAS } from "../Quests/Quests_FarmersWife"
 
 
 let sc_04_FarmhouseOutside = new SceneLoader("04_FarmhouseOutside", map_json, () => {
-    MINIMUM_CHAPTER(Chapter.FARMHOUSE_DINNER)
+    MINIMUM_CHAPTER(Chapter.PETRA_GATHERING)
+    
+    // Update the farmers wife since she unlocks the door in
+    FARMERS_WIFE.updateChapter()
 
     // all the art is in the tiled map
 }, (chapter) => {
