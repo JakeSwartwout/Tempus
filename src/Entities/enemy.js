@@ -43,10 +43,11 @@ function enemy() {
             this.onCollide("player", () => {
                 PLAYER.kill()
             })
+            idleWalk.refComponent(this)
         },
 
         update() {
-            idleWalk.update(this)
+            idleWalk.update()
         },
 
         push_back(dir) {

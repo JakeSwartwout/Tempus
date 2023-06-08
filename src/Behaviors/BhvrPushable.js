@@ -20,16 +20,21 @@ export class BhvrPushable extends Behavior {
         this.push_amount = null
     }
 
-    update(component) {
+    refComponent(component) {
+        super.refComponent(component)
+        this.idleBehavior.refComponent(component)
+    }
+
+    update() {
         // getting pushed
         if (this.push_amount != null) {
-            component.move(this.push_amount)
+            this.component.move(this.push_amount)
             if(this.push_time++ > PUSH_FRAMES){
                 this.push_amount = null
             }
         // idle
         } else {
-            this.idleBehavior.update(component)
+            this.idleBehavior.update()
         }
     }
 
@@ -37,5 +42,6 @@ export class BhvrPushable extends Behavior {
         if(this.push_amount) return
         this.push_time = 0
         this.push_amount = dir.unit().scale(PUSH_SPEED)
+        this.idleBehavior.interrupt()
     }
 }
