@@ -1,5 +1,4 @@
-import { BhvrPushable } from "../Behaviors/BhvrPushable.js";
-import { BhvrRandomIdle } from "../Behaviors/BhvrRandomIdle.js";
+import { BhvrFencedEnemy } from "../Behaviors/BhvrFencedEnemy.js";
 import { k, TILE_WIDTH } from "../kaboom_globals.js"
 import { PLAYER } from "./Player.js";
 
@@ -33,7 +32,7 @@ function enemy() {
 
 /********************* Properties *********************/
 
-    const idleWalk = new BhvrPushable(new BhvrRandomIdle())
+    const idleWalk = new BhvrFencedEnemy()
 
     return {
 /********************* Setup *********************/

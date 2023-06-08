@@ -114,7 +114,7 @@ let sc_03_PetraFarm = new SceneLoader("03_PetraFarm", map_json, () => {
         case Chapter.TSOKA_ATTACK:
         case Chapter.TSOKA_INVESTIGATION:
         default:
-            FARMERS_WIFE.build(k.vec2(5, 0.5))
+            FARMERS_WIFE.build(k.vec2(4, 0.5))
             FARMERS_WIFE.ensureQuest(Q_SCARE_AWAY_TSOKAS, new Quests_TsokaScaring())
             break;
     }

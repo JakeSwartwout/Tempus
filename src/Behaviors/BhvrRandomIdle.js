@@ -44,7 +44,11 @@ export class BhvrRandomIdle extends Behavior {
 
     startWalking() {
         this.walk_time_frames_passed = 0
-        // choose a direction
+        this.chooseRandomDir()
+        this.enableIdle(false)
+    }
+
+    chooseRandomDir() {
         let dir = k.randi(8)
         switch(dir) {
             // up
@@ -71,7 +75,6 @@ export class BhvrRandomIdle extends Behavior {
             default:
                 this.last_dir = k.vec2(0, 0)
         }
-        this.enableIdle(false)
     }
 
     walk() {
