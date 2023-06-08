@@ -92,6 +92,7 @@ wasd based controls
 * revive and restart the level when player dies
 * make sure weapon always snaps back to original at the end, it's stopping at a weird offset if you run around and swing too much
 * Better way to name the maps, the numbers don't really make sense nor do they mean anything.
+* Detect size better, maybe wrap the entire screen in a cute border to account for any differences in aspect ratio
 ### Tech Debt
 * instead of having enemy be a component (() => {}) have them be a function that returns all the components (() => [{}, {}, {}])
 * Pull the walking code out into its own component, seems like it's basically the same between enemy and player and potential other things
@@ -122,3 +123,5 @@ only the ground, and sometimes the plants
 why is that, whats wrong with it.
 It's fine if you start in the petras and go back and forth?? huh??
 like what could be breaking that.
+
+also if you go back and forth, you lose the rake... hmm.
