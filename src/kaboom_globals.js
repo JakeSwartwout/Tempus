@@ -46,6 +46,13 @@ const BAD_DEFAULT = function(obj, location) {
 	throw new Error("Bad default in " + location)
 }
 
+const ABSTRACT = function(_class, _function) {
+	// could be an warning, for debugging want to know when hit abstract
+	let text = "ERR: Hit abstract function " + _class + "::" + _function + "()"
+	console.error(text)
+	throw new Error(text)
+}
+
 
 /********************* Game Setup *********************/
 
@@ -65,6 +72,6 @@ export {
 	TILE_OFFSET, TILE_WIDTH,
 	MANUAL_ART_SCALE,
 	TOPDOWN_VERT_SCALING,
-	ASSERT, WARNING, BAD_DEFAULT,
+	ASSERT, WARNING, BAD_DEFAULT, ABSTRACT, 
 	UNITS
 }

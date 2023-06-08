@@ -1,5 +1,5 @@
 import { all_scenes } from "../Scenes/all_scenes.js"
-import { UNITS, k } from "../kaboom_globals.js"
+import { ABSTRACT, UNITS, k } from "../kaboom_globals.js"
 import { SET_CHAPTER } from "./chapters"
 
 
@@ -46,10 +46,10 @@ class Cutscene {
     }
 
     /*abstract*/ perform() {
+        ABSTRACT("CutsceneElement", "perform")
         // does whatever action it needs, then calls next action
         // overwrite this
         // make sure to call nextAction at the end
-        WARNING("Running abstract CutsceneElement.perform()")
         this.nextAction()
     }
 }
